@@ -144,7 +144,7 @@
                                     <h4>{{ product.title }}</h4>
 
                                     <div class="price-p">
-                                        {{ product.price |  money_without_currency }}
+                                        {{ product.price | money }}
                                     </div>
                                 </div>
                             {%- assign image = product.featured_image -%}
