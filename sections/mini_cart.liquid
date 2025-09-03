@@ -91,6 +91,9 @@
   >
 {%- endif -%}
 
+
+
+
 <div class="t4s-drawer__header">
   <span>YOUR CART</span
   ><button class="t4s-drawer__close" data-drawer-close aria-label="{{ 'cart.mini_cart.close_cart' | t }}">
@@ -99,6 +102,12 @@
     </svg>
   </button>
 </div>
+
+
+
+
+
+
 {%- if se_stts.enable_calc_ship and shipping_amount > -1 -%}
   {%- liquid
     assign shipping_money = shipping_amount | money
@@ -176,7 +185,7 @@
   </div>
 {%- endif -%}
 
-{% comment %} <div id="progress-bar" style="display: none; width: 100%; position: relative; margin: 10px 0;">
+<div id="progress-bar" style="display: none; width: 100%; position: relative; margin: 10px 0;">
   <div class="bg_color_bar"><span>£50</span></div>
   <div id="progress" style="width: 0%; height: 5px; "></div>
   <div id="progress-message" style="text-align:center; display:none;"></div>
@@ -192,7 +201,7 @@
     <div class="bg_color_bar"><span>£100</span></div>
     <div id="progress-free-shipping" style="width: 0%; height: 5px; background-color: #2196F3;"></div>
   </div>
-</div> {% endcomment %}
+</div>
 
 <form action="{{ cart_url }}" method="post" novalidate class="t4s-drawer__wrap">
   <input type="hidden" data-cart-attr-rm name="attributes[collection_items_per_row]" value="">
@@ -390,9 +399,13 @@
                          {%- endif -%}
                      {%- endif -%}
                   {%- endcapture -%}
+              
+                   
+
+                 
           <p class="t4s-cart__tax" {{ block.shopify_attributes }}>{{ taxes_shipping_checkout }}</p>
 
-           <div class="shipping-insurance-wrap">
+          <div class="shipping-insurance-wrap">
                     <label class="custom-checkbox">
                       <input type="checkbox" id="shipping-insurance-checkbox">
                       <span class="checkmark"></span>
@@ -403,6 +416,8 @@
                     </label>
           </div>
 
+
+         
         {%- when 'agree' -%}
           {%- capture terms_and_conditions -%}{%- assign page_url = settings.link_conditions -%}
                    {%- if page_url != blank -%}
@@ -433,29 +448,21 @@
               }}
             </p>
           {%- endif -%}
-        <button
-  {{ block.shopify_attributes }}
-  type="button"
-  onclick="redirectToCheckoutWithRandomId('{{ cart.items[0].id }}')"
-  class="t4s-btn__checkout t4s-btn t4s-btn-base t4s-btn-style-{{ button_style }} t4s-btn-color-{{ bk_stts.btn_cl }} {% if button_style == 'default' or button_style == 'outline' %}t4s-btn-effect-{{ bk_stts.button_effect }}{% endif %} t4s-w-100 t4s-justify-content-center t4s-truncate"
->
-  {{ 'cart.mini_cart.checkout' | t }}
-  {%- if bk_stts.btn_icon -%}
-    <svg class="t4s-btn-icon" width="14">
-      <use xlink:href="#t4s-icon-btn"></use>
-    </svg>
-  {%- endif -%}
-
-  <script>
-   function redirectToCheckoutWithRandomId(itemId) {
-  const randomId = Math.floor(Math.random() * 100); // 0 to 99
-  window.location.href = `/cart?{id}=${randomId}`;
-}
-
-
-  </script>
-</button>
-
+          <button
+            {{ block.shopify_attributes }}
+            type="submit"
+            data-loading-bar
+            data-confirm="{{ ck_lumise }}"
+            name="checkout"
+            class="t4s-btn__checkout t4s-btn t4s-btn-base t4s-btn-style-{{ button_style }} t4s-btn-color-{{ bk_stts.btn_cl }} {% if button_style == 'default' or button_style == 'outline' %}t4s-btn-effect-{{ bk_stts.button_effect }}{% endif %} t4s-w-100 t4s-justify-content-center t4s-truncate"
+          >
+            {{ 'cart.mini_cart.checkout' | t }}
+            {%- if bk_stts.btn_icon -%}
+              <svg class="t4s-btn-icon" width="14">
+                <use xlink:href="#t4s-icon-btn"></use>
+              </svg>
+            {%- endif -%}
+          </button>
 
         {%- when 'btnmr' -%}
           {%- if additional_checkout_buttons and unadmin_sp -%}
