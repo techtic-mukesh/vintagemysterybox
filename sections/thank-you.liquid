@@ -1,0 +1,542 @@
+
+
+
+{% schema %}
+{
+  "name": "Thank You Section",
+  "tag": "section",
+  "class": "thank-you-main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "🎉 Thank you for your order!"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "We've received your order and sent a confirmation email."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Continue Shopping"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_order_details",
+      "label": "Show Order Details",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_address",
+      "label": "Show Shipping Address",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Thank You Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+.thank-you-wrapper {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  margin: 0 auto;
+}
+
+.thank-you-wrapper h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.thank-you-wrapper p {
+  color: #555;
+  margin:0;
+}
+
+.thank-you-wrapper a.btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin:30px 0 0;
+}
+
+.thank-you-wrapper a.btn:hover {
+  background: #333;
+}
+
+.thank-you-wrapper .icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+}
+
+.thank-you-wrapper .icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.thank-you-wrapper .icon svg path {
+  fill: #28a745;
+}
+
+.order-detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  text-align: center;
+  align-items:center;
+}
+
+.cart-totals {}
+
+.cart-totals ul {
+    margin-top: 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+     margin-bottom: 0;
+}
+
+.cart-totals ul li:last-of-type {
+    border-top: 1px solid grey;
+    padding-top: 15px;
+}
+
+
+.cart-totals ul li {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: left;
+    gap: 10px;
+}
+.cart-totals h5 {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.cart-totals h5 svg {
+    width: 24px;
+    height: 24px;
+}
+
+.cart-totals ul li span {
+    text-align: right;
+    font-weight: 600;
+}
+
+.cart-totals ul li:last-of-type span {
+    font-size: 20px;
+}
+
+.order-summary ul.cart-items li .cart-data {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-summary {
+  position:relative;
+}
+
+@media (min-width: 768px) {
+  .order-detail {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.address-order,
+.order-summary {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.address-order h3,
+.order-summary h3 {
+    margin: 0 0 18px 0;
+    font-size: 20px;
+    color: #333;
+    border-bottom: 1px solid #000;
+    padding-bottom: 14px;
+}
+
+.shipping-content {
+  color: #666;
+  line-height: 1.6;
+}
+
+.order-items {
+  space-y: 15px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.item-variant {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.item-quantity {
+  margin: 0 15px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.item-price {
+  font-weight: 600;
+  color: #333;
+}
+
+.order-totals {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 2px solid #f0f0f0;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.total-row.final-total {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.order-number {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  border-left: 4px solid #28a745;
+  display:inline-flex;
+   border-right: 4px solid #28a745;
+}
+
+.order-number strong {
+  color: #333;
+}
+
+
+.order-summary ul.cart-items {
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.order-summary ul.cart-items li {
+    display: flex;
+    gap: 14px;
+        padding: 0 0 10px;
+    border-bottom: 1px solid #80808042;
+}
+
+.order-summary ul.cart-items li .img-launch {
+    width: 70px;
+    min-width: 70px;
+    height: 70px;
+    position: relative;
+}
+
+.order-summary ul.cart-items li .cart-data {
+    text-align: left;
+}
+
+.order-summary ul.cart-items li .img-launch span {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: inline-flex;
+    background-color: #808080b0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+}
+
+.order-summary ul.cart-items li .img-launch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+{% endstyle %}
+
+ <input type="hidden" id="shopifyCurrency" value="{{ cart.currency.iso_code }}">
+
+<div class="thank-you-wrapper">
+    <div class="order-detail">
+
+    <div class="order-left">
+ <h4 class="order-number">Order Number: <span></span></h4>
+  <div class="icon">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="800px" width="800px" version="1.1" id="Capa_1" viewBox="0 0 52 52" xml:space="preserve">
+      <g>
+        <path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26   S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"/>
+        <path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406   l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411   C39.251,14.885,38.62,14.922,38.252,15.336z"/>
+      </g>
+    </svg>
+  </div>
+  
+  <!-- Dynamic heading with customer name if available -->
+  <h2>
+    {% if order.customer.first_name %}
+      {{ section.settings.heading | replace: 'your', customer.first_name | append: "'s" }}
+    {% else %}
+      {{ section.settings.heading }}
+    {% endif %}
+  </h2>
+  
+  <p>{{ section.settings.subheading }}</p>
+  
+  
+  
+  <a href="{{ section.settings.button_link }}" class="btn">
+    {{ section.settings.button_text }}
+  </a>
+  </div>
+      
+      <!-- Dynamic Shipping Address -->
+        <div class="address-order" style="display: none;">
+          <h3>Shipping Address</h3>
+          <div class="shipping-content">
+            
+          </div>
+        </div>
+      
+      <!-- Dynamic Order Summary -->
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+            <div class="cart-right">
+
+            <div id="full-screen-loader" class="__web-inspector-hide-shortcut__">
+      <style>
+        #full-screen-loader {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #fff;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+          display: flex;
+        }
+        .loader-spinner {
+          border: 3px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 3px solid #000;
+          width: 40px;
+          height: 40px;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
+      <div class="loader-spinner"></div>
+    </div>
+
+    <ul class="cart-items {% if cart.items.size >= 4 %}scroll-y{% endif %}">
+  
+    </ul>
+
+    <div class="cart-totals">
+      <h5>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="3" y="6" width="18" height="13" rx="2" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M3 10H20.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7 15H9" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        Paid
+      </h5>
+      <ul>
+        <li>
+            <strong>Subtotal</strong> <p>1 item</p>
+            <span>{{ cart.total_price | money }}</span>
+        </li>
+        <li>
+            <strong>Shipping</strong>
+            <input type="hidden" name="shippingTitle" value="" />
+            <p>FREE SHIPPING (7-10 business days) (0.0 lb: Items 0.0 lb, Package 0.0 lb)</p>
+            <span id="cartShipping">FREE</span>
+        </li>
+        <li>
+            <strong>Total</strong>
+            <p></p>
+            <span id="csFinal">{{ cart.total_price | money_with_currency }}</span>
+        </li>
+        <li>
+            <strong>Paid</strong>
+            <p></p>
+            <span id="csFinal">{{ cart.total_price | money_with_currency }}</span>
+        </li>
+      </ul>
+      
+    </div>
+        </div>
+      
+    </div>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const orderNumberSpan = document.querySelector('.order-number span');
+  const shippingContent = document.querySelector('.shipping-content');
+  const cartItemsWrapper = document.querySelector('.cart-items');
+  const cartTotalsWrapper = document.querySelector('.cart-totals ul');
+
+  // Set order number from local storage
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+// Get order ID from URL
+const orderId = getQueryParam('order'); 
+
+  // Fetch order details from backend
+  fetch("https://stripe.vintageshirtclub.com/shopify/order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    mode: "cors",
+    body: JSON.stringify({
+      id: `gid://shopify/Order/${orderId}`
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+     console.log("Order Details:", data);
+    const order = data.order;
+    const lineItems = order.lineItems.nodes;
+
+    $('#full-screen-loader').hide();
+
+
+    // Update order number again if present
+    if (order.name) {
+      orderNumberSpan.textContent = order.name;
+    }
+
+     const activeCurrency = document.getElementById('shopifyCurrency').value;
+
+    // 🚚 Shipping Address (Mocked for now – update if address fields are available in real data)
+    shippingContent.innerHTML = `
+      <p><strong>Name:</strong> John Doe</p>
+      <p><strong>Address:</strong> 123 Sample St, City, Country</p>
+      <p><strong>Zip:</strong> 123456</p>
+    `;
+
+    // 🛒 Line items
+    cartItemsWrapper.innerHTML = ""; // Clear existing
+    lineItems.forEach(item => {
+      const itemHTML = `
+        <li class="cart-item">
+          <div class="img-launch">
+            <span>${item.quantity}</span>
+            <img src="${item.image.url}" alt="${item.title}">
+          </div>
+          <div class="cart-data">
+            <div class="cm-price">
+              <p>${item.title}</p>
+              <p class="cart-varriant_title">${item.variantTitle || ""}</p>
+            </div>
+            <div class="t4s-cart_price">
+              <span>${activeCurrency} ${Number(item.originalUnitPriceSet.presentmentMoney.amount).toFixed(2)}</span>
+            </div>
+          </div>
+        </li>
+      `;
+      cartItemsWrapper.insertAdjacentHTML("beforeend", itemHTML);
+    });
+
+     
+
+    // 💰 Totals
+    cartTotalsWrapper.innerHTML = `
+      <li>
+        <strong>Subtotal</strong> <p>${order.currentSubtotalLineItemsQuantity} item</p>
+        <span>${activeCurrency} ${Number(order.subtotalPriceSet.presentmentMoney.amount).toFixed(2)}</span>
+      </li>
+      <li>
+        <strong>Shipping</strong>
+        <p>${order.shippingLine.title}</p>
+        <span id="cartShipping">FREE</span>
+      </li>
+      <li>
+        <strong>Total</strong>
+        <p></p>
+        <span id="csFinal">${activeCurrency} ${Number(order.totalPriceSet.presentmentMoney.amount).toFixed(2)}</span>
+      </li>
+      <li>
+        <strong>Paid</strong>
+        <p></p>
+        <span id="csFinal">${activeCurrency} ${Number(order.totalReceivedSet.presentmentMoney.amount).toFixed(2)}</span>
+      </li>
+    `;
+  })
+  .catch(error => {
+    console.error("Error fetching order details:", error);
+  });
+});
+</script>

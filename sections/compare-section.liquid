@@ -1,0 +1,241 @@
+{%- if product.type == 'Mystery Box' -%}
+  <div class="compare-text-section">
+    <div class="t4s-container">
+      <div class="compare-wrap">
+        <div class="compare-text">
+          <h2>
+            <em>US </em><strong>{{ section.settings.left_heading }}</strong>
+          </h2>
+          {{ section.settings.left_subtext }}
+        </div>
+        <div class="compare-table">
+          <div class="tabel-main">
+            <div class="heading-bar">
+              <div></div>
+              <div class="image-logo">
+                <img
+                  src="{{ section.settings.logoimg | img_url: '' }}"
+                  alt=""
+                  loading="lazy"
+                >
+              </div>
+              <div class="image-title">
+                {{ section.settings.righttext }}
+              </div>
+            </div>
+            <ul>
+              {% for block in section.blocks %}
+                <li>
+                  <span>{{ block.settings.text }}</span>
+                  {% if block.settings.check_icon %}
+                    <span>
+                      <svg width="32" height="22" viewBox="0 0 37 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M34.4998 2.5L12.4998 24.5L2.49976 14.5" stroke="#A1D3A2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
+                  {% else %}
+                    <span>
+                      <svg width="24" height="24" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M36.5 12.5L12.5 36.5" stroke="#F37E98" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M12.5 12.5L36.5 36.5" stroke="#F37E98" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
+                  {% endif %}
+                  <span>
+                    <svg width="24" height="24" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M36.5 12.5L12.5 36.5" stroke="#F37E98" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M12.5 12.5L36.5 36.5" stroke="#F37E98" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .compare-text-section {
+      display: inline-block;
+      width: 100%;
+      vertical-align: top;
+      background-color: #f6f6f8;
+      padding: 40px 0;
+    }
+
+    .tabel-main {
+      display: inline-block;
+      width: 100%;
+    }
+
+    .tabel-main .heading-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .tabel-main .heading-bar > div {
+      padding: 12px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tabel-main .heading-bar > div p {
+      margin: 0;
+    }
+
+    .tabel-main .heading-bar > .image-logo {
+      background-color: #9ae86a;
+      border-top: 1px solid #2d2b43;
+      border-left: 1px solid #2d2b43;
+      border-right: 1px solid #2d2b43;
+      border-radius: 15px 0 0;
+    }
+
+    .tabel-main ul li span:not(:last-child) {
+      border-right: 1px solid #2d2b43;
+    }
+
+    .tabel-main .heading-bar > .image-title {
+      border-top: 1px solid #2d2b43;
+      border-radius: 0 15px 0 0;
+      border-right: 1px solid #2d2b43;
+    }
+
+    .compare-text-section .compare-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    .compare-text-section .compare-wrap > div {
+      width: calc(100% / 2);
+    }
+
+    .compare-text-section .compare-wrap .compare-text h2 {
+      font-size: 46px;
+      line-height: normal;
+      margin: 0 0 16px;
+    }
+
+    .compare-text-section .compare-wrap .compare-text h2 em {
+      font-family: var(--font-family-1) !important;
+      font-weight: 300;
+    }
+
+    .compare-text-section .compare-wrap .compare-text p {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: normal;
+    }
+    .tabel-main ul {
+      padding: 0;
+      margin: 0;
+      border: 1px solid #2d2b43;
+      border-radius: 15px 0 15px 15px;
+    }
+
+    .tabel-main ul li {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .tabel-main ul li span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .tabel-main ul li:not(:last-child) {
+      border-bottom: 1px solid #2d2b43;
+    }
+
+    .tabel-main ul li span:nth-child(2) {
+      background-color: #9ae86a;
+    }
+
+    .tabel-main ul li span:nth-child(2) svg {
+      width: 20px;
+      stroke: #fff;
+    }
+
+    .tabel-main ul li span:nth-child(2) svg path {
+      stroke: #fff;
+    }
+
+    @media (max-width: 767px) {
+      .compare-text-section .compare-wrap {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .compare-text-section .compare-wrap > div {
+        width: 100%;
+        text-align: center;
+      }
+
+      .compare-text-section {
+        padding: 30px 0;
+      }
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Compare Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "left_heading",
+      "label": "Left Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "left_subtext",
+      "label": "Left Subtext"
+    },
+    {
+      "type": "image_picker",
+      "id": "logoimg",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "righttext",
+      "label": "Right Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison_item",
+      "name": "Comparison Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Item Description"
+        },
+        {
+          "type": "checkbox",
+          "id": "check_icon",
+          "label": "Check Icon"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compare Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

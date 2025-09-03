@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stripe Apple Pay Demo</title>
+  <!-- <script src="https://js.stripe.com/v3/"></script> -->
+
+  <style>
+    button { padding: 10px 20px; font-size: 16px; }
+   
+  </style>
+</head>
+<body>
+
+<input type="hidden" id="shopifyCountry" value="{{ localization.country.iso_code }}">
+
+  
+ <div id="payment-request-button">
+  </div>
+ 
+
+<script>
+function loadStripe(callback) {
+    const script = document.createElement('script');
+    console.log("Stripe loading started");
+    script.src = 'https://js.stripe.com/v3/';
+    script.onload = callback;
+    document.head.appendChild(script);
+}
+
+loadStripe(() => {
+    document.addEventListener('DOMContentLoaded', function() {
+        const STRIPE_BASE_URL = 'https://stripe.vintageshirtclub.com';
+
+        fetch(`${STRIPE_BASE_URL}/config`) 
+            .then(r => r.json())
+            .then(({ publishableKey }) => { 
+                const stripe = Stripe(publishableKey);
+
+                // Country name to code mapping (same as your existing code)
+                const countryCodeMap = {
+                    'United States': 'US',
+                    'United Kingdom': 'GB',
+                    'Canada': 'CA',
+                    'Australia': 'AU',
+                    'Germany': 'DE',
+                    'France': 'FR',
+                    'Italy': 'IT',
+                    'Spain': 'ES',
+                    'Netherlands': 'NL',
+                    'Belgium': 'BE',
+                    'Switzerland': 'CH',
+                    'Austria': 'AT',
+                    'Sweden': 'SE',
+                    'Norway': 'NO',
+                    'Denmark': 'DK',
+                    'Finland': 'FI',
+                    'Poland': 'PL',
+                    'Czech Republic': 'CZ',
+                    'Hungary': 'HU',
+                    'Portugal': 'PT',
+                    'Ireland': 'IE',
+                    'Luxembourg': 'LU',
+                    'Greece': 'GR',
+                    'Japan': 'JP',
+                    'South Korea': 'KR',
+                    'China': 'CN',
+                    'India': 'IN',
+                    'Brazil': 'BR',
+                    'Mexico': 'MX',
+                    'Argentina': 'AR',
+                    'Chile': 'CL',
+                    'Colombia': 'CO',
+                    'Peru': 'PE',
+                    'Russia': 'RU',
+                    'Ukraine': 'UA',
+                    'Turkey': 'TR',
+                    'Israel': 'IL',
+                    'South Africa': 'ZA',
+                    'Egypt': 'EG',
+                    'Morocco': 'MA',
+                    'Nigeria': 'NG',
+                    'Kenya': 'KE',
+                    'Ghana': 'GH',
+                    'Singapore': 'SG',
+                    'Malaysia': 'MY',
+                    'Thailand': 'TH',
+                    'Philippines': 'PH',
+                    'Indonesia': 'ID',
+                    'Vietnam': 'VN',
+                    'New Zealand': 'NZ'
+                };
+
+                // Function to convert country name to code
+                function getCountryCode(countryName) {
+                    if (countryName && countryName.length === 2) {
+                        return countryName.toUpperCase();
+                    }
+                    return countryCodeMap[countryName] || countryName;
+                }
+
+                // Function to get dynamic form data (same as your existing code)
+                function getFormData() {
+                    const form = document.getElementById('checkoutForm');
+                    const formData = new FormData(form);
+                    
+                    // Get contact information
+                    const email = document.getElementById('customerEmail').value;
+                    
+                    // Get phone number with proper validation (optional)
+                    let phoneNumber = '';
+                    if (window.iti) {
+                        try {
+                            const phoneValue = document.querySelector("#phone").value.trim();
+                            if (phoneValue) {
+                                phoneNumber = window.iti.getNumber(); // International format
+                                console.log("Phone number retrieved:", phoneNumber);
+                            }
+                        } catch (error) {
+                            console.error("Error getting phone number:", error);
+                            phoneNumber = '';
+                        }
+                    } else {
+                        // Fallback to raw input value
+                        const phoneInput = document.querySelector("#phone");
+                        if (phoneInput && phoneInput.value.trim()) {
+                            phoneNumber = phoneInput.value.trim();
+                        }
+                    }
+
+                    // Get country value and convert to code
+                    const countryElement = document.getElementById('ShippingCountry_{{ idShip }}') || 
+                                          document.querySelector('[name="country"]');
+                    const countryValue = countryElement ? countryElement.value : '';
+                    const countryCode = getCountryCode(countryValue);
+
+                    const provinceElement = document.getElementById('ShippingProvince_dynamic');
+                    const provinceValue = provinceElement && provinceElement.value ? provinceElement.value : null;
+
+                      const shippingText = document.getElementById('cartShipping').textContent.trim().toUpperCase();
+                        let shippingAmount;
+
+                        if (shippingText.includes('FREE')) {
+                        shippingAmount = "0.00";
+                        } else {
+                        // Extract numeric value (e.g., "£15.00" → "15.00")
+                        const matched = shippingText.match(/[\d.,]+/);
+                        shippingAmount = matched ? matched[0].replace(',', '') : "0.00";
+                        }
+
+                        var hiddenInput = document.querySelector('input[name="shippingTitle"]');
+                        if (hiddenInput) {
+                            var shippingTitleValue = hiddenInput.value;
+                            console.log('Shipping Title (from hidden input):', shippingTitleValue);
+                        }
+
+                        console.log("Shipping Amount:", shippingAmount);
+                    
+                    // Get shipping address data
+                    const shippingAddress = {
+                        firstName: document.getElementById('firstName').value || '',
+                        lastName: document.getElementById('lastName').value || '',
+                        address1: document.getElementById('address1').value || '',
+                        address2: document.getElementById('address2').value || '',
+                        city: document.getElementById('city').value || '',
+                        zip: document.getElementById('cityInput').value || '',
+                        country: countryCode,
+                        province: provinceValue,
+                    };
+                    
+                    // Get cart data from the existing cart items in the sidebar
+                    const cartItems = [];
+                    const cartItemElements = document.querySelectorAll('.cart-item');
+
+                    cartItemElements.forEach(item => {
+                        const quantity = parseInt(item.getAttribute('data-quantity')) || 1;
+                        const variantId = item.getAttribute('data-variant-id') || 'unknown';
+                        const price = parseFloat(item.getAttribute('data-price').replace(',', '.')) || 0;
+
+                        const properties = [];
+                        const propertyElements = item.querySelectorAll('.cart-item-properties li');
+
+                        propertyElements.forEach(li => {
+                            const nameEl = li.querySelector('strong');
+                            const name = nameEl?.textContent?.replace(':', '').trim();
+                            const valueNode = nameEl?.nextSibling;
+                            const value = valueNode?.textContent?.trim() || valueNode?.nodeValue?.trim();
+
+                            if (name && value) {
+                                properties.push({ name, value });
+                            }
+                        });
+
+                        const cartItem = {
+                            quantity,
+                            variantId,
+                            price,
+                            properties
+                        };
+
+                        cartItems.push(cartItem);
+                    });
+
+                    console.log('Cart items:', cartItems);
+
+                    // Get cart totals
+                    const subtotalElement = document.querySelector('.cart-totals li:first-child span');
+                    const totalElement = document.querySelector('#csFinal');
+                    
+                    const subtotal = subtotalElement ? parseFloat(subtotalElement.textContent.replace(/[^0-9.,]/g, '').replace(',', '.')) : 0;
+                    const total = totalElement ? parseFloat(totalElement.textContent.replace(/[^0-9.,]/g, '').replace(',', '.')) : 0;
+                    
+                    return {
+                        email,
+                        phoneNumber,
+                        shippingAddress,
+                        cartItems,
+                        subtotal,
+                        total,
+                        shippingAmount,
+                        shippingTitle: shippingTitleValue || ''
+                    };
+                }
+
+                // Validation function (same as your existing code)
+                function validateFormData() {
+                    let isValid = true;
+                    const errors = [];
+
+                    // Clear all existing error messages first
+                    const allErrorMessages = document.querySelectorAll('.error-message');
+                    allErrorMessages.forEach(el => el.classList.remove('show'));
+
+                    // Email validation
+                    const email = document.getElementById('customerEmail');
+                    const emailError = document.getElementById('emailError');
+                    if (email && emailError) {
+                        const emailValue = email.value.trim();
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        
+                        if (!emailValue || !emailRegex.test(emailValue)) {
+                            emailError.classList.add('show');
+                            errors.push('Valid email is required');
+                            isValid = false;
+                        }
+                    }
+
+                    // Country validation
+                    const countrySelect = document.querySelector('select[name="country"]');
+                    const countryError = document.getElementById('countryError');
+                    if (countrySelect && countryError) {
+                        if (!countrySelect.value || countrySelect.value.trim() === '') {
+                            countryError.classList.add('show');
+                            errors.push('Country is required');
+                            isValid = false;
+                        }
+                    }
+
+                    // Required fields validation
+                    const fieldChecks = [
+                        { id: 'lastName', errorId: 'lastNameError', name: 'Last name' },
+                        { id: 'address1', errorId: 'address1Error', name: 'Address' },
+                        { id: 'city', errorId: 'cityError', name: 'City' },
+                        { id: 'cityInput', errorId: 'postalCodeError', name: 'Postal code' }
+                    ];
+
+                    fieldChecks.forEach(field => {
+                        const input = document.getElementById(field.id);
+                        const errorEl = document.getElementById(field.errorId);
+                        
+                        if (input && errorEl) {
+                            if (!input.value || !input.value.trim()) {
+                                errorEl.classList.add('show');
+                                errors.push(`${field.name} is required`);
+                                isValid = false;
+                            }
+                        }
+                    });
+
+                    // Phone validation (optional - only validate if user enters something)
+                    const phoneInput = document.querySelector("#phone");
+                    const phoneError = document.querySelector("#error-msg");
+                    
+                    if (phoneInput && phoneError && window.iti) {
+                        const phoneValue = phoneInput.value.trim();
+                        // Only validate if user has entered something (phone is optional)
+                        if (phoneValue && !window.iti.isValidNumber()) {
+                            phoneError.classList.remove('hide');
+                            phoneInput.classList.add('error');
+                            errors.push('Please enter a valid phone number or leave it empty');
+                            isValid = false;
+                        }
+                    }
+
+                    // Cart validation
+                    const cartItemElements = document.querySelectorAll('.cart-item');
+                    if (cartItemElements.length === 0) {
+                        errors.push('Your cart is empty');
+                        isValid = false;
+                    }
+
+                    // Shipping method validation
+                    const shippingMethod = document.querySelector('input[name="shipping_method"]:checked');
+                    const shippingError = document.getElementById('shippingError');
+                    if (!shippingMethod) {
+                        if (shippingError) shippingError.classList.add('show');
+                        errors.push('Please select a shipping method');
+                        isValid = false;
+                    } else {
+                        if (shippingError) shippingError.classList.remove('show');
+                    }
+
+                    return { isValid, errors };
+                }
+
+                // Get current total for payment request
+                function getCurrentTotal() {
+                    const formData = getFormData();
+                    // Get shipping amount from selected radio button
+                    const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
+                    const shippingAmountNum = selectedShipping ? parseFloat(selectedShipping.getAttribute('data-price')) || 0 : 0;
+                    const totalWithShipping = formData.subtotal + shippingAmountNum;
+                    console.log('Subtotal:', formData.subtotal);
+                    console.log('Shipping amount:', shippingAmountNum);
+                    console.log('Total with shipping:', totalWithShipping);
+                    return Math.round(totalWithShipping * 100); // Convert to pence
+                }
+
+                // Get currency dynamically (ensure lowercase)
+                 const activeCurrency = document.getElementById('shopifyCurrency').value;
+
+                // Get country dynamically (Shopify provides it via localization object or hidden input)
+                let activeCountry = 'GB'; // fallback
+                const countryInput = document.getElementById('shopifyCountry');
+                if (countryInput) {
+                activeCountry = countryInput.value.toUpperCase();
+                } else if (Shopify && Shopify.country) {
+                activeCountry = Shopify.country.toUpperCase();
+                }
+
+                // Create payment request
+                const paymentRequest = stripe.paymentRequest({
+                country: activeCountry,
+                currency: activeCurrency.toLowerCase(),
+                total: {
+                    label: 'Total',
+                    amount: getCurrentTotal(),
+                },
+});
+
+                const elements = stripe.elements();
+                
+                // Function to update payment request amount
+                function updatePaymentRequestAmount() {
+                    const newAmount = getCurrentTotal();
+                    console.log('Updating payment request amount to:', newAmount);
+                    
+                    paymentRequest.update({
+                        total: {
+                            label: 'Total',
+                            amount: newAmount,
+                        },
+                    });
+                }
+
+                // Add event listener for shipping method changes
+                document.addEventListener('change', function(e) {
+                    if (e.target.name === 'shipping_method') {
+                        console.log('Shipping method changed:', e.target.value);
+                        updatePaymentRequestAmount();
+                    }
+                });
+                
+                // Check if payment request is available
+                paymentRequest.canMakePayment().then(result => {
+                    if (result) {
+                        const prButton = elements.create('paymentRequestButton', {
+                            paymentRequest: paymentRequest,
+                            style: {
+                                paymentRequestButton: {
+                                    type: 'default', // 'default' | 'book' | 'buy' | 'donate'
+                                    theme: 'dark', // 'dark' | 'light' | 'light-outline'
+                                    height: '50px',
+                                },
+                            },
+                        });
+                        prButton.mount('#payment-request-button');
+                        console.log('Payment request button mounted successfully');
+
+                        // Add click event listener to validate form before payment
+                        prButton.on('click', (event) => {
+                            console.log('Payment request button clicked');
+                            
+                            // Validate form data before allowing payment to proceed
+                            const validation = validateFormData();
+                            if (!validation.isValid) {
+                                console.log('Form validation failed on button click:', validation.errors);
+                                event.preventDefault();
+                                
+                                // Show error message to user
+                                // alert('Please fill in all required fields before proceeding with payment:\n\n' + validation.errors.join('\n'));
+                                
+                                // Scroll to first error field
+                                const firstErrorElement = document.querySelector('.error-message.show');
+                                if (firstErrorElement) {
+                                    firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
+                                
+                                return;
+                            }
+                            
+                            console.log('Form validation passed, proceeding with payment');
+
+                            const formData = getFormData();
+                            console.log('Form data for payment:', formData);
+                        });
+                    } else {
+                        document.getElementById('payment-request-button').style.display = 'none';
+                        console.log('Payment request not available');
+                    }
+                });
+
+                // Handle payment method event
+                paymentRequest.on('paymentmethod', async (ev) => {
+                    console.log('Payment method event triggered');
+                    console.log('Payment method details:', ev.paymentMethod);
+                    console.log('Shipping address from Apple Pay/Google Pay:', ev.shippingAddress);
+
+                    // Double-check validation (even though we check on click)
+                    const validation = validateFormData();
+                    if (!validation.isValid) {
+                        console.log('Form validation failed during payment:', validation.errors);
+                        ev.complete('fail');
+                        alert('Please fill in all required fields correctly: ' + validation.errors.join(', '));
+                        return;
+                    }
+
+                    // Get form data - all shipping info comes from here
+                    const formData = getFormData();
+                    console.log('Form data for payment:', formData);
+
+                    // Calculate final total with shipping from selected radio button
+                    const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
+                    const shippingAmountNum = selectedShipping ? parseFloat(selectedShipping.getAttribute('data-price')) || 0 : 0;
+                    const finalTotal = formData.total;
+                    const totalAmount = Math.round(finalTotal * 100); // Convert to pence
+
+                    console.log('Selected shipping method:', selectedShipping?.value);
+                    console.log('Shipping amount from radio button:', shippingAmountNum);
+                    console.log('Final total (pounds):', finalTotal);
+                    console.log('Total payment amount (pence):', totalAmount);
+
+
+                         const activeCurrency = document.getElementById('shopifyCurrency').value; 
+ 
+                    try {
+                        // Create payment intent with the total including shipping
+                        console.log('Creating payment intent with amount:', finalTotal);
+                        const res = await fetch(`${STRIPE_BASE_URL}/create-payment-intent`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            // amount: Math.round(finalTotal * 100) / 100 // Send amount in pounds, rounded to 2 decimal places
+                                    
+                                     body: JSON.stringify({ 
+              amount: Math.round(finalTotal * 100),
+              currency: activeCurrency.toLowerCase() // 👈 convert to lowercase
+            }),
+                        });
+
+                        console.log('Payment intent response status:', res.status);
+                        
+                        if (!res.ok) {
+                            throw new Error(`Payment intent creation failed: ${res.status} ${res.statusText}`);
+                        }
+
+                        const responseData = await res.json();
+                        console.log('Payment intent response:', responseData);
+                        
+                        const { clientSecret } = responseData;
+                        
+                        if (!clientSecret) {
+                            throw new Error('No client secret received from payment intent');
+                        }
+                        
+                        console.log('Payment intent created successfully');
+
+                        // Confirm payment
+                        console.log('Confirming payment with client secret:', clientSecret);
+                        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                            payment_method: ev.paymentMethod.id,
+                        }, { handleActions: false });
+
+                        if (error) {
+                            console.error('Payment confirmation failed:', error);
+                            console.error('Error code:', error.code);
+                            console.error('Error message:', error.message);
+                            alert('Payment failed: ' + error.message);
+                            ev.complete('fail');
+                        } else {
+                            console.log('Payment confirmed successfully');
+                            console.log('Payment intent:', paymentIntent);
+                            ev.complete('success');
+
+                            const activeCurrency = document.getElementById('shopifyCurrency').value;   
+
+                            // Create payload for success endpoint
+                            const payload = {
+                                paymentIntentId: paymentIntent.id,
+                                amount: finalTotal, // Use the calculated final total
+                                currency: activeCurrency,
+                                email: formData.email,
+                                phone: formData.phoneNumber || '',
+                                cart: formData.cartItems,
+                                shippingAddress: {
+                                    address1: formData.shippingAddress.address1,
+                                    address2: formData.shippingAddress.address2,
+                                    city: formData.shippingAddress.city,
+                                    province: formData.shippingAddress.province,
+                                    country: formData.shippingAddress.country,
+                                    zip: formData.shippingAddress.zip,
+                                    firstName: formData.shippingAddress.firstName,
+                                    lastName: formData.shippingAddress.lastName
+                                },
+                                paymentMethod: ev.paymentMethod.type, // 'card' for Apple Pay/Google Pay
+                                applePayGooglePayAddress: ev.shippingAddress || null,
+                                shippingLines: [
+                                    {
+                                        title: selectedShipping?.value || 'FREE SHIPPING (7-10 business days)',
+                                        priceSet: {
+                                            shopMoney: { 
+                                                amount: shippingAmountNum.toFixed(2),
+                                                 currencyCode: activeCurrency,
+                                            }
+                                        }
+                                    }
+                                ],
+                            };
+
+                            console.log('Payment success payload:', JSON.stringify(payload, null, 2));
+
+                            // Send to success endpoint
+                            console.log('Sending payment success data to server...');
+                            fetch(`${STRIPE_BASE_URL}/payment-success`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            })
+                            .then(res => {
+                                console.log('Payment success response status:', res.status);
+                                if (!res.ok) {
+                                    throw new Error(`Payment success endpoint failed: ${res.status} ${res.statusText}`);
+                                }
+                                return res.json();
+                            })
+                            .then(data => {
+                                console.log('Payment success logged:', data);
+                                // alert('Payment successful! Order has been processed.');
+
+                                localStorage.setItem('shopify_order_number', data.order.name);
+                                localStorage.setItem('shopify_order_id', data.order.id);
+
+                                // (Optional) Log it to confirm
+                                console.log('Order number saved to localStorage:', data.order.name);
+                                console.log('Order number saved to localStorage:', data.order.id);
+
+                                const orderIdNumeric = data.order.id.split('/').pop();
+                 
+                                
+                                // Uncomment these lines to redirect to thank you page
+                                setTimeout(function() {
+                                    window.location.href = `/pages/thank-you?order=${orderIdNumeric}`;
+                                }, 1000);
+                            })
+                            .catch(err => {
+                                console.error('Error sending payment success data:', err);
+                                console.error('Error details:', err.message);
+                                alert('Payment was successful, but there was an issue processing your order. Please contact support with your payment confirmation.');
+                            });
+                        }
+                    } catch (err) {
+                        console.error('Payment processing error:', err);
+                        console.error('Error details:', err.message);
+                        console.error('Error stack:', err.stack);
+                        alert('Payment processing error: ' + err.message + '. Please try again or contact support.');
+                        ev.complete('fail');
+                    }
+                });
+
+                console.log('Apple Pay/Google Pay integration initialized successfully');
+            })
+            .catch(error => {
+                console.error('Error initializing Stripe:', error);
+            });
+    });
+});
+</script>
+
+</body>
+</html>

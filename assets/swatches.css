@@ -1,0 +1,182 @@
+/* Filter color swatches */
+
+.cloud-search-filter[data-filter-name=Colour] input[type=checkbox] {
+    border-radius: 16px;
+    border: none;
+    width: 22px;
+    height: 22px;
+    opacity: 0.8;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3) inset;
+    background-size: 81%;
+  }
+  
+  .cloud-search-filter[data-filter-name=Colour] input[type=checkbox]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16.011003' height='13.155569' viewBox='-2 -2 20 17'%3E%3Cdefs%3E%3Cfilter id='f1' x='-100%25' y='-100%25' width='300%25' height='300%25'%3E%3CfeOffset result='offOut' in='SourceAlpha' dx='0' dy='0' /%3E%3CfeGaussianBlur result='blurOut' in='offOut' stdDeviation='0.8' /%3E%3CfeBlend in='SourceGraphic' in2='blurOut' mode='normal' /%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23f1)' transform='matrix(0.94152286,0,0,0.99726725,0.52659569,-1.0019959)'%3E%3Cg transform='translate(1,1)'%3E%3Cpath style='fill:%23ffffff;fill-opacity:1;fill-rule:nonzero;stroke:%23ffffff;stroke-width:2.06399584;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4' d='M 14.173521,1.1852637 C 13.893954,0.96793495 13.468587,1.010099 13.242246,1.2835445 l -6.2989985,7.560938 -0.00345,0.00333 c -0.010039,0.012519 -0.019157,0.027111 -0.029209,0.041645 L 5.3281198,10.805095 0.57380262,6.6140138 C 0.30665214,6.378795 -0.11746477,6.3985519 -0.36090959,6.6573236 l -0.001719,0 c -0.24278342,0.2590793 -0.22194559,0.6722735 0.0463918,0.9078459 l 4.88490169,4.3076855 0.00172,0 c 0.2126912,0.185398 0.4905403,0.291509 0.7766357,0.291508 0.027899,0 0.057142,-8.51e-4 0.089347,-0.0033 0.3170199,-0.02358 0.6122923,-0.177705 0.8127184,-0.416442 l 0.00172,-0.0016 1.7319667,-2.09554 0.00517,-0.00832 c 0.0019,-0.00253 0.00329,-0.00576 0.00517,-0.00833 l 0.00172,-0.00165 6.2783843,-7.5392887 C 14.500164,1.8172988 14.454884,1.406709 14.175247,1.1869682 l -0.216488,0.2598525 0.214777,-0.261526 z M 5.4552681,10.916704 c 8.367e-4,6.67e-4 0.00267,0.001 0.00345,0.0016 l 0,0.0016 -0.00345,-0.0033 z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  .cloud-search-filter[data-filter-name=Colour] input[type=checkbox], .cloud-search-filter[data-filter-name=Color]:hover input[type=checkbox], .cloud-search-filter[data-filter-name=Color]:hover .cloud-search-filter-value--selected input[type=checkbox], .cloud-search-filter[data-filter-name=Color] .cloud-search-filter-value--selected input[type=checkbox] {
+    background-color: #ddd;
+  }
+  
+  .cloud-search-filter[data-filter-name=Colour] .cloud-search-filter-value:hover input[type=checkbox],
+  .cloud-search-filter[data-filter-name=Colour] input[type=checkbox]:checked {
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+  }
+  
+  
+  /* Colors: */
+  
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Black] input[type=checkbox] {
+    background-color: #000;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Blue] input[type=checkbox] {
+    background-color: #0155D1;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Red] input[type=checkbox] {
+    background-color: #F70000;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=White] input[type=checkbox] {
+    background-color: #fff;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Yellow] input[type=checkbox] {
+    background-color: #DCDB79;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Turquoise] input[type=checkbox] {
+    background-color: #a8bcd4;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Silver] input[type=checkbox] {
+    background-color: #e5e5e5;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Purple] input[type=checkbox] {
+    background-color: #7e0b80;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Pink] input[type=checkbox] {
+    background-color: pink;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Orange] input[type=checkbox] {
+    background-color: Orange;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Grey] input[type=checkbox] {
+    background-color: grey;
+  }
+
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Green] input[type=checkbox] {
+    background-color: green;
+  }
+
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Gold] input[type=checkbox] {
+    background-color: #cea525;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Burgundy] input[type=checkbox] {
+    background-color: #800020;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Brown] input[type=checkbox] {
+    background-color: #ad8111;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value=Beige] input[type=checkbox] {
+    background-color: #f0deba;
+  }
+  
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value="Navy Blue"] input[type=checkbox] {
+    background-color: #000080;
+  }
+  .cloud-search-filter[data-filter-name=Colour] [data-filter-value="Khaki Green"] input[type=checkbox] {
+    background-color: #728639;
+  }
+  
+  .cloud-search-filter[data-filter-name="Colour"] [data-filter-value="Black/Red"] input[type="checkbox"] {
+    background-image: linear-gradient(90deg, #000000 0%, #000000 50%, #ff0000 50.1%, #ff0000 100%);
+    background-size: 100%;
+  }
+  
+/* Main Colour */
+
+/* Filter Main Colour */
+.cloud-search-filter[data-filter-name=Main\ Colour] input[type=checkbox] {
+    border-radius: 16px;
+    border: none;
+    width: 22px;
+    height: 22px;
+    opacity: 0.8;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3) inset;
+    background-size: 81%;
+}
+
+.cloud-search-filter[data-filter-name=Main\ Colour] input[type=checkbox]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16.011003' height='13.155569' viewBox='-2 -2 20 17'%3E%3Cdefs%3E%3Cfilter id='f1' x='-100%25' y='-100%25' width='300%25' height='300%25'%3E%3CfeOffset result='offOut' in='SourceAlpha' dx='0' dy='0' /%3E%3CfeGaussianBlur result='blurOut' in='offOut' stdDeviation='0.8' /%3E%3CfeBlend in='SourceGraphic' in2='blurOut' mode='normal' /%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23f1)' transform='matrix(0.94152286,0,0,0.99726725,0.52659569,-1.0019959)'%3E%3Cg transform='translate(1,1)'%3E%3Cpath style='fill:%23ffffff;fill-opacity:1;fill-rule:nonzero;stroke:%23ffffff;stroke-width:2.06399584;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4' d='M 14.173521,1.1852637 C 13.893954,0.96793495 13.468587,1.010099 13.242246,1.2835445 l -6.2989985,7.560938 -0.00345,0.00333 c -0.010039,0.012519 -0.019157,0.027111 -0.029209,0.041645 L 5.3281198,10.805095 0.57380262,6.6140138 C 0.30665214,6.378795 -0.11746477,6.3985519 -0.36090959,6.6573236 l -0.001719,0 c -0.24278342,0.2590793 -0.22194559,0.6722735 0.0463918,0.9078459 l 4.88490169,4.3076855 0.00172,0 c 0.2126912,0.185398 0.4905403,0.291509 0.7766357,0.291508 0.027899,0 0.057142,-8.51e-4 0.089347,-0.0033 0.3170199,-0.02358 0.6122923,-0.177705 0.8127184,-0.416442 l 0.00172,-0.0016 1.7319667,-2.09554 0.00517,-0.00832 c 0.0019,-0.00253 0.00329,-0.00576 0.00517,-0.00833 l 0.00172,-0.00165 6.2783843,-7.5392887 C 14.500164,1.8172988 14.454884,1.406709 14.175247,1.1869682 l -0.216488,0.2598525 0.214777,-0.261526 z M 5.4552681,10.916704 c 8.367e-4,6.67e-4 0.00267,0.001 0.00345,0.0016 l 0,0.0016 -0.00345,-0.0033 z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.cloud-search-filter[data-filter-name=Main\ Colour] input[type=checkbox], .cloud-search-filter[data-filter-name=Main\ Colour]:hover input[type=checkbox], .cloud-search-filter[data-filter-name=Main\ Colour]:hover .cloud-search-filter-value--selected input[type=checkbox], .cloud-search-filter[data-filter-name=Main\ Colour] .cloud-search-filter-value--selected input[type=checkbox] {
+    background-color: #ddd;
+}
+
+.cloud-search-filter[data-filter-name=Main\ Colour] .cloud-search-filter-value:hover input[type=checkbox],
+.cloud-search-filter[data-filter-name=Main\ Colour] input[type=checkbox]:checked {
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+}
+
+/* Main Colour: */
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Black] input[type=checkbox] {
+    background-color: #000;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Blue] input[type=checkbox] {
+    background-color: #0155D1;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Red] input[type=checkbox] {
+    background-color: #F70000;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=White] input[type=checkbox] {
+    background-color: #fff;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Yellow] input[type=checkbox] {
+    background-color: #DCDB79;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Turquoise] input[type=checkbox] {
+    background-color: #a8bcd4;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Silver] input[type=checkbox] {
+    background-color: #e5e5e5;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Purple] input[type=checkbox] {
+    background-color: #7e0b80;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Pink] input[type=checkbox] {
+    background-color: pink;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Orange] input[type=checkbox] {
+    background-color: Orange;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Grey] input[type=checkbox] {
+    background-color: grey;
+}
+
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Green] input[type=checkbox] {
+    background-color: green;
+}
+
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Gold] input[type=checkbox] {
+    background-color: #cea525;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Burgundy] input[type=checkbox] {
+    background-color: #800020;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Brown] input[type=checkbox] {
+    background-color: #ad8111;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value=Beige] input[type=checkbox] {
+    background-color: #f0deba;
+}
+
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value="Navy Blue"] input[type=checkbox] {
+    background-color: #000080;
+}
+.cloud-search-filter[data-filter-name=Main\ Colour] [data-filter-value="Khaki Green"] input[type=checkbox] {
+    background-color: #728639;
+}
+
+.cloud-search-filter[data-filter-name="Main\ Colour"] [data-filter-value="Black/Red"] input[type="checkbox"] {
+    background-image: linear-gradient(90deg, #000000 0%, #000000 50%, #ff0000 50.1%, #ff0000 100%);
+    background-size: 100%;
+}

@@ -1,0 +1,1066 @@
+<style>
+  .t4s-product .t4s-product-info .ds-tag-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .t4s-product .t4s-product-info .ds-tag-wrap a.display-tag {
+    font-size: 10px;
+    position: static;
+    align-self: flex-start;
+    text-transform: uppercase;
+    padding: 9px 13px;
+    color: #2d2d3e;
+    background-color: #f5f5f5;
+    font-weight: 500;
+    line-height: 12px;
+    margin: 0;
+  }
+
+  .t4s-product-wrapper span.t4s-svg-pr-icon {
+    display: flex;
+  }
+
+  .t4s-product-wrapper a.t4s-pr-item-btn.mobile.t4s-pr-addtocart {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 50%;
+    right: 10px;
+    bottom: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+  .t4s-product-wrapper a.t4s-pr-item-btn.mobile.t4s-pr-addtocart svg {
+    fill: #222;
+    stroke: #222;
+    color: #222;
+    width: 12px;
+  }
+</style>
+
+{%- liquid
+  assign pr_url = product.url
+  assign pid = product.id
+  assign isDefault = product.has_only_default_variant
+  assign pr_variants = product.variants
+  assign current_variant = pr_variants.first
+  assign isPreoder = false
+  assign mystery_box_products = collection.products | where: 'type', 'Mystery Box'
+
+  if product.tags contains 'isPreoder' or current_variant.inventory_policy == 'continue' and current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity <= 0
+    assign isPreoder = true
+  endif
+
+  if current_variant.inventory_management == 'shopify'
+    assign max_qty = current_variant.inventory_quantity | default: 9999
+  else
+    assign max_qty = 9999
+  endif
+  if current_variant.quantity_rule.max and max_qty > current_variant.quantity_rule.max
+    assign max_qty = current_variant.quantity_rule.max
+  endif
+
+  assign meta_theme = product.metafields.theme
+  assign cus_qty = meta_theme.cus_qty | default: 1
+  if current_variant.quantity_rule.min and cus_qty < current_variant.quantity_rule.min
+    assign cus_qty = current_variant.quantity_rule.min
+  endif
+  assign isExternal = false
+  assign external_title = meta_theme.external_title
+  assign external_link = meta_theme.external_link
+  if external_title != blank and external_link != blank
+    assign isExternal = true
+  endif
+  assign isGrouped = false
+  if meta_theme.grouped != blank
+    assign isGrouped = true
+  endif
+
+  assign custom_badge = meta_theme.custom_badge
+  if custom_badge != blank
+    assign arr_badge = custom_badge | replace: '  ', '' | replace: ' ;', ';' | replace: '; ', ';' | split: ';' | join: 'nt-t4s' | escape | split: 'nt-t4s'
+    assign arr_badge_handle = arr_badge | join: 'nt-t4s' | handle | split: 'nt-t4s'
+  else
+    assign badge_tags = product.tags | where: 'badge_'
+    if badge_tags.size > 0
+      assign arr_badge_tags = badge_tags | join: 'nt-t4s' | remove: 'badge_' | escape
+      assign arr_badge = arr_badge_tags | split: 'nt-t4s'
+      assign arr_badge_handle = arr_badge_tags | handle | split: 'nt-t4s'
+    endif
+  endif
+
+  assign countdown = time_meta | default: meta_theme.countdown | date: '%Y/%m/%d %H:%M:%S'
+  unless placeholder_img
+    assign placeholder_img = settings.placeholder_img
+  endunless
+  assign image = product.featured_media | default: placeholder_img
+
+  assign color_count = 0
+  assign size_count = 0
+
+  if isDefault == false and enable_pr_color or enable_pr_size
+    assign pr_options = product.options_with_values
+
+    assign img_variants = pr_variants | where: 'featured_image'
+    assign available_variants = product.variants | where: 'available'
+    for option in pr_options
+      assign name = option.name | downcase
+
+      if enable_pr_color and get_color contains name and color_count == 0
+        assign pr_option_color = 'option' | append: forloop.index
+        assign color_variants_avai = available_variants | map: pr_option_color | uniq
+        assign featured_imgs = img_variants | map: 'featured_image'
+
+        assign color_variants = option.values
+        if show_cl_type == '1'
+          assign color_count = color_variants.size
+        else
+          if pr_options.size == 1
+            assign color_variants = color_variants_avai
+          endif
+          assign color_count = color_variants_avai.size
+        endif
+
+      elsif enable_pr_size and get_size contains name and size_count == 0
+        assign pr_option_size = 'option' | append: forloop.index
+        assign size_variants_avai = available_variants | map: pr_option_size | uniq
+        assign size_variants = option.values
+        if show_size_type == '1'
+          assign size_count = size_variants.size
+        else
+          if pr_options.size == 1
+            assign size_variants = size_variants_avai
+          endif
+          assign size_count = size_variants_avai.size
+        endif
+      endif
+    endfor
+  endif
+-%}
+
+
+
+{% assign prioritized_product = all_products[section.settings.prioritized_product] %}
+
+ {% comment %} Prevent duplicate product rendering {% endcomment %}
+ {% assign render_prioritized_product = true %}
+ {% if prioritized_product %}
+   {% if product.id == prioritized_product.id %}
+     {% assign render_prioritized_product = false %}
+   {% endif %}
+ {% else %}
+   {% assign render_prioritized_product = false %}
+ {% endif %}
+
+{% if forloop.first or paginate.pages.first %}
+  {% if template == 'collection' %}
+    {% assign excluded_collections = 'posters,accessory,ring,necklace,sunglasses,jewellery,vintage-new-collection,braclet,mens-1'
+      | split: ','
+    %}
+    {% unless excluded_collections contains collection.handle %}
+      {% assign prioritized_product = all_products[section.settings.prioritized_product] %}
+      {% if prioritized_product and prioritized_product.id != product.id %}
+        <script>
+          window.onload = function () {
+            document.body.classList.add('priority-product');
+          };
+        </script>
+        <div
+          id="prioritized_product"
+          class="t4s-product t4s-pr-grid t4s-pr-style1 t4s-pr-{{ prioritized_product.id }} {{ col }} t4s-col-item {{ collection.handle }}.prioritized_product"
+          data-product-id="{{ prioritized_product.id }}"
+          data-product-options='{ "id":"{{ prioritized_product.id }}","cusQty":"{{ cus_qty }}","available":{{ prioritized_product.available }}, "handle":"{{ prioritized_product.handle }}", "isDefault": {{ isDefault }}, "VariantFirstID": {{ prioritized_product.selected_or_first_available_variant.id }}, "customBadge":{{ arr_badge | json }}, "customBadgeHandle":{{ arr_badge_handle | json }},"dateStart":{{ prioritized_product.created_at | date: "%s" }}, "compare_at_price":{{ prioritized_product.selected_or_first_available_variant.compare_at_price | json }},"price":{{ prioritized_product.selected_or_first_available_variant.price | json }}, "isPreoder":{{ isPreoder }},"isExternal":{{ isExternal }}{% if isExternal %},"external_title":{{ external_title | json }},"external_link":"{{ external_link | escape }}"{% endif %},"image2":{% if prioritized_product.media[1] != blank %}{{ prioritized_product.media[1] | image_url: width: 1 | json }},"alt":{{ prioritized_product.media[1].alt | escape | json }}{% else %}false{% endif %},"isGrouped":{{ isGrouped }},"maxQuantity":{% if isDefault and isPreoder == false %}{{ max_qty }}{% else %}9999{% endif %} }'
+          data-vendor="{{ prioritized_product.vendor | escape }}"
+          data-type="{{ prioritized_product.type | escape }}"
+          data-collection="{{ collection.title | escape }}"
+        >
+          {% assign current_variant = prioritized_product.selected_or_first_available_variant %}
+          <span id="belowe-product-varriant">{{ current_variant.option1 }}</span>
+          <div class="t4s-product-wrapper" timeline>
+            <div data-cacl-slide class="t4s-product-inner t4s-pr t4s-oh">
+              {% if template contains 'collection' %}
+                {% if product.type contains 'Mystery Box'
+                  or product.type contains 'Ring'
+                  or product.type contains 'Poster'
+                %}
+                {% else %}
+                  <a
+                    href="{{ prioritized_product.url }}"
+                    class="t4s-pr-item-btn mobile t4s-pr-addtocart"
+                    data-variant-id="{{ current_variant.id }}"
+                    data-action-atc
+                    rel="nofollow"
+                    ><span class="t4s-svg-pr-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/>
+                      </svg></span
+                  ></a>
+                {% endif %}
+              {% endif %}
+              {%- if prioritized_product.featured_image != blank -%}
+                {%- render 'product-img', image: prioritized_product.featured_image, imgatt: imgatt -%}
+              {%- endif -%}
+              <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-product-badge"></div>
+              {% if template contains 'collection' %}
+                {% if product.type contains 'Mystery Box'
+                  or product.type contains 'Ring'
+                  or product.type contains 'Poster'
+                %}
+                  <div class="t4s-product-btns">
+                    <div data-replace-quickview></div>
+                    <div data-replace-atc data-has-qty></div>
+                  </div>
+                {% endif %}
+              {% endif %}
+
+              <div class="t4s-product-btns2">
+                {%- if isGrowaveWishlist -%}
+                  {%- capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with prioritized_product.id %}{% endcapture -%}
+                  {%- unless the_snippet_fave_icon contains 'Liquid error' -%}
+                    <div class="t4s-pr-item-btn t4s-pr-wishlist is--growave">{{ the_snippet_fave_icon }}</div>
+                  {%- endunless -%}
+                {%- else -%}
+                  <div data-replace-wishlist data-tooltip="right"></div>
+                {%- endif -%}
+                <div data-replace-compare data-tooltip="right"></div>
+              </div>
+              {%- if size_count > 0 and pr_size_pos == '1' %}
+                {%- render 'product-size',
+                  size_variants: size_variants,
+                  size_variants_avai: size_variants_avai,
+                  show_size_type: show_size_type
+                -%}
+              {% endif -%}
+              {%- if use_countdown and countdown != blank %}
+                {%- render 'product-countdown', countdown: countdown -%}
+              {%- endif -%}
+              <a
+                data-pr-href
+                class="t4s-full-width-link"
+                href="{{ prioritized_product.url | within : collection }}"
+              ></a>
+            </div>
+            <div class="t4s-product-info">
+              <div class="t4s-product-info__inner {{ collection.handle }}">
+                {%- if prioritized_product.vendor.size > 0 and show_vendor -%}
+                  {% if use_link_vendor -%}
+                    {%- assign pr_vendor_handle = prioritized_product.vendor | handle -%}
+                    {%- assign collection_vendor = collections[pr_vendor_handle] -%}
+                  {%- endif %}
+                  <div class="t4s-product-vendor">
+                    <a href="{% if use_link_vendor and collection_vendor.url != blank %}{{ collection_vendor.url }}{% else %}{{ prioritized_product.vendor | url_for_vendor }}{% endif %}">
+                      {{- prioritized_product.vendor -}}
+                    </a>
+                  </div>
+                {%- endif -%}
+
+                
+
+                {% if prioritized_product.type contains 'Mystery Box' %}
+                  
+                   {% capture threefortwo %}
+          {% for tag in prioritized_product.tags %} {% if tag == '3for2' %}3 FOR 2{% endif %}{% endfor %}
+          {% endcapture %}
+
+         {% if threefortwo %}
+            <div class="buy__budget">
+              <a href="/collections/3-for-2">
+                <span>{{ threefortwo }}</span>
+              </a>
+            </div>
+          {% endif %}
+                  
+                  {% if prioritized_product.metafields.custom.mini_title %}
+                    <h3 class="t4s-product-title">
+                      <a data-pr-href href="{{ prioritized_product.url }}">
+                        {{- prioritized_product.metafields.custom.mini_title -}}
+                      </a>
+                    </h3>
+                  {% else %}
+                    <h3 class="t4s-product-title">
+                      <a data-pr-href href="{{ prioritized_product.url }}">{{ prioritized_product.title }}</a>
+                    </h3>
+                  {% endif %}
+                {% else %}
+                  {% if product.type == 'Poster'
+                    or product.type == 'dropship'
+                    or product.type == 'Ring'
+                    or product.type == 'Necklace'
+                    or product.type == 'Braclet'
+                    or product.tags contains 'dropship'
+                    or product.tags contains 'silver'
+                    or collection.handle == 'accessory'
+                    or collection.handle == 'dropship-collection'
+                    or collection.title == 'Jewellery'
+                    or collection.title == 'Accessories'
+                  %}
+                    <h3 class="t4s-product-title">
+                      <a data-pr-href href="{{ prioritized_product.url }}">{{ prioritized_product.title }}</a>
+                    </h3>
+                  {% else %}
+                    <h3 class="t4s-product-title">
+                      <a data-pr-href href="{{ prioritized_product.url }}">
+                        <span class="brand-name">
+                          {{- prioritized_product.vendor }}
+                        </span>
+                        {{ prioritized_product.type }}
+                        {% if prioritized_product.variants.size > 0 and prioritized_product.variants.first.option1 %}
+                          {{ prioritized_product.variants.first.option1 }}
+                        {% endif -%}
+                      </a>
+                    </h3>
+                  {% endif %}
+                {% endif %}
+                {% if prioritized_product.metafields.custom.mini_subtitle %}
+                  <p class="mysterybox-count">{{ prioritized_product.metafields.custom.mini_subtitle }}</p>
+                {% endif %}
+                {%- render 'product-price',
+                  product: prioritized_product,
+                  price_varies_style: price_varies_style,
+                  type: 'card',
+                  isGrouped: isGrouped
+                -%}
+
+                {% if prioritized_product.metafields.my_fields.productview %}
+                  <p class="prod-rating-meta">
+                    <span
+                      href="{% if collection.template_suffix contains 'dropship' %} /pages/drop-ship-reviews {% else %} /pages/new-plp-review {% endif %}"
+                      title="product review"
+                      class="prod-rating-meta-link"
+                    >
+                      {% assign starcount = prioritized_product.metafields.my_fields.productview | plus: 0 %}
+                      {% for i in (1..5) %}
+                        {% if i <= starcount %}
+                          <span>&#9733;</span>
+                        {% else %}
+                          <span>&#9734;</span>
+                        {% endif %}
+                      {% endfor %}
+                      {% if prioritized_product.metafields.my_fields.productreview2 %}
+                        <span class="prod-rating-meta-link-count"
+                          >({{ prioritized_product.metafields.my_fields.productreview2 }})</span
+                        >
+                      {% endif %}
+                    </span>
+                  </p>
+                {% endif %}
+
+                {%- if enable_rating %}
+                  {%- render 'product-rating', product: prioritized_product, app_review: app_review -%}
+                {% endif -%}
+
+                {%- if show_list_btns -%}
+                  {%- assign description_excerpt = prioritized_product.metafields.theme.description_excerpt -%}
+                  <div class="t4s-rte">
+                    {% if description_excerpt != blank -%}
+                      {{- description_excerpt -}}
+                    {%- else -%}
+                      {{- prioritized_product.content | strip_html | truncatewords: 30 -}}
+                    {%- endif %}
+                  </div>
+                {%- endif -%}
+
+                {%- if color_count > 0 %}
+                  {%- liquid
+                    capture color_variants_handle
+                      for color_variant in color_variants
+                        echo color_variant | handle
+                        unless forloop.last
+                          echo ','
+                        endunless
+                      endfor
+                    endcapture
+                  -%}
+                  {% assign color_variants_str = color_variants | join: 'nt-t4s' %}
+                  <div
+                    class="t4s-product-colors"
+                    data-color-options='{ "color_count":{{ color_count }}, "color_variants":{{ color_variants_str | escape | split: 'nt-t4s' | json }}, "color_variants_avai":{{ color_variants_avai | join: 'nt-t4s' | escape | split: 'nt-t4s' | json }}, "color_variants_handle":{{ color_variants_handle | split: "," | json }}, "img_variants":{{ featured_imgs | json }}, "id_variants":{{ img_variants | map: 'id' | json }}, "img_ratios":{{ featured_imgs | map: 'aspect_ratio' | json }}, "img_options":{{ img_variants | map: pr_option_color | join: 'nt-t4s' | escape | split: 'nt-t4s' | json }} }'
+                  >
+                    <span class="t4s-pr-color__item"><span class="t4s-pr-color__value bg_color_ntloading"></span></span
+                    ><span class="t4s-pr-color__item"><span class="t4s-pr-color__value bg_color_ntloading"></span></span
+                    ><span class="t4s-pr-color__item"
+                      ><span class="t4s-pr-color__value bg_color_ntloading"></span
+                    ></span>
+                  </div>
+                {% endif -%}
+                {%- if size_count > 0 and pr_size_pos == '2' %}
+                  {%- render 'product-size',
+                    size_variants: size_variants,
+                    size_variants_avai: size_variants_avai,
+                    show_size_type: show_size_type
+                  -%}
+                {% endif -%}
+              </div>
+              {%- if show_list_btns -%}
+                <div class="t4s-product-btns t4s-product-info__btns">
+                  {%- if settings.enable_quickview -%}
+                    <a
+                      data-id="{{ prioritized_product.id }}"
+                      href="{{ prioritized_product.url }}"
+                      data-tooltip
+                      rel="nofollow"
+                      class="t4s-pr-item-btn t4s-pr-quickview"
+                      data-action-quickview
+                      ><span class="t4s-svg-pr-icon">
+                        <svg viewBox="0 0 24 24">
+                          <use xlink:href="#t4s-icon-qv"></use>
+                        </svg></span
+                      ><span class="t4s-text-pr">{{ 'products.product_card.quick_view' | t }}</span></a
+                    >
+                  {%- endif %}
+
+                  {%- if settings.enable_atc %}
+                    {%- render 'product-atc',
+                      pr_available: prioritized_product.available,
+                      pr_url: prioritized_product.url,
+                      isDefault: isDefault,
+                      isPreoder: isPreoder,
+                      isExternal: isExternal,
+                      external_title: external_title,
+                      external_link: external_link,
+                      isGrouped: isGrouped,
+                      current_variant: current_variant,
+                      pid: prioritized_product.id,
+                      cus_qty: cus_qty,
+                      max_qty: max_qty
+                    -%}
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          {{- append_stock -}}
+        </div>
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+{% endif %}
+
+<!-- Jewellery Box -->
+
+{% if collection.handle == 'accessory'
+  or collection.handle == 'ring'
+  or collection.handle == 'necklace'
+  or collection.handle == 'braclet'
+  or collection.handle == 'sunglasses'
+  or collection.handle == 'jewellery'
+%}
+ {% assign prioritized_product = all_products[section.settings.prioritized_product_jwellery] %}
+
+  {% comment %} Prevent duplicate product rendering {% endcomment %}
+ {% assign render_prioritized_product = true %}
+ {% if prioritized_product %}
+   {% if product.id == prioritized_product.id %}
+     {% assign render_prioritized_product = false %}
+   {% endif %}
+ {% else %}
+   {% assign render_prioritized_product = false %}
+ {% endif %}
+
+  {% if forloop.first or paginate.pages.first %}
+    {% if template == 'collection' %}
+      {% assign excluded_collections = 'posters,vintage-new-collection,mens-1' | split: ',' %}
+      {% unless excluded_collections contains collection.handle %}
+       {% assign prioritized_product = all_products[section.settings.prioritized_product_jwellery] %}
+        {% if prioritized_product %}
+          <script>
+          window.onload = function () {
+            document.body.classList.add('priority-product');
+          };
+        </script>
+          <div
+            id="prioritized_product"
+            class="t4s-product t4s-pr-grid t4s-pr-style1 t4s-pr-{{ prioritized_product.id }} {{ col }} t4s-col-item {{ collection.handle }}.prioritized_product"
+            data-product-id="{{ prioritized_product.id }}"
+            data-product-options='{ "id":"{{ prioritized_product.id }}","cusQty":"{{ cus_qty }}","available":{{ prioritized_product.available }}, "handle":"{{ prioritized_product.handle }}", "isDefault": {{ isDefault }}, "VariantFirstID": {{ prioritized_product.selected_or_first_available_variant.id }}, "customBadge":{{ arr_badge | json }}, "customBadgeHandle":{{ arr_badge_handle | json }},"dateStart":{{ prioritized_product.created_at | date: "%s" }}, "compare_at_price":{{ prioritized_product.selected_or_first_available_variant.compare_at_price | json }},"price":{{ prioritized_product.selected_or_first_available_variant.price | json }}, "isPreoder":{{ isPreoder }},"isExternal":{{ isExternal }}{% if isExternal %},"external_title":{{ external_title | json }},"external_link":"{{ external_link | escape }}"{% endif %},"image2":{% if prioritized_product.media[1] != blank %}{{ prioritized_product.media[1] | image_url: width: 1 | json }},"alt":{{ prioritized_product.media[1].alt | escape | json }}{% else %}false{% endif %},"isGrouped":{{ isGrouped }},"maxQuantity":{% if isDefault and isPreoder == false %}{{ max_qty }}{% else %}9999{% endif %} }'
+            data-vendor="{{ prioritized_product.vendor | escape }}"
+            data-type="{{ prioritized_product.type | escape }}"
+            data-collection="{{ collection.title | escape }}"
+          >
+            {% assign current_variant = prioritized_product.selected_or_first_available_variant %}
+            <span id="belowe-product-varriant">{{ current_variant.option1 }}</span>
+            <div class="t4s-product-wrapper" timeline>
+              <div data-cacl-slide class="t4s-product-inner t4s-pr t4s-oh">
+                {% if template contains 'collection' %}
+                  {% if product.type contains 'Mystery Box'
+                    or product.type contains 'Ring'
+                    or product.type contains 'Poster'
+                  %}
+                  {% else %}
+                    <a
+                      href="{{ prioritized_product.url }}"
+                      class="t4s-pr-item-btn mobile t4s-pr-addtocart"
+                      data-variant-id="{{ current_variant.id }}"
+                      data-action-atc
+                      rel="nofollow"
+                      ><span class="t4s-svg-pr-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                          <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/>
+                        </svg></span
+                    ></a>
+                  {% endif %}
+                {% endif %}
+                {%- if prioritized_product.featured_image != blank -%}
+                  {%- render 'product-img', image: prioritized_product.featured_image, imgatt: imgatt -%}
+                {%- endif -%}
+                <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-product-badge"></div>
+
+                {% if template contains 'collection' %}
+                  {% if product.type contains 'Mystery Box'
+                    or product.type contains 'Ring'
+                    or product.type contains 'Poster'
+                  %}
+                    <div class="t4s-product-btns">
+                      <div data-replace-quickview></div>
+                      <div data-replace-atc data-has-qty></div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+
+                <div class="t4s-product-btns2">
+                  {%- if isGrowaveWishlist -%}
+                    {%- capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with prioritized_product.id %}{% endcapture -%}
+                    {%- unless the_snippet_fave_icon contains 'Liquid error' -%}
+                      <div class="t4s-pr-item-btn t4s-pr-wishlist is--growave">{{ the_snippet_fave_icon }}</div>
+                    {%- endunless -%}
+                  {%- else -%}
+                    <div data-replace-wishlist data-tooltip="right"></div>
+                  {%- endif -%}
+                  <div data-replace-compare data-tooltip="right"></div>
+                </div>
+                {%- if size_count > 0 and pr_size_pos == '1' %}
+                  {%- render 'product-size',
+                    size_variants: size_variants,
+                    size_variants_avai: size_variants_avai,
+                    show_size_type: show_size_type
+                  -%}
+                {% endif -%}
+                {%- if use_countdown and countdown != blank %}
+                  {%- render 'product-countdown', countdown: countdown -%}
+                {%- endif -%}
+                <a
+                  data-pr-href
+                  class="t4s-full-width-link"
+                  href="{{ prioritized_product.url | within : collection }}"
+                ></a>
+              </div>
+              <div class="t4s-product-info">
+                <div class="t4s-product-info__inner {{ collection.handle }}">
+                  {%- if prioritized_product.vendor.size > 0 and show_vendor -%}
+                    {% if use_link_vendor -%}
+                      {%- assign pr_vendor_handle = prioritized_product.vendor | handle -%}
+                      {%- assign collection_vendor = collections[pr_vendor_handle] -%}
+                    {%- endif %}
+                    <div class="t4s-product-vendor">
+                      <a href="{% if use_link_vendor and collection_vendor.url != blank %}{{ collection_vendor.url }}{% else %}{{ prioritized_product.vendor | url_for_vendor }}{% endif %}">
+                        {{- prioritized_product.vendor -}}
+                      </a>
+                    </div>
+                  {%- endif -%}
+
+                  {% if collection.handle == 'accessory' or collection.handle == 'posters' %}
+                    {% unless collection.handle == '3-for-2' %}
+                      {% if section.settings.buy_text %}
+                        <div class="buy__budget">
+                          <a href="/collection/3-for-2">
+                            <span>{{ section.settings.buy_text }}</span>
+                          </a>
+                        </div>
+                      {% endif %}
+                    {% endunless %}
+                  {% endif %}
+
+                  {% if collection.handle == '3-for-2' %}
+                    {% if section.settings.buy_text %}
+                      <div class="buy__budget">
+                         <a href="/collection/3-for-2">
+                          <span>{{ section.settings.buy_text }}</span>
+                        </a>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+
+                  {% if prioritized_product.type contains 'Mystery Box' %}
+                    {% if prioritized_product.metafields.custom.mini_title %}
+                      <h3 class="t4s-product-title">
+                        <a data-pr-href href="{{ prioritized_product.url }}">
+                          {{- prioritized_product.metafields.custom.mini_title -}}
+                        </a>
+                      </h3>
+                    {% else %}
+                      <h3 class="t4s-product-title">
+                        <a data-pr-href href="{{ prioritized_product.url }}">{{ prioritized_product.title }}</a>
+                      </h3>
+                    {% endif %}
+                  {% else %}
+                    {% if product.type == 'Poster'
+                      or product.type == 'dropship'
+                      or product.type == 'Ring'
+                      or product.type == 'Necklace'
+                      or product.type == 'Braclet'
+                      or product.tags contains 'dropship'
+                      or product.tags contains 'silver'
+                      or collection.handle == 'accessory'
+                      or collection.handle == 'dropship-collection'
+                      or collection.title == 'Jewellery'
+                      or collection.title == 'Accessories'
+                    %}
+                      <h3 class="t4s-product-title">
+                        <a data-pr-href href="{{ prioritized_product.url }}">{{ prioritized_product.title }}</a>
+                      </h3>
+                    {% else %}
+                      <h3 class="t4s-product-title">
+                        <a data-pr-href href="{{ prioritized_product.url }}">
+                          <span class="brand-name">
+                            {{- prioritized_product.vendor }}
+                          </span>
+                          {{ prioritized_product.type }}
+                          {% if prioritized_product.variants.size > 0 and prioritized_product.variants.first.option1 %}
+                            {{ prioritized_product.variants.first.option1 }}
+                          {% endif -%}
+                        </a>
+                      </h3>
+                    {% endif %}
+                  {% endif %}
+                  {% if prioritized_product.metafields.custom.mini_subtitle %}
+                    <p class="mysterybox-count">{{ prioritized_product.metafields.custom.mini_subtitle }}</p>
+                  {% endif %}
+                  {%- render 'product-price',
+                    product: prioritized_product,
+                    price_varies_style: price_varies_style,
+                    type: 'card',
+                    isGrouped: isGrouped
+                  -%}
+
+                  {% if prioritized_product.metafields.my_fields.productview %}
+                    <p class="prod-rating-meta">
+                      <span
+                        href="{% if collection.template_suffix contains 'dropship' %} /pages/drop-ship-reviews {% else %} /pages/new-plp-review {% endif %}"
+                        title="product review"
+                        class="prod-rating-meta-link"
+                      >
+                        {% assign starcount = prioritized_product.metafields.my_fields.productview | plus: 0 %}
+                        {% for i in (1..5) %}
+                          {% if i <= starcount %}
+                            <span>&#9733;</span>
+                          {% else %}
+                            <span>&#9734;</span>
+                          {% endif %}
+                        {% endfor %}
+                        {% if prioritized_product.metafields.my_fields.productreview2 %}
+                          <span class="prod-rating-meta-link-count"
+                            >({{ prioritized_product.metafields.my_fields.productreview2 }})</span
+                          >
+                        {% endif %}
+                      </span>
+                    </p>
+                  {% endif %}
+
+                  {%- if enable_rating %}
+                    {%- render 'product-rating', product: prioritized_product, app_review: app_review -%}
+                  {% endif -%}
+
+                  {%- if show_list_btns -%}
+                    {%- assign description_excerpt = prioritized_product.metafields.theme.description_excerpt -%}
+                    <div class="t4s-rte">
+                      {% if description_excerpt != blank -%}
+                        {{- description_excerpt -}}
+                      {%- else -%}
+                        {{- prioritized_product.content | strip_html | truncatewords: 30 -}}
+                      {%- endif %}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if color_count > 0 %}
+                    {%- liquid
+                      capture color_variants_handle
+                        for color_variant in color_variants
+                          echo color_variant | handle
+                          unless forloop.last
+                            echo ','
+                          endunless
+                        endfor
+                      endcapture
+                    -%}
+                    {% assign color_variants_str = color_variants | join: 'nt-t4s' %}
+                    <div
+                      class="t4s-product-colors"
+                      data-color-options='{ "color_count":{{ color_count }}, "color_variants":{{ color_variants_str | escape | split: 'nt-t4s' | json }}, "color_variants_avai":{{ color_variants_avai | join: 'nt-t4s' | escape | split: 'nt-t4s' | json }}, "color_variants_handle":{{ color_variants_handle | split: "," | json }}, "img_variants":{{ featured_imgs | json }}, "id_variants":{{ img_variants | map: 'id' | json }}, "img_ratios":{{ featured_imgs | map: 'aspect_ratio' | json }}, "img_options":{{ img_variants | map: pr_option_color | join: 'nt-t4s' | escape | split: 'nt-t4s' | json }} }'
+                    >
+                      <span class="t4s-pr-color__item"
+                        ><span class="t4s-pr-color__value bg_color_ntloading"></span></span
+                      ><span class="t4s-pr-color__item"
+                        ><span class="t4s-pr-color__value bg_color_ntloading"></span></span
+                      ><span class="t4s-pr-color__item"
+                        ><span class="t4s-pr-color__value bg_color_ntloading"></span
+                      ></span>
+                    </div>
+                  {% endif -%}
+                  {%- if size_count > 0 and pr_size_pos == '2' %}
+                    {%- render 'product-size',
+                      size_variants: size_variants,
+                      size_variants_avai: size_variants_avai,
+                      show_size_type: show_size_type
+                    -%}
+                  {% endif -%}
+                </div>
+                {%- if show_list_btns -%}
+                  <div class="t4s-product-btns t4s-product-info__btns">
+                    {%- if settings.enable_quickview -%}
+                      <a
+                        data-id="{{ prioritized_product.id }}"
+                        href="{{ prioritized_product.url }}"
+                        data-tooltip
+                        rel="nofollow"
+                        class="t4s-pr-item-btn t4s-pr-quickview"
+                        data-action-quickview
+                        ><span class="t4s-svg-pr-icon">
+                          <svg viewBox="0 0 24 24">
+                            <use xlink:href="#t4s-icon-qv"></use>
+                          </svg></span
+                        ><span class="t4s-text-pr">{{ 'products.product_card.quick_view' | t }}</span></a
+                      >
+                    {%- endif %}
+
+                    {%- if settings.enable_atc %}
+                      {%- render 'product-atc',
+                        pr_available: prioritized_product.available,
+                        pr_url: prioritized_product.url,
+                        isDefault: isDefault,
+                        isPreoder: isPreoder,
+                        isExternal: isExternal,
+                        external_title: external_title,
+                        external_link: external_link,
+                        isGrouped: isGrouped,
+                        current_variant: current_variant,
+                        pid: prioritized_product.id,
+                        cus_qty: cus_qty,
+                        max_qty: max_qty
+                      -%}
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            {{- append_stock -}}
+          </div>
+        {% endif %}
+      {% endunless %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+<!-- End Jewellery Box -->
+
+ {%- if image != blank %}
+
+<div
+  class="t4s-product t4s-pr-grid t4s-pr-style1 t4s-pr-{{ pid }} {{ col }} t4s-col-item"
+  data-product-id="{{ pid }}"
+  data-product-options='{ "id":"{{ pid }}","cusQty":"{{ cus_qty }}","available":{{ product.available }}, "handle":"{{ product.handle }}", "isDefault": {{ isDefault }}, "VariantFirstID": {{ current_variant.id }}, "customBadge":{{ arr_badge | json }}, "customBadgeHandle":{{ arr_badge_handle | json }},"dateStart":{{ product.created_at | date: "%s" }}, "compare_at_price":{{ current_variant.compare_at_price | json }},"price":{{ current_variant.price | json }}, "isPreoder":{{ isPreoder }},"isExternal":{{ isExternal }}{% if isExternal %},"external_title":{{ external_title | json }},"external_link":"{{ external_link | escape }}"{% endif %},"image2":{% if product.media[1] != blank %}{{ product.media[1] | image_url: width: 1 | json }},"alt":{{ product.media[1].alt | escape | json }}{% else %}false{% endif %},"isGrouped":{{ isGrouped }},"maxQuantity":{% if isDefault and isPreoder == false %}{{ max_qty }}{% else %}9999{% endif %} }'
+  data-vendor="{{ product.vendor | escape }}"
+  data-type="{{ product.type | escape }}"
+  data-collection="{{ collection.title | escape }}"
+>
+  {% assign current_variant = product.variants.first %}
+  <span id="belowe-product-varriant">{{ current_variant.option1 }}</span>
+  <span id="belowe-product-vendor">{{ product.vendor }}</span>
+  <div class="t4s-product-wrapper" timeline>
+    <div data-cacl-slide class="t4s-product-inner t4s-pr t4s-oh">
+      {% if template contains 'collection' %}
+        {% if product.type contains 'Mystery Box' or product.type contains 'Ring' or product.type contains 'Poster' %}
+        {% else %}
+          <a
+            href="{{ pr_url }}"
+            class="t4s-pr-item-btn mobile t4s-pr-addtocart"
+            data-variant-id="{{ current_variant.id }}"
+            data-action-atc
+            rel="nofollow"
+            ><span class="t4s-svg-pr-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/>
+              </svg></span
+          ></a>
+        {% endif %}
+      {% endif %}
+      {%- if image != blank %}{% render 'product-img', image: image, imgatt: imgatt %}{% endif -%}
+      <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-product-badge"></div>
+      {% if template contains 'collection' %}
+        {% if product.type contains 'Mystery Box' or product.type contains 'Ring' or product.type contains 'Poster' %}
+          <div class="t4s-product-btns">
+            <div data-replace-quickview></div>
+            <div data-replace-atc data-has-qty></div>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      <div class="t4s-product-btns2">
+        {%- if isGrowaveWishlist -%}
+          {%- capture the_snippet_fave_icon %}{% render 'ssw-widget-faveicon' with pid %}{% endcapture -%}
+          {%- unless the_snippet_fave_icon contains 'Liquid error' -%}
+            <div class="t4s-pr-item-btn t4s-pr-wishlist is--growave">{{ the_snippet_fave_icon }}</div>
+          {%- endunless -%}
+        {%- else -%}
+          <div data-replace-wishlist data-tooltip="right"></div>
+        {%- endif -%}
+        <div data-replace-compare data-tooltip="right"></div>
+      </div>
+      {%- if size_count > 0 and pr_size_pos == '1' %}
+        {%- render 'product-size',
+          size_variants: size_variants,
+          size_variants_avai: size_variants_avai,
+          show_size_type: show_size_type
+        -%}
+      {% endif -%}
+      {%- if use_countdown and countdown != blank %}
+        {%- render 'product-countdown', countdown: countdown -%}
+      {%- endif -%}
+      <a data-pr-href class="t4s-full-width-link" href="{{ pr_url | within : collection }}"></a>
+    </div>
+    <div class="t4s-product-info">
+      <div class="t4s-product-info__inner">
+        {%- if product.vendor.size > 0 and show_vendor -%}
+          {% if use_link_vendor -%}
+            {%- assign pr_vendor_handle = product.vendor | handle -%}
+            {%- assign collection_vendor = collections[pr_vendor_handle] -%}
+          {%- endif %}
+          <div class="t4s-product-vendor">
+            <a href="{% if use_link_vendor and collection_vendor.url != blank %}{{ collection_vendor.url }}{% else %}{{ product.vendor | url_for_vendor }}{% endif %}">
+              {{- product.vendor -}}
+            </a>
+          </div>
+        {%- endif -%}
+        {% comment %}
+          <h3 class="t4s-product-title"><a data-pr-href href="{{ pr_url }}">{{ product.title }}</a></h3>
+        {% endcomment %}
+
+        {% capture threefortwo %}
+          {% for tag in product.tags %} {% if tag == '3for2' %}3 FOR 2{% endif %}{% endfor %}
+          {% endcapture %}
+
+         {% if threefortwo %}
+            <div class="buy__budget">
+                <a href="/collection/3-for-2">
+                <span>{{ threefortwo }}</span>
+              </a>
+            </div>
+          {% endif %}
+
+        
+        {% if product.type contains 'Mystery Box' %}
+          {% if product.metafields.custom.mini_title %}
+            <h3 class="t4s-product-title">
+              <a data-pr-href href="{{ pr_url }}">{{ product.metafields.custom.mini_title }}</a>
+            </h3>
+          {% else %}
+            <h3 class="t4s-product-title">
+              <a data-pr-href href="{{ pr_url }}">{{ product.title }}</a>
+            </h3>
+          {% endif %}
+        {% else %}
+          {% if product.type == 'Poster'
+            or product.type == 'dropship'
+            or product.type == 'Ring'
+            or product.type == 'Necklace'
+            or product.type == 'Braclet'
+            or product.type == 'Sunglasses'
+            or product.type == 'Bracelet'
+            or product.tags contains 'dropship'
+            or product.tags contains 'silver'
+            or collection.handle == 'accessory'
+            or collection.handle == 'dropship-collection'
+            or collection.title == 'Jewellery'
+            or collection.title == 'Accessories'
+            or collection.title == 'Sunglasses'
+            or collection.title == 'Bracelet'
+          %}
+            <h3 class="t4s-product-title">
+              <a data-pr-href href="{{ pr_url }}">{{ product.title }}</a>
+            </h3>
+          {% else %}
+            <h3 class="t4s-product-title">
+              <a data-pr-href href="{{ pr_url }}">
+                {{ product.title }}
+                {% comment %} <span class="brand-name">
+                  {{- product.vendor }}
+                </span>
+                {{ product.type }}
+                {% if product.variants.size > 0 and product.variants.first.option1 %}
+                  {{ product.variants.first.option1 }}
+                {% endif -%} {% endcomment %}
+              </a>
+            </h3>
+          {% endif %}
+        {% endif %}
+        {% if product.metafields.custom.mini_subtitle %}
+          <p class="mysterybox-count">{{ product.metafields.custom.mini_subtitle }}</p>
+        {% endif %}
+        {%- render 'product-price',
+          product: product,
+          price_varies_style: price_varies_style,
+          type: 'card',
+          isGrouped: isGrouped
+        -%}
+
+        {% if product.metafields.my_fields.productview %}
+          <p class="prod-rating-meta">
+            <span
+              href="{% if collection.template_suffix contains 'dropship' %} /pages/drop-ship-reviews {% else %} /pages/new-plp-review {% endif %}"
+              title="product review"
+              class="prod-rating-meta-link"
+            >
+              {% assign starcount = product.metafields.my_fields.productview | plus: 0 %}
+              {% for i in (1..5) %}
+                {% if i <= starcount %}
+                  <span>&#9733;</span>
+                {% else %}
+                  <span>&#9734;</span>
+                {% endif %}
+              {% endfor %}
+              {% if product.metafields.my_fields.productreview2 %}
+                <span class="prod-rating-meta-link-count">({{ product.metafields.my_fields.productreview2 }})</span>
+              {% endif %}
+            </span>
+          </p>
+        {% endif %}
+
+        {%- if enable_rating %}{%- render 'product-rating', product: product, app_review: app_review -%}{% endif -%}
+        <!-- Add to Cart Form -->
+
+        {%- if show_list_btns -%}
+          {%- assign description_excerpt = product.metafields.theme.description_excerpt -%}
+          <div class="t4s-rte">
+            {% if description_excerpt != blank -%}
+              {{- description_excerpt -}}
+            {%- else -%}
+              {{- product.content | strip_html | truncatewords: 30 -}}
+            {%- endif %}
+          </div>
+        {%- endif -%}
+
+        {% comment %}
+          {% assign value = product.metafields.custom.damage_preset %}
+
+          <p>{{ value }}</p>
+        {% endcomment %}
+        {%- if color_count > 0 %}
+          {%- liquid
+            capture color_variants_handle
+              for color_variant in color_variants
+                echo color_variant | handle
+                unless forloop.last
+                  echo ','
+                endunless
+              endfor
+            endcapture
+          -%}
+          {% assign color_variants_str = color_variants | join: 'nt-t4s' %}
+          <div
+            class="t4s-product-colors"
+            data-color-options='{ "color_count":{{ color_count }}, "color_variants":{{ color_variants_str | escape | split: 'nt-t4s' | json }}, "color_variants_avai":{{ color_variants_avai | join: 'nt-t4s' | escape | split: 'nt-t4s' | json }}, "color_variants_handle":{{ color_variants_handle | split: "," | json }}, "img_variants":{{ featured_imgs | json }}, "id_variants":{{ img_variants | map: 'id' | json }}, "img_ratios":{{ featured_imgs | map: 'aspect_ratio' | json }}, "img_options":{{ img_variants | map: pr_option_color | join: 'nt-t4s' | escape | split: 'nt-t4s' | json }} }'
+          >
+            <span class="t4s-pr-color__item"><span class="t4s-pr-color__value bg_color_ntloading"></span></span
+            ><span class="t4s-pr-color__item"><span class="t4s-pr-color__value bg_color_ntloading"></span></span
+            ><span class="t4s-pr-color__item"><span class="t4s-pr-color__value bg_color_ntloading"></span></span>
+          </div>
+        {% endif -%}
+        {%- if size_count > 0 and pr_size_pos == '2' %}
+          {%- render 'product-size',
+            size_variants: size_variants,
+            size_variants_avai: size_variants_avai,
+            show_size_type: show_size_type
+          -%}
+        {% endif -%}
+      </div>
+      {%- if show_list_btns -%}
+        <div class="t4s-product-btns t4s-product-info__btns">
+          {%- if settings.enable_quickview -%}
+            <a
+              data-id="{{ pid }}"
+              href="{{ pr_url }}"
+              data-tooltip
+              rel="nofollow"
+              class="t4s-pr-item-btn t4s-pr-quickview"
+              data-action-quickview
+              ><span class="t4s-svg-pr-icon">
+                <svg viewBox="0 0 24 24">
+                  <use xlink:href="#t4s-icon-qv"></use>
+                </svg></span
+              ><span class="t4s-text-pr">{{ 'products.product_card.quick_view' | t }}</span></a
+            >
+          {%- endif %}
+
+          {%- if settings.enable_atc %}
+            {%- render 'product-atc',
+              pr_available: product.available,
+              pr_url: pr_url,
+              isDefault: isDefault,
+              isPreoder: isPreoder,
+              isExternal: isExternal,
+              external_title: external_title,
+              external_link: external_link,
+              isGrouped: isGrouped,
+              current_variant: current_variant,
+              pid: pid,
+              cus_qty: cus_qty,
+              max_qty: max_qty
+            -%}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  {{- append_stock -}}
+</div>
+
+{% endif %}
+
+<style>
+  div#prioritized_product:not(:first-of-type) {
+    display: none;
+  }
+</style>
+{% if product.type contains 'Mystery Box' %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get the current URL
+      var url = window.location.pathname;
+
+      // Split the URL to get the product handle
+      var productHandle = url.split('/').pop();
+
+      // Make a request to get product details using the handle
+      fetch('/products/' + productHandle + '.json')
+        .then((response) => response.json())
+        .then((data) => {
+          var productId = data.product.id;
+          // Use the productId to find and remove matching elements
+          var products = document.querySelectorAll('body.template-product.Mystery.Box .t4s-product');
+          products.forEach(function (product) {
+            var dataProductId = product.getAttribute('data-product-id');
+            if (dataProductId === productId.toString()) {
+              // Remove the matching product element
+              product.remove();
+              console.log('Removed matching Product ID:', dataProductId);
+            }
+          });
+
+          // Optionally, you can pass the productId to an element in the DOM
+          document.getElementById('currentProductId').textContent = productId;
+        })
+        .catch((error) => {
+          // console.error('Error fetching product data:', error);
+        });
+    });
+  </script>
+{% endif %}

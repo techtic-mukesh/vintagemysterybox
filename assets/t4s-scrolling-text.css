@@ -1,0 +1,84 @@
+.t4s-marquee {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  --marquee-translateto: 0;
+  --marquee-translatefrom: 100%;
+}
+.rtl_false .t4s-marquee--rtl {
+  --marquee-translateto: 100%;
+  --marquee-translatefrom: 0%;
+}
+.rtl_true .t4s-marquee {
+  --marquee-translateto: 100%;
+  --marquee-translatefrom: 0%;
+}
+.rtl_true .t4s-marquee--rtl {
+  --marquee-translateto: 0%;
+  --marquee-translatefrom: 100%;
+}
+.t4s-marquee--animation {
+  animation: marquee var(--marquee-delay, 15s) infinite linear;
+}
+.t4s-marquee--pausetrue:hover .t4s-marquee--animation {
+  animation-play-state: paused;
+}
+.t4s-marquee-content {
+  pointer-events: auto;
+}
+.t4s-scrolling-text--highlight{
+  -webkit-text-stroke: 1px var(--text-color);
+  color: transparent !important;
+}
+.t4s-scrolling-text--marquee .t4s-announcement-bar__item{
+  vertical-align: middle;
+}
+.t4s-scrolling-text__wrap{
+  --spacing-item-marquee: 20px;
+  color:var(--text-color);
+}
+.t4s-scrolling-text__wrap a{
+  color:var(--text-color);
+}
+.t4s-scrolling-text__item{
+  padding-inline-start:calc(var(--spacing-item-marquee) / 2);
+  padding-inline-end:calc(var(--spacing-item-marquee) / 2);
+  vertical-align: middle;
+}
+.t4s-scrolling-text__item p{margin-bottom: 0;}
+.t4s-scrolling-text--icon span{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background-color:var(--text-color);
+  display: block;
+}
+.t4s-scrolling-text--marquee-content{gap:var(--spacing-item-marquee);}
+
+@media(min-width:1025px){
+  .t4s-scrolling-text__wrap{
+    --spacing-item-marquee: 30px;
+  }
+}
+@-webkit-keyframes marquee {
+  0% {
+    transform: translateX(var(--marquee-translateto));
+  }
+  100% {
+    transform: translateX(var(--marquee-translatefrom));
+  }
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(var(--marquee-translateto));
+  }
+  100% {
+    transform: translateX(var(--marquee-translatefrom));
+  }
+}
+
+@media (-moz-touch-enabled: 0), (hover: hover) and (min-width: 1025px) {
+  .t4s-scrolling-text__wrap a:hover {
+    opacity: .7;
+  }
+}

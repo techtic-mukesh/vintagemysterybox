@@ -1,0 +1,123 @@
+{%- if product.type == 'Mystery Box' -%}
+  <div class="brand-caresoul-section marquee-carousel" data-speed="10000">
+    <h2>{{ section.settings.left_heading }}</h2>
+    <ul class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <li class="swiper-slide">
+          <a href="{{ block.settings.brandlink }}">
+            <img src="{{ block.settings.brandlogo |  img_url: '' }}">
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <style>
+    .brand-caresoul-section .swiper-wrapper {
+      -webkit-transition-timing-function: linear !important;
+      transition-timing-function: linear !important;
+    }
+
+    .brand-caresoul-section .swiper-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-caresoul-section {
+      padding: 30px 0 10px;
+    }
+
+    .brand-caresoul-section h2 {
+      text-align: center;
+      font-size: 18px;
+      margin: 0 0 30px;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var swiper = new Swiper('.marquee-carousel', {
+        spaceBetween: 30,
+        centeredSlides: true,
+        speed: 1500,
+        autoplay: {
+          delay: 0,
+          disableOnInteraction: false,
+        },
+        loop: true,
+        slidesPerView: 12,
+        allowTouchMove: true, // Enable touch for mobile
+        freeMode: true,
+        freeModeMomentum: false,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 5,
+            spaceBetween: 10, // Reduce space between slides for better mobile appearance
+            centeredSlides: true,
+            speed: 1500,
+            loop: true,
+          },
+          768: {
+            slidesPerView: 5,
+            spaceBetween: 20,
+            centeredSlides: true,
+            speed: 1500,
+            loop: true,
+          },
+          1024: {
+            slidesPerView: 6,
+            spaceBetween: 30,
+            centeredSlides: true,
+            speed: 1500,
+            loop: true,
+          },
+        },
+      });
+    });
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Brand caresoul",
+  "settings": [
+    {
+      "type": "text",
+      "id": "left_heading",
+      "label": "Left Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_item",
+      "name": "Logo Item",
+      "settings": [
+        {
+          "type": "url",
+          "id": "brandlink",
+          "label": "Brand Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "brandlogo",
+          "label": "Logo Item"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand caresoul",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

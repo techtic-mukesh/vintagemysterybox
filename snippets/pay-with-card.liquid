@@ -1,0 +1,779 @@
+<div class="pay-with-card">
+
+  <input type="hidden" id="shopifyCurrency" value="{{ cart.currency.iso_code }}">
+
+  <h2>Pay with card</h2>
+  <form id="card-form">
+    <label for="card-number-element" style="font-size: 0.95em; color: #666;">Card information</label>
+    <div style="border: 1px solid #ccc; border-radius: 4px; padding: 0 16px; background-color:#fff; margin-bottom: 10px; min-height:40px;">
+        <div id="card-number-element"></div>
+        </div>
+
+<div style="display: flex; gap: 12px;">
+  <div style="flex: 1; border: 1px solid #ccc; border-radius: 4px; padding: 0 16px; background-color:#fff; min-height:40px;">
+    <div id="card-expiry-element"></div>
+  </div>
+  <div style="flex: 1; border: 1px solid #ccc; border-radius: 4px; padding: 0 16px; background-color:#fff; min-height:40px;">
+    <div id="card-cvc-element"></div>
+  </div>
+</div>
+   <button id="card-pay-btn" type="button">Pay with Card</button>
+  </form>
+  <div id="card-error"></div>
+</div>
+
+
+
+
+
+<script>
+
+  function attachLiveValidation() {
+  // Email field validation
+  const email = document.getElementById('customerEmail');
+  const emailError = document.getElementById('emailError');
+  
+  if (email && emailError) {
+    const validateEmail = () => {
+  const emailValue = email.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/; // Must include dot + valid domain
+
+  if (!emailValue) {
+    emailError.classList.remove('show'); // Don't show error while typing
+    return false;
+  }
+
+  if (emailRegex.test(emailValue)) {
+    emailError.classList.remove('show');
+    return true;
+  } else {
+    emailError.classList.add('show');
+    return false;
+  }
+};
+
+    email.addEventListener('input', validateEmail);
+    email.addEventListener('keyup', validateEmail);
+    email.addEventListener('blur', validateEmail);
+  }
+
+  // Country select validation
+  const countrySelect = document.querySelector('select[name="country"]');
+  const countryError = document.getElementById('countryError');
+  
+  if (countrySelect && countryError) {
+    const validateCountry = () => {
+      if (countrySelect.value && countrySelect.value.trim() !== '') {
+        countryError.classList.remove('show');
+        return true;
+      } else {
+        countryError.classList.add('show');
+        return false;
+      }
+    };
+
+    countrySelect.addEventListener('change', validateCountry);
+    countrySelect.addEventListener('keyup', validateCountry);
+  }
+
+  // Other required fields validation
+  const fieldChecks = [
+    { id: 'lastName', errorId: 'lastNameError' },
+    { id: 'address1', errorId: 'address1Error' },
+    { id: 'city', errorId: 'cityError' },
+    { id: 'cityInput', errorId: 'postalCodeError' }
+  ];
+
+  fieldChecks.forEach(field => {
+    const input = document.getElementById(field.id);
+    const errorEl = document.getElementById(field.errorId);
+    
+    if (input && errorEl) {
+      const validateField = () => {
+        const value = input.value.trim();
+        
+        if (value && value.length > 0) {
+          errorEl.classList.remove('show');
+          return true;
+        } else if (value === '') {
+          // Don't show error immediately when field is empty (user might still be typing)
+          errorEl.classList.remove('show');
+          return false;
+        } else {
+          errorEl.classList.add('show');
+          return false;
+        }
+      };
+
+      input.addEventListener('input', validateField);
+      input.addEventListener('keyup', validateField);
+      input.addEventListener('blur', () => {
+        // On blur, show error if field is empty
+        const value = input.value.trim();
+        if (!value) {
+          errorEl.classList.add('show');
+        }
+      });
+    }
+  });
+
+  // Phone validation (optional - only validate if user enters something)
+  const phoneInput = document.querySelector("#phone");
+  const phoneError = document.querySelector("#error-msg");
+  
+  if (phoneInput && phoneError) {
+    const validatePhone = () => {
+      const phoneValue = phoneInput.value.trim();
+      
+      if (phoneValue && window.iti) {
+        // Only validate if user has entered something
+        if (window.iti.isValidNumber()) {
+          phoneError.classList.add('hide');
+          phoneInput.classList.remove('error');
+          return true;
+        } else {
+          // Show error only if there's content but it's invalid
+          phoneError.classList.remove('hide');
+          phoneInput.classList.add('error');
+          return false;
+        }
+      } else {
+        // Clear error if field is empty (phone is optional)
+        phoneError.classList.add('hide');
+        phoneInput.classList.remove('error');
+        return true; // Return true because phone is optional
+      }
+    };
+
+    phoneInput.addEventListener('input', validatePhone);
+    phoneInput.addEventListener('keyup', validatePhone);
+  }
+
+  // Shipping method validation
+  const shippingInputs = document.querySelectorAll('input[name="shipping_method"]');
+  const shippingError = document.getElementById('shippingError');
+  
+  if (shippingInputs.length > 0 && shippingError) {
+    const validateShipping = () => {
+      const selectedShipping = document.querySelector('input[name="shipping_method"]:checked');
+      if (selectedShipping) {
+        shippingError.classList.remove('show');
+        return true;
+      } else {
+        shippingError.classList.add('show');
+        return false;
+      }
+    };
+
+    shippingInputs.forEach(input => {
+      input.addEventListener('change', validateShipping);
+      input.addEventListener('click', validateShipping);
+    });
+  }
+}
+
+// Enhanced form validation function
+function validateFormData() {
+  let isValid = true;
+  const errors = [];
+
+  // Clear all existing error messages first
+  const allErrorMessages = document.querySelectorAll('.error-message');
+  allErrorMessages.forEach(el => el.classList.remove('show'));
+
+  // Email validation
+  const email = document.getElementById('customerEmail');
+  const emailError = document.getElementById('emailError');
+  if (email && emailError) {
+    const emailValue = email.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!emailValue || !emailRegex.test(emailValue)) {
+      emailError.classList.add('show');
+      errors.push('Valid email is required');
+      isValid = false;
+    }
+  }
+
+  // Country validation
+  const countrySelect = document.querySelector('select[name="country"]');
+  const countryError = document.getElementById('countryError');
+  if (countrySelect && countryError) {
+    if (!countrySelect.value || countrySelect.value.trim() === '') {
+      countryError.classList.add('show');
+      errors.push('Country is required');
+      isValid = false;
+    }
+  }
+
+  // Required fields validation
+  const fieldChecks = [
+    { id: 'lastName', errorId: 'lastNameError', name: 'Last name' },
+    { id: 'address1', errorId: 'address1Error', name: 'Address' },
+    { id: 'city', errorId: 'cityError', name: 'City' },
+    { id: 'cityInput', errorId: 'postalCodeError', name: 'Postal code' }
+  ];
+
+  fieldChecks.forEach(field => {
+    const input = document.getElementById(field.id);
+    const errorEl = document.getElementById(field.errorId);
+    
+    if (input && errorEl) {
+      if (!input.value || !input.value.trim()) {
+        errorEl.classList.add('show');
+        errors.push(`${field.name} is required`);
+        isValid = false;
+      }
+    }
+  });
+
+  // Phone validation (optional - only validate if user enters something)
+  const phoneInput = document.querySelector("#phone");
+  const phoneError = document.querySelector("#error-msg");
+  
+  if (phoneInput && phoneError && window.iti) {
+    const phoneValue = phoneInput.value.trim();
+    // Only validate if user has entered something (phone is optional)
+    if (phoneValue && !window.iti.isValidNumber()) {
+      phoneError.classList.remove('hide');
+      phoneInput.classList.add('error');
+      errors.push('Please enter a valid phone number or leave it empty');
+      isValid = false;
+    }
+  }
+
+  // Cart validation
+  const cartItemElements = document.querySelectorAll('.cart-item');
+  if (cartItemElements.length === 0) {
+    errors.push('Your cart is empty');
+    isValid = false;
+  }
+
+  // Shipping method validation
+  const shippingMethod = document.querySelector('input[name="shipping_method"]:checked');
+  const shippingError = document.getElementById('shippingError');
+  if (!shippingMethod) {
+    if (shippingError) shippingError.classList.add('show');
+    errors.push('Please select a shipping method');
+    isValid = false;
+  } else {
+    if (shippingError) shippingError.classList.remove('show');
+  }
+
+  return { isValid, errors };
+}
+
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+  attachLiveValidation();
+});
+
+window.addEventListener('DOMContentLoaded', function () {
+  // Global variable for phone input
+  let iti;
+  
+  // Error map for phone validation
+  const errorMap = [
+    "Invalid number",
+    "Invalid country code",
+    "Number too short",
+    "Number too long",
+    "Invalid number"
+  ];
+
+  function showLoader() {
+    // Create loader if it doesn't exist
+    if (!document.getElementById('full-screen-loader')) {
+      const loader = document.createElement('div');
+      loader.id = 'full-screen-loader';
+      loader.innerHTML = `
+        <style>
+          #full-screen-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+          }
+          .loader-spinner {
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #000;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        </style>
+        <div class="loader-spinner"></div>
+      `;
+      document.body.appendChild(loader);
+    } else {
+      document.getElementById('full-screen-loader').style.display = 'flex';
+    }
+  }
+
+  function hideLoader() {
+    const loader = document.getElementById('full-screen-loader');
+    if (loader) {
+      loader.style.display = 'none';
+    }
+  }
+
+  // Initialize phone input - make sure this matches your phone input ID
+  function initializePhoneInput() {
+    const input = document.querySelector("#phone");
+    
+    if (!input) {
+      console.error('Phone input element not found. Make sure the ID matches your HTML.');
+      return;
+    }
+
+    const errorMsg = document.querySelector("#error-msg");
+    const validMsg = document.querySelector("#valid-msg");
+
+    iti = window.intlTelInput(input, {
+      initialCountry: "auto",
+      geoIpLookup: function (callback) {
+        $.get("https://ipinfo.io", function () {}, "jsonp").always(function (resp) {
+          var countryCode = (resp && resp.country) ? resp.country : "";
+          callback(countryCode);
+        });
+      },
+      placeholderNumberType: "MOBILE",
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@16.0.2/build/js/utils.js"
+    });
+
+    if (validMsg) {
+      $(validMsg).addClass("hide");
+    }
+
+    function reset() {
+      input.classList.remove("error");
+      if (errorMsg) {
+        errorMsg.innerHTML = "";
+        errorMsg.classList.add("hide");
+      }
+      if (validMsg) {
+        validMsg.classList.add("hide");
+      }
+    }
+
+    input.addEventListener('blur', function () {
+      reset();
+      if (input.value.trim()) {
+        // Only validate if user has entered something (phone is optional)
+        if (iti.isValidNumber()) {
+          if (validMsg) {
+            validMsg.classList.remove("hide");
+          }
+          const nationalNumber = iti.getNumber(intlTelInputUtils.numberFormat.NATIONAL);
+          console.log("Formatted number:", nationalNumber);
+        } else {
+          input.classList.add("error");
+          var errorCode = iti.getValidationError();
+          if (errorMsg) {
+            errorMsg.innerHTML = errorMap[errorCode] || "Invalid number";
+            errorMsg.classList.remove("hide");
+          }
+        }
+      }
+    });
+
+    input.addEventListener('change', reset);
+    input.addEventListener('keyup', reset);
+  }
+
+  // Initialize phone input immediately
+  initializePhoneInput();
+
+  const STRIPE_BASE_URL = 'https://stripe.vintageshirtclub.com'; 
+
+  fetch(`${STRIPE_BASE_URL}/config`)
+    .then(r => r.json())
+    .then(({ publishableKey }) => {
+      const stripe = Stripe(publishableKey);
+
+      const elements = stripe.elements({
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css?family=Roboto' }]
+      });
+
+      const style = {
+        base: {
+          color: "#32325d",
+          fontFamily: "Roboto, Arial, sans-serif",
+          fontSize: "16px",
+          fontSmoothing: "antialiased",
+          padding: "12px",
+          height: "40px",
+          lineHeight: "40px",
+          borderRadius: "4px",
+          backgroundColor: "#fff",
+          "::placeholder": {
+            color: "#a0aec0",
+            padding: "12px",
+          }
+        },
+        invalid: {
+          color: "#d32f2f",
+          iconColor: "#d32f2f"
+        }
+      };
+
+      const cardNumber = elements.create('cardNumber', { style });
+      cardNumber.mount('#card-number-element');
+
+      const cardExpiry = elements.create('cardExpiry', { style });
+      cardExpiry.mount('#card-expiry-element');
+
+      const cardCvc = elements.create('cardCvc', { style });
+      cardCvc.mount('#card-cvc-element');
+
+      // Country name to code mapping
+      const countryCodeMap = {
+        'United States': 'US',
+        'United Kingdom': 'GB',
+        'Canada': 'CA',
+        'Australia': 'AU',
+        'Germany': 'DE',
+        'France': 'FR',
+        'Italy': 'IT',
+        'Spain': 'ES',
+        'Netherlands': 'NL',
+        'Belgium': 'BE',
+        'Switzerland': 'CH',
+        'Austria': 'AT',
+        'Sweden': 'SE',
+        'Norway': 'NO',
+        'Denmark': 'DK',
+        'Finland': 'FI',
+        'Poland': 'PL',
+        'Czech Republic': 'CZ',
+        'Hungary': 'HU',
+        'Portugal': 'PT',
+        'Ireland': 'IE',
+        'Luxembourg': 'LU',
+        'Greece': 'GR',
+        'Japan': 'JP',
+        'South Korea': 'KR',
+        'China': 'CN',
+        'India': 'IN',
+        'Brazil': 'BR',
+        'Mexico': 'MX',
+        'Argentina': 'AR',
+        'Chile': 'CL',
+        'Colombia': 'CO',
+        'Peru': 'PE',
+        'Russia': 'RU',
+        'Ukraine': 'UA',
+        'Turkey': 'TR',
+        'Israel': 'IL',
+        'South Africa': 'ZA',
+        'Egypt': 'EG',
+        'Morocco': 'MA',
+        'Nigeria': 'NG',
+        'Kenya': 'KE',
+        'Ghana': 'GH',
+        'Singapore': 'SG',
+        'Malaysia': 'MY',
+        'Thailand': 'TH',
+        'Philippines': 'PH',
+        'Indonesia': 'ID',
+        'Vietnam': 'VN',
+        'New Zealand': 'NZ'
+      };
+
+      // Function to convert country name to code
+      function getCountryCode(countryName) {
+        // If it's already a 2-character code, return as is
+        if (countryName && countryName.length === 2) {
+          return countryName.toUpperCase();
+        }
+        
+        // Look up in mapping
+        return countryCodeMap[countryName] || countryName;
+      }
+
+      // Function to get dynamic form data
+      function getFormData() {
+        const form = document.getElementById('checkoutForm');
+        const formData = new FormData(form);
+        
+        // Get contact information
+        const email = document.getElementById('customerEmail').value;
+        
+        // Get phone number with proper validation (optional)
+        let phoneNumber = '';
+        if (iti) {
+          try {
+            const phoneValue = document.querySelector("#phone").value.trim();
+            if (phoneValue) {
+              phoneNumber = iti.getNumber(); // International format
+              console.log("Phone number retrieved:", phoneNumber);
+            }
+          } catch (error) {
+            console.error("Error getting phone number:", error);
+            phoneNumber = '';
+          }
+        } else {
+          // Fallback to raw input value
+          const phoneInput = document.querySelector("#phone");
+          if (phoneInput && phoneInput.value.trim()) {
+            phoneNumber = phoneInput.value.trim();
+          }
+        }
+
+        // Get country value and convert to code
+        const countryElement = document.getElementById('ShippingCountry_{{ idShip }}') || 
+                              document.querySelector('[name="country"]');
+        const countryValue = countryElement ? countryElement.value : '';
+        const countryCode = getCountryCode(countryValue);
+
+        const provinceElement = document.getElementById('ShippingProvince_dynamic');
+        const provinceValue = provinceElement && provinceElement.value ? provinceElement.value : null;
+
+
+            const shippingText = document.getElementById('cartShipping').textContent.trim().toUpperCase();
+            let shippingAmount;
+
+            if (shippingText.includes('FREE')) {
+              shippingAmount = "0.00";
+            } else {
+              // Extract numeric value (e.g., "£15.00" → "15.00")
+              const matched = shippingText.match(/[\d.,]+/);
+              shippingAmount = matched ? matched[0].replace(',', '') : "0.00";
+            }
+
+            var hiddenInput = document.querySelector('input[name="shippingTitle"]');
+            if (hiddenInput) {
+                var shippingTitleValue = hiddenInput.value;
+                console.log('Shipping Title (from hidden input):', shippingTitleValue);
+            }
+
+            console.log("Shipping Amount:", shippingAmount);
+
+
+
+
+        
+        // Get shipping address data
+        const shippingAddress = {
+          firstName: document.getElementById('firstName').value || '',
+          lastName: document.getElementById('lastName').value || '',
+          address1: document.getElementById('address1').value || '',
+          address2: document.getElementById('address2').value || '',
+          city: document.getElementById('city').value || '',
+          zip: document.getElementById('cityInput').value || '',
+          country: countryCode,
+          province: provinceValue,
+        };
+        
+        // Get cart data from the existing cart items in the sidebar
+        const cartItems = [];
+        const cartItemElements = document.querySelectorAll('.cart-item');
+
+        cartItemElements.forEach(item => {
+          const quantity = parseInt(item.getAttribute('data-quantity')) || 1;
+          const variantId = item.getAttribute('data-variant-id') || 'unknown';
+          const price = parseFloat(item.getAttribute('data-price').replace(',', '.')) || 0;
+          console.log("price11",price)
+
+          const properties = [];
+          const propertyElements = item.querySelectorAll('.cart-item-properties li');
+
+          propertyElements.forEach(li => {
+            const nameEl = li.querySelector('strong');
+            const name = nameEl?.textContent?.replace(':', '').trim();
+            const valueNode = nameEl?.nextSibling;
+            const value = valueNode?.textContent?.trim() || valueNode?.nodeValue?.trim();
+
+            if (name && value) {
+              properties.push({ name, value });
+            }
+          });
+
+          const cartItem = {
+            quantity,
+            variantId,
+            price,
+            properties
+          };
+
+          cartItems.push(cartItem);
+        });
+
+        console.log('Cart items:', cartItems);
+
+        // Get cart totals
+        const subtotalElement = document.querySelector('.cart-totals li:first-child span');
+        const totalElement = document.querySelector('#csFinal');
+        
+        const subtotal = subtotalElement ? parseFloat(subtotalElement.textContent.replace(/[^0-9.,]/g, '').replace(',', '.')) : 0;
+        const total = totalElement ? parseFloat(totalElement.textContent.replace(/[^0-9.,]/g, '').replace(',', '.')) : 0;
+        
+        return {
+          email,
+          phoneNumber,
+          shippingAddress,
+          cartItems,
+          subtotal,
+          total,
+          shippingAmount,
+          shippingTitle: shippingTitleValue || ''
+        };
+      }
+
+      document.querySelector('#card-pay-btn').addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        const btn = e.currentTarget;
+        btn.style.backgroundColor = '#a9a9a9';
+
+        // Hide text
+        const originalText = btn.textContent;
+        btn.textContent = '';
+
+        // Create spinner
+        const spinner = document.createElement("span");
+        spinner.className = "spinner";
+        btn.appendChild(spinner);
+
+        // After 2 seconds, remove spinner and show text
+        setTimeout(() => {
+          btn.removeChild(spinner);
+          btn.textContent = originalText;
+          btn.style.backgroundColor = '#191919';
+        }, 1500);
+
+        // Validate form data
+        const validation = validateFormData();
+        if (!validation.isValid) {
+          const errorDiv = document.getElementById('card-error');
+          errorDiv.textContent = 'Please fill in all required fields correctly.';
+          return;
+        }
+
+        // Get dynamic form data
+        const formData = getFormData();
+
+        const activeCurrency = document.getElementById('shopifyCurrency').value;
+        
+
+        console.log("amount total",formData.total * 100)
+
+
+        try {
+          const res = await fetch(`${STRIPE_BASE_URL}/create-payment-intent`, {
+            method: 'POST',
+           body: JSON.stringify({ 
+              amount: Math.round(formData.total * 100),
+              currency: activeCurrency.toLowerCase() // 👈 convert to lowercase
+            }),
+            headers: { 'Content-Type': 'application/json' }
+          });
+
+          const { clientSecret } = await res.json();
+
+          const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: cardNumber,
+              billing_details: {
+                name: `${formData.shippingAddress.firstName} ${formData.shippingAddress.lastName}`.trim(),
+                email: formData.email,
+                phone: formData.phoneNumber || undefined, // Include phone number only if provided
+                address: {
+                  line1: formData.shippingAddress.address1,
+                  line2: formData.shippingAddress.address2 || undefined,
+                  city: formData.shippingAddress.city,
+                  postal_code: formData.shippingAddress.zip,
+                  country: formData.shippingAddress.country.length === 2 ? formData.shippingAddress.country : 'US'
+                }
+              }
+            }
+          });
+
+          const errorDiv = document.getElementById('card-error');
+          if (error) {
+            errorDiv.textContent = error.message;
+          } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+            errorDiv.textContent = '';
+            
+            // Create payload with properly structured order data
+            const payload = {
+              paymentIntentId: paymentIntent.id,
+              amount: formData.total,
+              currency: activeCurrency,
+              email: formData.email,
+              phone: formData.phoneNumber || '', // Include phone number in payload (empty if not provided)
+              cart: formData.cartItems,
+              shippingAddress: {
+                address1: formData.shippingAddress.address1,
+                address2: formData.shippingAddress.address2,
+                city: formData.shippingAddress.city,
+                province: formData.shippingAddress.province,
+                country: formData.shippingAddress.country,
+                zip: formData.shippingAddress.zip,
+                firstName: formData.shippingAddress.firstName,
+                lastName: formData.shippingAddress.lastName
+              },
+               shippingLines: [
+                    {
+                      title: formData.shippingTitle || 'FREE SHIPPING (7-10 business days)',
+                      priceSet: {
+                        shopMoney: {
+                          amount: formData.shippingAmount || '0.00',
+                          currencyCode: activeCurrency
+                        }
+                      }
+                    }
+                  ],
+              
+            };
+
+            console.log('Payload:', JSON.stringify(payload, null, 2));
+
+            // Send payload to your success endpoint
+            fetch(`${STRIPE_BASE_URL}/payment-success`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            })
+              .then(res => res.json())
+              .then(data => {
+                console.log('Payment success logged:', data);
+
+                  localStorage.setItem('shopify_order_number', data.order.name);
+                  localStorage.setItem('shopify_order_id', data.order.id);
+
+                  // (Optional) Log it to confirm
+                  console.log('Order number saved to localStorage:', data.order.name);
+                  console.log('Order number saved to localStorage:', data.order.id);
+
+                  const orderIdNumeric = data.order.id.split('/').pop();
+                
+                showLoader();
+                setTimeout(function() {
+                 window.location.href = `/pages/thank-you?order=${orderIdNumeric}`;
+                }, 1000);
+              })
+              .catch(err => {
+                console.error('Error sending payment success data:', err);
+                alert('Payment was successful, but there was an issue processing your order. Please contact support.');
+              });
+          }
+        } catch (err) {
+          console.error('Payment processing error:', err);
+          document.getElementById('card-error').textContent = 'An error occurred processing your payment. Please try again.';
+        }
+      });
+    });
+});
+</script>

@@ -1,0 +1,343 @@
+<div class="related-products">
+  <h4>Pairs well with</h4>
+
+  <div class="related-products-list swiper-wrapper">
+    {% assign target_vendor = product.vendor %}
+    {% assign products_added = 0 %}
+    {% assign special_product_handle = "retro-mystery-football-shirt-box" %}
+    {% assign first_product_handle = "" %}
+
+    {%- comment -%} STEP 1: First vendor product {%- endcomment -%}
+    {% for related_product in collections.all.products %}
+      {% if related_product.vendor == target_vendor and related_product.handle != product.handle and related_product.handle != special_product_handle %}
+        {% if related_product.featured_image and related_product.available %}
+          {% assign first_variant_id = related_product.variants.first.id %}
+          <div class="related-product-item swiper-slide">
+            <a href="{{ related_product.url }}">
+              <div class="image-block">
+                <img src="{{ related_product.featured_image | image_url: width: 400 }}" alt="{{ related_product.title }}">
+                 <a href="{{ related_product.url }}" class="t4s-pr-item-btn mobile t4s-pr-addtocart" data-variant-id="{{ first_variant_id }}" data-action-atc rel="nofollow">
+                <span class="t4s-svg-pr-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32v144H48c-17.7 0-32 14.3-32 32s14.3 32 32 32h144v144c0 17.7 14.3 32 32 32s32-14.3 32-32V288h144c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+                  </svg>
+                </span>
+              </a>
+              </div>
+             
+              <div class="product-details">
+                <h3>{{ related_product.title }}</h3>
+                <p>{{ related_product.price | money }}</p>
+              </div>
+            </a>
+          </div>
+          {% assign first_product_handle = related_product.handle %}
+          {% assign products_added = products_added | plus: 1 %}
+          {% break %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {%- comment -%} STEP 2: Special product {%- endcomment -%}
+    {% assign special_product = all_products[special_product_handle] %}
+    {% if special_product and special_product.available and special_product.handle != product.handle %}
+      {% assign first_variant_id = special_product.variants.first.id %}
+      <div class="related-product-item swiper-slide mystery-product">
+        <a href="{{ special_product.url }}">
+          <div class="image-block">
+            <img src="{{ special_product.featured_image | image_url: width: 400 }}" alt="{{ special_product.title }}">
+            <a href="{{ special_product.url }}" class="t4s-pr-item-btn mobile t4s-pr-addtocart" data-variant-id="{{ first_variant_id }}" data-action-atc rel="nofollow">
+            <span class="t4s-svg-pr-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32v144H48c-17.7 0-32 14.3-32 32s14.3 32 32 32h144v144c0 17.7 14.3 32 32 32s32-14.3 32-32V288h144c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+              </svg>
+            </span>
+          </a>
+          </div>
+          
+          <div class="product-details">
+            <h3>{{ special_product.title }}</h3>
+            <p>{{ special_product.price | money }}</p>
+          </div>
+        </a>
+      </div>
+      {% assign products_added = products_added | plus: 1 %}
+    {% endif %}
+
+    {%- comment -%} STEP 3: Second vendor product {%- endcomment -%}
+    {% for related_product in collections.all.products %}
+      {% if related_product.vendor == target_vendor and related_product.handle != product.handle and related_product.handle != special_product_handle and related_product.handle != first_product_handle %}
+        {% if related_product.featured_image and related_product.available %}
+          {% assign first_variant_id = related_product.variants.first.id %}
+          <div class="related-product-item swiper-slide">
+            <a href="{{ related_product.url }}">
+              <div class="image-block">
+                <img src="{{ related_product.featured_image | image_url: width: 400 }}" alt="{{ related_product.title }}">
+                <a href="{{ related_product.url }}" class="t4s-pr-item-btn mobile t4s-pr-addtocart" data-variant-id="{{ first_variant_id }}" data-action-atc rel="nofollow">
+                <span class="t4s-svg-pr-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32v144H48c-17.7 0-32 14.3-32 32s14.3 32 32 32h144v144c0 17.7 14.3 32 32 32s32-14.3 32-32V288h144c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+                  </svg>
+                </span>
+              </a>
+              </div>
+              
+              <div class="product-details">
+                <h3>{{ related_product.title }}</h3>
+                <p>{{ related_product.price | money }}</p>
+              </div>
+            </a>
+          </div>
+          {% assign products_added = products_added | plus: 1 %}
+          {% break %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {%- comment -%} STEP 4: JS Fallback if vendor products < 2 {%- endcomment -%}
+    {% if products_added < 3 %}
+    <script>
+ document.addEventListener('DOMContentLoaded', function () {
+  const container = document.querySelector('.related-products-list');
+  const currentProductHandle = {{ product.handle | json }};
+  const targetVendor = {{ product.vendor | json }};
+  const existingHandles = [
+    {{ first_product_handle | json }},
+    {{ special_product_handle | json }}
+  ].filter(Boolean);
+
+  const needed = 2;
+  const targetVendorLC = targetVendor.trim().toLowerCase();
+  const excludedHandles = [...existingHandles, currentProductHandle];
+
+  async function fetchTwoVendorProducts(page = 1, collected = []) {
+    while (collected.length < needed) {
+      console.log(`📦 Fetching page ${page}...`);
+      const res = await fetch(`/products.json?limit=250&page=${page}`);
+      if (!res.ok) {
+        console.error("❌ Fetch failed:", res.status);
+        break;
+      }
+
+      const data = await res.json();
+      if (!data.products.length) break;
+
+      for (const p of data.products) {
+        if (
+          p.vendor.trim().toLowerCase() === targetVendorLC &&
+          !excludedHandles.includes(p.handle) &&
+          !collected.find(prod => prod.handle === p.handle)
+        ) {
+          collected.push(p);
+          if (collected.length === needed) break;
+        }
+      }
+
+      if (data.products.length < 250) break;
+      page++;
+    }
+
+    return collected;
+  }
+
+  fetchTwoVendorProducts().then(products => {
+    if (!products.length) {
+      console.warn("⚠️ No matching products found.");
+      return;
+    }
+
+    products.forEach(product => {
+      const v = product.variants[0];
+      const price = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: '{{ shop.currency }}'
+      }).format(parseFloat(v.price));
+
+      const img = product.images[0]?.src + '&width=400';
+
+      container.insertAdjacentHTML('beforeend', `
+        <div class="related-product-item swiper-slide">
+          <a href="/products/${product.handle}">
+            <div class="image-block">
+              <img src="${img}" alt="${product.title}">
+              <a href="/products/${product.handle}" class="t4s-pr-item-btn mobile t4s-pr-addtocart" data-variant-id="${v.id}" data-action-atc rel="nofollow">
+                <span class="t4s-svg-pr-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32v144H48c-17.7 0-32 14.3-32 32s14.3 32 32 32h144v144c0 17.7 14.3 32 32 32s32-14.3 32-32V288h144c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </a>
+          <div class="product-details">
+            <h3>${product.title}</h3>
+            <p>${price}</p>
+            <p style="display: none;">${product.vendor}</p>
+          </div>
+        </div>
+      `);
+    });
+
+    if (typeof Swiper !== 'undefined') {
+      new Swiper('.related-products', {
+        loop: false,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        slidesPerView: 3,
+        spaceBetween: 20,
+        breakpoints: {
+          1920: { slidesPerView: 3, spaceBetween: 20 },
+          1028: { slidesPerView: 2, spaceBetween: 20 },
+          480: { slidesPerView: 2, spaceBetween: 10 },
+        },
+      });
+    }
+  }).catch(err => {
+    console.error("❌ Related products error:", err);
+  });
+});
+
+</script>
+
+    {% endif %}
+  </div>
+</div>
+
+
+<style>
+  .related-products {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .related-products .image-block {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .related-products .image-block a.t4s-pr-item-btn.mobile.t4s-pr-addtocart {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 50%;
+    right: 10px;
+    bottom: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+  .related-products .image-block a.t4s-pr-item-btn.mobile.t4s-pr-addtocart span.t4s-svg-pr-icon svg {
+    width: 13px;
+  }
+
+  .related-products .image-block a.t4s-pr-item-btn.mobile.t4s-pr-addtocart span.t4s-svg-pr-icon {
+    display: flex;
+  }
+
+  .related-products h4 {
+    font-size: 15px;
+    margin: 0 0 15px;
+  }
+
+  .related-products .product-details {
+    padding: 10px 0 0;
+  }
+
+  .related-products .product-details h3 {
+    font-size: 14px;
+  }
+
+  .related-products .swiper-button-prev,
+  .related-products .swiper-button-next {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    background-image: unset;
+    width: 20px;
+    height: 20px;
+  }
+
+  .related-products .swiper-button-prev {
+    right: 27px;
+    left: auto;
+    transform: scaleX(-1);
+  }
+
+  .related-products-list .related-product-item img {
+    aspect-ratio: 4/4;
+  }
+
+  .related-products p {
+      margin: 0;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Swiper: Slider
+    new Swiper('.related-products', {
+      loop: false,
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev',
+      slidesPerView: 3,
+      paginationClickable: true,
+      spaceBetween: 20,
+      breakpoints: {
+        1920: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        1028: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        480: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Complimentary Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "left_heading",
+      "label": "Left Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Complimentary",
+      "name": "Complimentary",
+      "settings": [
+        {
+          "type": "product",
+          "id": "crproduct",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Complimentary Products",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+
+

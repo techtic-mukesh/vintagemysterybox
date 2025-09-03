@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+{% stylesheet %}
+  .league-slider-wrapper {
+    padding: 2rem 0;
+    background: #f8fff1;
+    text-align: center;
+  }
+  .league-item {
+    display: inline-block;
+    min-width: 120px;
+    margin: 0 10px;
+    text-align: center;
+  }
+  .league-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  .league-item-title {
+    font-size: 14px;
+  }
+
+  .league-slider-desktop {
+    display: flex;
+    overflow-x: auto;
+    justify-content:center;
+}
+
+  @media (max-width: 768px) {
+   
+   
+
+    .league-item { 
+        min-width:100px;
+    }
+
+      .league-slider-desktop {
+    display: flex;
+    overflow-x: auto;
+    justify-content:flex-start;
+}
+  }
+
+  @media (min-width: 769px) {
+    .league-slider-mobile {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+<div class="league-slider-wrapper">
+  <div class="league-slider-desktop">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.link }}" class="league-item">
+        <img src="{{ block.settings.icon | image_url: width: 100 }}" alt="{{ block.settings.title }}">
+        <div class="league-item-title">{{ block.settings.title }}</div>
+      </a>
+    {% endfor %}
+  </div>
+
+</div>
+
+{% javascript %}
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.innerWidth <= 768 && typeof Swiper !== 'undefined') {
+      new Swiper(".league-slider-mobile", {
+        slidesPerView: 'auto',
+        spaceBetween: 16,
+        freeMode: true,
+      });
+    }
+  });
+{% endjavascript %}
+
+
+{%  schema  %}  
+    {
+  "name": "League Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "league",
+      "name": "League Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "League Slider",
+      "category": "Custom"
+    }
+  ]
+}
+
+{% endschema %}

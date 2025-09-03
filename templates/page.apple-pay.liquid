@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stripe Apple Pay Demo</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    button { padding: 10px 20px; font-size: 16px; }
+  
+  </style>
+</head>
+<body>
+  <h2>Pay with Apple Pay</h2>
+  <div id="payment-request-button"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof Stripe === 'undefined') {
+        console.error("Stripe.js failed to load.");
+        return;
+      }
+
+      fetch('https://stripe.vintageshirtclub.com/config')
+        .then(r => r.json())
+        .then(({ publishableKey }) => {
+          const stripe = Stripe(publishableKey);
+
+          const paymentRequest = stripe.paymentRequest({
+            country: 'US',
+            currency: 'usd',
+            total: {
+              label: 'Demo Product',
+              amount: 100,
+            },
+            requestPayerName: true,
+            requestPayerEmail: true,
+          });
+
+          const elements = stripe.elements();
+          paymentRequest.canMakePayment().then(result => {
+            if (result) {
+              const prButton = elements.create('paymentRequestButton', {
+                paymentRequest: paymentRequest,
+              });
+              prButton.mount('#payment-request-button');
+            } else {
+              document.getElementById('payment-request-button').style.display = 'none';
+            }
+          });
+
+          paymentRequest.on('paymentmethod', async (ev) => {
+            const res = await fetch('https://stripe.vintageshirtclub.com/create-payment-intent', { method: 'POST' });
+            const { clientSecret } = await res.json();
+
+            const { error } = await stripe.confirmCardPayment(clientSecret, {
+              payment_method: ev.paymentMethod.id,
+            }, { handleActions: false });
+
+            if (error) {
+              ev.complete('fail');
+            } else {
+              ev.complete('success');
+            }
+          });
+        });
+    });
+  </script>
+</body>
+</html>

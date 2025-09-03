@@ -1,0 +1,3433 @@
+{
+  "store": {
+    "id": 30412701741,
+    "plan": "basic",
+    "theme": "Vintageclub\/main",
+    "primaryLocale": "en",
+    "adminMode": false,
+    "headless": false,
+    "storefrontRootDomain": "",
+    "checkoutRootDomain": "",
+    "storefrontAccessToken": ""
+  },
+  "tsPublished": 1731075628,
+  "declaration": {
+    "showPurpose": false,
+    "showProvider": false,
+    "declIntroText": "We use cookies to optimize website functionality, analyze the performance, and provide personalized experience to you. Some cookies are essential to make the website operate and function correctly. Those cookies cannot be disabled. In this window you can manage your preference of cookies.",
+    "showDateGenerated": true
+  },
+  "language": {
+    "languageMode": "Single",
+    "fallbackLanguage": "en",
+    "languageDetection": "browser",
+    "languagesSupported": []
+  },
+  "texts": {
+    "managed": {
+      "headerText": {
+        "en": "We respect your privacy"
+      },
+      "consentText": {
+        "en": "This website uses cookies to ensure you get the best experience."
+      },
+      "dismissButtonText": {
+        "en": "Ok"
+      },
+      "linkText": {
+        "en": "Learn more"
+      },
+      "imprintText": {
+        "en": "Imprint"
+      },
+      "preferencesButtonText": {
+        "en": "Preferences"
+      },
+      "allowButtonText": {
+        "en": "Accept"
+      },
+      "denyButtonText": {
+        "en": "Decline"
+      },
+      "leaveSiteButtonText": {
+        "en": "Leave this site"
+      },
+      "cookiePolicyText": {
+        "en": "Cookie policy"
+      },
+      "preferencesPopupTitleText": {
+        "en": "Manage consent preferences"
+      },
+      "preferencesPopupIntroText": {
+        "en": "We use cookies to optimize website functionality, analyze the performance, and provide personalized experience to you. Some cookies are essential to make the website operate and function correctly. Those cookies cannot be disabled. In this window you can manage your preference of cookies."
+      },
+      "preferencesPopupCloseButtonText": {
+        "en": "Close"
+      },
+      "preferencesPopupAcceptAllButtonText": {
+        "en": "Accept all"
+      },
+      "preferencesPopupRejectAllButtonText": {
+        "en": "Reject all"
+      },
+      "preferencesPopupSaveButtonText": {
+        "en": "Save preferences"
+      },
+      "accessSectionTitleText": {
+        "en": "Data portability"
+      },
+      "accessSectionParagraphText": {
+        "en": "You have the right to request access to your data at any time."
+      },
+      "rectificationSectionTitleText": {
+        "en": "Data Rectification"
+      },
+      "rectificationSectionParagraphText": {
+        "en": "You have the right to request your data to be updated whenever you think it is appropriate."
+      },
+      "erasureSectionTitleText": {
+        "en": "Right to be forgotten"
+      },
+      "erasureSectionParagraphText": {
+        "en": "You have the right to ask all your data to be erased. After that, you will no longer be able to access your account."
+      },
+      "declIntroText": {
+        "en": "We use cookies to optimize website functionality, analyze the performance, and provide personalized experience to you. Some cookies are essential to make the website operate and function correctly. Those cookies cannot be disabled. In this window you can manage your preference of cookies."
+      }
+    },
+    "categories": {
+      "strictlyNecessaryCookiesTitleText": {
+        "en": "Strictly necessary cookies"
+      },
+      "functionalityCookiesTitleText": {
+        "en": "Functional cookies"
+      },
+      "performanceCookiesTitleText": {
+        "en": "Performance cookies"
+      },
+      "targetingCookiesTitleText": {
+        "en": "Targeting cookies"
+      },
+      "unclassifiedCookiesTitleText": {
+        "en": "Unclassified cookies"
+      },
+      "strictlyNecessaryCookiesDescriptionText": {
+        "en": "These cookies are essential in order to enable you to move around the website and use its features, such as accessing secure areas of the website. The website cannot function properly without these cookies."
+      },
+      "functionalityCookiesDescriptionText": {
+        "en": "These cookies enable the site to provide enhanced functionality and personalisation. They may be set by us or by third party providers whose services we have added to our pages. If you do not allow these cookies then some or all of these services may not function properly."
+      },
+      "performanceCookiesDescriptionText": {
+        "en": "These cookies enable us to monitor and improve the performance of our website. For example, they allow us to count visits, identify traffic sources and see which parts of the site are most popular."
+      },
+      "targetingCookiesDescriptionText": {
+        "en": "These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites.    They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising."
+      },
+      "unclassifiedCookiesDescriptionText": {
+        "en": "Unclassified cookies are cookies that we are in the process of classifying, together with the providers of individual cookies."
+      }
+    },
+    "auto": {
+      "declName": {
+        "en": "Name"
+      },
+      "declPath": {
+        "en": "Path"
+      },
+      "declType": {
+        "en": "Type"
+      },
+      "declDomain": {
+        "en": "Domain"
+      },
+      "declPurpose": {
+        "en": "Purpose"
+      },
+      "declProvider": {
+        "en": "Provider"
+      },
+      "declRetention": {
+        "en": "Retention"
+      },
+      "declFirstParty": {
+        "en": "First-party"
+      },
+      "declThirdParty": {
+        "en": "Third-party"
+      },
+      "declSeconds": {
+        "en": "seconds"
+      },
+      "declMinutes": {
+        "en": "minutes"
+      },
+      "declHours": {
+        "en": "hours"
+      },
+      "declDays": {
+        "en": "days"
+      },
+      "declMonths": {
+        "en": "months"
+      },
+      "declYears": {
+        "en": "years"
+      },
+      "declSession": {
+        "en": "Session"
+      },
+      "cookiesDetailsText": {
+        "en": "Cookies details"
+      },
+      "preferencesPopupAlwaysAllowedText": {
+        "en": "Always allowed"
+      },
+      "submitButton": {
+        "en": "Submit"
+      },
+      "submittingButton": {
+        "en": "Submitting..."
+      },
+      "cancelButton": {
+        "en": "Cancel"
+      },
+      "guestsSupportInfoText": {
+        "en": "Please login with your customer account to further proceed."
+      },
+      "guestsSupportEmailPlaceholder": {
+        "en": "E-mail address"
+      },
+      "guestsSupportEmailValidationError": {
+        "en": "Email is not valid"
+      },
+      "guestsSupportEmailSuccessTitle": {
+        "en": "Thank you for your request"
+      },
+      "guestsSupportEmailFailureTitle": {
+        "en": "A problem occurred"
+      },
+      "guestsSupportEmailSuccessMessage": {
+        "en": "If you are registered as a customer of this store, you will soon receive an email with instructions on how to proceed."
+      },
+      "guestsSupportEmailFailureMessage": {
+        "en": "Your request was not submitted. Please try again and if problem persists, contact store owner for assistance."
+      },
+      "confirmationSuccessTitle": {
+        "en": "Your request is verified"
+      },
+      "confirmationFailureTitle": {
+        "en": "A problem occurred"
+      },
+      "confirmationSuccessMessage": {
+        "en": "We will soon get back to you as to your request."
+      },
+      "confirmationFailureMessage": {
+        "en": "Your request was not verified. Please try again and if problem persists, contact store owner for assistance"
+      },
+      "consentSectionTitleText": {
+        "en": "Your cookie consent"
+      },
+      "consentSectionNoConsentText": {
+        "en": "You have not consented to the cookies policy of this website."
+      },
+      "consentSectionConsentedText": {
+        "en": "You consented to the cookies policy of this website on"
+      },
+      "consentStatus": {
+        "en": "Consent preference"
+      },
+      "consentDate": {
+        "en": "Consent date"
+      },
+      "consentId": {
+        "en": "Consent ID"
+      },
+      "consentSectionChangeConsentActionText": {
+        "en": "Change consent preference"
+      },
+      "accessSectionGDPRRequestsActionText": {
+        "en": "Data subject requests"
+      },
+      "accessSectionAccountInfoActionText": {
+        "en": "Personal data"
+      },
+      "accessSectionOrdersRecordsActionText": {
+        "en": "Orders"
+      },
+      "accessSectionDownloadReportActionText": {
+        "en": "Request export"
+      },
+      "rectificationCommentPlaceholder": {
+        "en": "Describe what you want to be updated"
+      },
+      "rectificationCommentValidationError": {
+        "en": "Comment is required"
+      },
+      "rectificationSectionEditAccountActionText": {
+        "en": "Request an update"
+      },
+      "erasureSectionRequestDeletionActionText": {
+        "en": "Request personal data deletion"
+      }
+    }
+  },
+  "library": {
+    "previewMode": false,
+    "fadeInTimeout": 0,
+    "defaultBlocked": 7,
+    "showLink": true,
+    "showImprintLink": false,
+    "showGoogleLink": false,
+    "enabled": true,
+    "cookie": {
+      "name": "_pandectes_gdpr",
+      "expiryDays": 365,
+      "secure": true,
+      "domain": ""
+    },
+    "dismissOnScroll": false,
+    "dismissOnWindowClick": false,
+    "dismissOnTimeout": false,
+    "palette": {
+      "popup": {
+        "background": "#FFFFFF",
+        "backgroundForCalculations": {
+          "a": 1,
+          "b": 255,
+          "g": 255,
+          "r": 255
+        },
+        "text": "#000000"
+      },
+      "button": {
+        "background": "#000000",
+        "backgroundForCalculations": {
+          "a": 1,
+          "b": 0,
+          "g": 0,
+          "r": 0
+        },
+        "text": "#FFFFFF",
+        "textForCalculation": {
+          "a": 1,
+          "b": 255,
+          "g": 255,
+          "r": 255
+        },
+        "border": "transparent"
+      }
+    },
+    "content": {
+      "href": "https:\/\/vintage-club-uk.myshopify.com\/policies\/privacy-policy",
+      "imprintHref": "\/",
+      "close": "&#10005;",
+      "target": "",
+      "logo": ""
+    },
+    "window": "<div role=\"dialog\" aria-live=\"polite\" aria-label=\"cookieconsent\" aria-describedby=\"cookieconsent:desc\" id=\"pandectes-banner\" class=\"cc-window-wrapper cc-bottom-center-wrapper\"><div class=\"pd-cookie-banner-window cc-window {{classes}}\"><!--googleoff: all-->{{children}}<!--googleon: all--><\/div><\/div>",
+    "compliance": {
+      "opt-both": "<div class=\"cc-compliance cc-highlight\">{{deny}}{{allow}}<\/div>"
+    },
+    "type": "opt-both",
+    "layouts": {
+      "basic": "{{messagelink}}{{compliance}}{{close}}"
+    },
+    "position": "bottom-center",
+    "theme": "classic",
+    "revokable": true,
+    "animateRevokable": false,
+    "revokableReset": false,
+    "revokableLogoUrl": "https:\/\/cdn.shopify.com\/s\/files\/1\/0304\/1270\/1741\/t\/108\/assets\/pandectes-reopen-logo.png?v=1731074925",
+    "revokablePlacement": "bottom-left",
+    "revokableMarginHorizontal": 15,
+    "revokableMarginVertical": 15,
+    "static": false,
+    "autoAttach": true,
+    "hasTransition": true,
+    "blacklistPage": [
+      ""
+    ],
+    "elements": {
+      "close": "<button aria-label=\"dismiss cookie message\" type=\"button\" tabindex=\"0\" class=\"cc-close\">{{close}}<\/button>",
+      "dismiss": "<button aria-label=\"dismiss cookie message\" type=\"button\" tabindex=\"0\" class=\"cc-btn cc-btn-decision cc-dismiss\">{{dismiss}}<\/button>",
+      "allow": "<button aria-label=\"allow cookies\" type=\"button\" tabindex=\"0\" class=\"cc-btn cc-btn-decision cc-allow\">{{allow}}<\/button>",
+      "deny": "<button aria-label=\"deny cookies\" type=\"button\" tabindex=\"0\" class=\"cc-btn cc-btn-decision cc-deny\">{{deny}}<\/button>",
+      "preferences": "<button aria-label=\"settings cookies\" tabindex=\"0\" type=\"button\" class=\"cc-btn cc-settings\" onclick=\"Pandectes.fn.openPreferences()\">{{preferences}}<\/button>"
+    }
+  },
+  "geolocation": {
+    "auOnly": false,
+    "brOnly": false,
+    "caOnly": false,
+    "chOnly": false,
+    "euOnly": false,
+    "jpOnly": false,
+    "nzOnly": false,
+    "thOnly": false,
+    "zaOnly": false,
+    "canadaOnly": false,
+    "globalVisibility": true
+  },
+  "dsr": {
+    "guestsSupport": false,
+    "accessSectionDownloadReportAuto": false
+  },
+  "banner": {
+    "resetTs": 1722006841,
+    "extraCss": "        .cc-banner-logo {max-width: 24em!important;}    @media(min-width: 768px) {.cc-window.cc-floating{max-width: 24em!important;width: 24em!important;}}    .cc-message, .pd-cookie-banner-window .cc-header, .cc-logo {text-align: left}    .cc-window-wrapper{z-index: 2147483647;}    .cc-window{z-index: 2147483647;font-family: inherit;}    .pd-cookie-banner-window .cc-header{font-family: inherit;}    .pd-cp-ui{font-family: inherit; background-color: #FFFFFF;color:#000000;}    button.pd-cp-btn, a.pd-cp-btn{background-color:#000000;color:#FFFFFF!important;}    input + .pd-cp-preferences-slider{background-color: rgba(0, 0, 0, 0.3)}    .pd-cp-scrolling-section::-webkit-scrollbar{background-color: rgba(0, 0, 0, 0.3)}    input:checked + .pd-cp-preferences-slider{background-color: rgba(0, 0, 0, 1)}    .pd-cp-scrolling-section::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, 1)}    .pd-cp-ui-close{color:#000000;}    .pd-cp-preferences-slider:before{background-color: #FFFFFF}    .pd-cp-title:before {border-color: #000000!important}    .pd-cp-preferences-slider{background-color:#000000}    .pd-cp-toggle{color:#000000!important}    @media(max-width:699px) {.pd-cp-ui-close-top svg {fill: #000000}}    .pd-cp-toggle:hover,.pd-cp-toggle:visited,.pd-cp-toggle:active{color:#000000!important}    .pd-cookie-banner-window {}  ",
+    "customJavascript": {
+      "useButtons": true
+    },
+    "showPoweredBy": false,
+    "revokableTrigger": false,
+    "hybridStrict": false,
+    "cookiesBlockedByDefault": "7",
+    "isActive": true,
+    "implicitSavePreferences": false,
+    "cookieIcon": false,
+    "blockBots": false,
+    "showCookiesDetails": true,
+    "hasTransition": true,
+    "blockingPage": false,
+    "showOnlyLandingPage": false,
+    "leaveSiteUrl": "https:\/\/www.google.com",
+    "linkRespectStoreLang": false
+  },
+  "cookies": {
+    "0": [
+      {
+        "name": "secure_customer_sig",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used in connection with customer login."
+        }
+      },
+      {
+        "name": "localization",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Shopify store localization"
+        }
+      },
+      {
+        "name": "cart_currency",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "2 ",
+        "expires": 2,
+        "unit": "declSession",
+        "purpose": {
+          "en": "The cookie is necessary for the secure checkout and payment function on the website. This function is provided by shopify.com."
+        }
+      },
+      {
+        "name": "_cmp_a",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 day(s)",
+        "expires": 1,
+        "unit": "declDays",
+        "purpose": {
+          "en": "Used for managing customer privacy settings."
+        }
+      },
+      {
+        "name": "shopify_pay_redirect",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 hour(s)",
+        "expires": 1,
+        "unit": "declHours",
+        "purpose": {
+          "en": "The cookie is necessary for the secure checkout and payment function on the website. This function is provided by shopify.com."
+        }
+      },
+      {
+        "name": "_tracking_consent",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Tracking preferences."
+        }
+      },
+      {
+        "name": "discount_code",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": -55,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used in connection with checkout."
+        }
+      },
+      {
+        "name": "cart_ts",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 month(s)",
+        "expires": 1,
+        "unit": "declMonths",
+        "purpose": {
+          "en": "Used in connection with checkout."
+        }
+      },
+      {
+        "name": "cart",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 month(s)",
+        "expires": 1,
+        "unit": "declMonths",
+        "purpose": {
+          "en": "Necessary for the shopping cart functionality on the website."
+        }
+      },
+      {
+        "name": "cart_sig",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 month(s)",
+        "expires": 1,
+        "unit": "declMonths",
+        "purpose": {
+          "en": "Shopify analytics."
+        }
+      },
+      {
+        "name": "wpm-test-cookie",
+        "type": "http",
+        "domain": "uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": false,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declSeconds",
+        "purpose": {
+          "en": "Used to ensure our systems are working correctly."
+        }
+      },
+      {
+        "name": "wpm-test-cookie",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declSeconds",
+        "purpose": {
+          "en": "Used to ensure our systems are working correctly."
+        }
+      },
+      {
+        "name": "keep_alive",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "30 minute(s)",
+        "expires": 30,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Used in connection with buyer localization."
+        }
+      },
+      {
+        "name": "_shopify_essential",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used on the accounts page."
+        }
+      }
+    ],
+    "1": [
+      {
+        "name": "fsb_previous_pathname",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Hextom",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": -55,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by Hextom apps"
+        }
+      },
+      {
+        "name": "_pinterest_ct_ua",
+        "type": "http",
+        "domain": ".ct.pinterest.com",
+        "path": "\/",
+        "provider": "Pinterest",
+        "firstParty": false,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used to group actions across pages."
+        }
+      },
+      {
+        "name": "fsb_total_price_289991",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Hextom",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": -55,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      }
+    ],
+    "2": [
+      {
+        "name": "_landing_page",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "2 ",
+        "expires": 2,
+        "unit": "declSession",
+        "purpose": {
+          "en": "Tracks landing pages."
+        }
+      },
+      {
+        "name": "_orig_referrer",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "2 ",
+        "expires": 2,
+        "unit": "declSession",
+        "purpose": {
+          "en": "Tracks landing pages."
+        }
+      },
+      {
+        "name": "_shopify_y",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Shopify analytics."
+        }
+      },
+      {
+        "name": "__cf_bm",
+        "type": "http",
+        "domain": ".afterpay.com",
+        "path": "\/",
+        "provider": "CloudFlare",
+        "firstParty": false,
+        "retention": "30 minute(s)",
+        "expires": 30,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Used to manage incoming traffic that matches criteria associated with bots."
+        }
+      },
+      {
+        "name": "_shopify_s",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "30 minute(s)",
+        "expires": 30,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Shopify analytics."
+        }
+      },
+      {
+        "name": "_shopify_sa_t",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "30 minute(s)",
+        "expires": 30,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Shopify analytics relating to marketing & referrals."
+        }
+      },
+      {
+        "name": "_shopify_sa_p",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "30 minute(s)",
+        "expires": 30,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Shopify analytics relating to marketing & referrals."
+        }
+      },
+      {
+        "name": "_gid",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Google",
+        "firstParty": true,
+        "retention": "1 day(s)",
+        "expires": 1,
+        "unit": "declDays",
+        "purpose": {
+          "en": "Cookie is placed by Google Analytics to count and track pageviews."
+        }
+      },
+      {
+        "name": "_gat",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Google",
+        "firstParty": true,
+        "retention": "1 minute(s)",
+        "expires": 1,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Cookie is placed by Google Analytics to filter requests from bots."
+        }
+      },
+      {
+        "name": "_ga",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Google",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Cookie is set by Google Analytics with unknown functionality"
+        }
+      },
+      {
+        "name": "__cf_bm",
+        "type": "http",
+        "domain": ".conversionbear.com",
+        "path": "\/",
+        "provider": "CloudFlare",
+        "firstParty": false,
+        "retention": "30 minute(s)",
+        "expires": 30,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Used to manage incoming traffic that matches criteria associated with bots."
+        }
+      },
+      {
+        "name": "_shopify_s",
+        "type": "http",
+        "domain": "uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": false,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declSeconds",
+        "purpose": {
+          "en": "Shopify analytics."
+        }
+      },
+      {
+        "name": "_boomr_clss",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Shopify",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used to monitor and optimize the performance of Shopify stores."
+        }
+      },
+      {
+        "name": "_ga_XW8FP9NYX",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Google",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "_ga_XW8FP9NYX7",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Google",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "_ga_88QW0PPR58",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Google",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      }
+    ],
+    "4": [
+      {
+        "name": "_gcl_au",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Google",
+        "firstParty": true,
+        "retention": "3 month(s)",
+        "expires": 3,
+        "unit": "declMonths",
+        "purpose": {
+          "en": "Cookie is placed by Google Tag Manager to track conversions."
+        }
+      },
+      {
+        "name": "_ttp",
+        "type": "http",
+        "domain": ".tiktok.com",
+        "path": "\/",
+        "provider": "TikTok",
+        "firstParty": false,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "To measure and improve the performance of your advertising campaigns and to personalize the user's experience (including ads) on TikTok."
+        }
+      },
+      {
+        "name": "_fbp",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Facebook",
+        "firstParty": true,
+        "retention": "3 month(s)",
+        "expires": 3,
+        "unit": "declMonths",
+        "purpose": {
+          "en": "Cookie is placed by Facebook to track visits across websites."
+        }
+      },
+      {
+        "name": "_tt_enable_cookie",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "TikTok",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used to identify a visitor."
+        }
+      },
+      {
+        "name": "_ttp",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "TikTok",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "To measure and improve the performance of your advertising campaigns and to personalize the user's experience (including ads) on TikTok."
+        }
+      },
+      {
+        "name": "_pin_unauth",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Pinterest",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used to group actions for users who cannot be identified by Pinterest."
+        }
+      },
+      {
+        "name": "__kla_id",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Klaviyo",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Tracks when someone clicks through a Klaviyo email to your website."
+        }
+      },
+      {
+        "name": "swym-session-id",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Swym",
+        "firstParty": true,
+        "retention": "30 minute(s)",
+        "expires": 30,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Used by the SWYM Wishlist Plus Shopify plugin."
+        }
+      },
+      {
+        "name": "swym-pid",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Swym",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by swym application."
+        }
+      },
+      {
+        "name": "IDE",
+        "type": "http",
+        "domain": ".doubleclick.net",
+        "path": "\/",
+        "provider": "Google",
+        "firstParty": false,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "To measure the visitors’ actions after they click through from an advert. Expires after 1 year."
+        }
+      },
+      {
+        "name": "swym-o_s",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Swym",
+        "firstParty": true,
+        "retention": "30 minute(s)",
+        "expires": 30,
+        "unit": "declMinutes",
+        "purpose": {
+          "en": "Used by swym application."
+        }
+      },
+      {
+        "name": "swym-swymRegid",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Amazon",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by swym application."
+        }
+      },
+      {
+        "name": "swym-instrumentMap",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Swym",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by swym application."
+        }
+      },
+      {
+        "name": "swym-cu_ct",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Swym",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by swym application."
+        }
+      },
+      {
+        "name": "fr",
+        "type": "http",
+        "domain": ".facebook.com",
+        "path": "\/",
+        "provider": "Facebook",
+        "firstParty": false,
+        "retention": "3 month(s)",
+        "expires": 3,
+        "unit": "declMonths",
+        "purpose": {
+          "en": "Is used to deliver, measure and improve the relevancy of ads"
+        }
+      },
+      {
+        "name": "lastExternalReferrer",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Facebook",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Detects how the user reached the website by registering their last URL-address."
+        }
+      },
+      {
+        "name": "lastExternalReferrerTime",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Facebook",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Contains the timestamp of the last update of the lastExternalReferrer cookie."
+        }
+      },
+      {
+        "name": "tt_appInfo",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "TikTok",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by the social networking service, TikTok, for tracking the use of embedded services."
+        }
+      },
+      {
+        "name": "tt_sessionId",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "TikTok",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by the social networking service, TikTok, for tracking the use of embedded services."
+        }
+      },
+      {
+        "name": "tt_pixel_session_index",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "TikTok",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by the social networking service, TikTok, for tracking the use of embedded services."
+        }
+      }
+    ],
+    "8": [
+      {
+        "name": "swym-email",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": "Used by swym application."
+        }
+      },
+      {
+        "name": "nibble-shopify",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "2 ",
+        "expires": 2,
+        "unit": "declSession",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "_cfuvid",
+        "type": "http",
+        "domain": ".afterpay.com",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": false,
+        "retention": "Session",
+        "expires": -55,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ccid.62287389",
+        "type": "http",
+        "domain": ".vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "_wiser_csrf_evm",
+        "type": "http",
+        "domain": ".wiser.expertvillagemedia.com",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": false,
+        "retention": "Session",
+        "expires": -55,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ar_debug",
+        "type": "http",
+        "domain": ".pinterest.com",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": false,
+        "retention": "1 year(s)",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "nibble-shopify-cart",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "2 ",
+        "expires": 2,
+        "unit": "declSession",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "cookies.js",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declSeconds",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "__verify",
+        "type": "http",
+        "domain": "vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declSeconds",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-241893121301710-discounted-cart",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-241893121301710-triggers-from-discountcode",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-hideBanner",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-241893121301710-promotionevent-queue",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "di_pmt_wt",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-segColors",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-241893121301710-version",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "TriplePixel",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "auth-security_rand_salt_",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-rconfig_cache",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-devices_timestamp",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-app-data-time",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "cc:seq",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-lastShow",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-codeExpiryLabel",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-products",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-products_timestamp",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-unlimitedPlays",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "tidio_state_idlpoveetpomte3fntcvdmcclq8pr4sq_cache",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "cartToken",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-authn",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-authn_timestamp",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "tidio_state_idlpoveetpomte3fntcvdmcclq8pr4sq",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-applyCodeText",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "fbPixeluserIp",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "tidio_state_idlpoveetpomte3fntcvdmcclq8pr4sq_cartData",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "__wsCartStatus",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "currencyLocationTimestamp",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "true_rand_gen_sequence.dat_tmp",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "289991fsb_target_products_type",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-autoTranslate",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "289991fsb_incurred_fee_products",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-241893121301710-cached-cart-v8",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-devices",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-ab-test-config",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-minSpendLabel",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "EVENTS_MAP",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-fontFamily",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "tidio_state_idlpoveetpomte3fntcvdmcclq8pr4sq_cartItemCount",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-codeCopiedText",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-wishlisthkey_timestamp",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-footerPosition",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-241893121301710-limoniapps.deviceid.v2",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "tp_cart",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-customCSS",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-discountCodeLabel",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "currencyLocation",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "289991fsb_excluded_products",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-currencySymbol",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "swym-rapps_cache",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-app-data",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "tidio_state_idlpoveetpomte3fntcvdmcclq8pr4sq_cartToken",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-windbreaker-large-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-abc-cork-90s-graphic-spellout-crewneck-sweatshirt-xlarge-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ea-spin-wheel-discCodeAppliedText",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "cc-heart-beat",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-trousers-pants-56-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-discountninjatracing",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-trousers-pants-xlarge-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-abercrombie-corduroy-long-sleeve-button-up-shirt-large-beige-cream",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-trigger-pages-visited",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-trigger-time-on-page",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-windbreaker-small-missing-sizing-label-white",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "cc-tab-id",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-triggers-from-discountcode",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-aasics-trousers-30-x-30-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-puffer-jacket-large-missing-sizing-label-grey",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-activa-check-long-sleeve-button-up-shirt-large-green",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-fallback-to-draft-order",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-90s-denim-long-sleeve-button-up-shirt-large-navy-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-shorts-36-grey-1",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-offer-data-XNHXZ",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "snapPixel",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-trigger-exit-intent",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-1st-happy-holiday-crewneck-sweatshirt-xlarge-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-shorts-32-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-21-hue-shirt-large-brown",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "fbPixel",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-shorts-48-grey",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "tiktokPixel",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-aasics-windbreaker-medium-white",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-OriginalReferrer",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-ac-dc-ac-dc-short-sleeve-t-shirt-large-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-acolasia-check-overshirt-long-sleeve-button-up-shirt-large-beige-cream-1",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-abercrombie-fitch-fleece-jumper-small-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-42-cotton-fleece-large-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-country-info",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-hoodie-xsmall-missing-sizing-label-navy-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "dielahws",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-trousers-pants-28-khaki-green",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-shorts-48-navy-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-windbreaker-small-missing-sizing-label-grey",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "fsb_payload",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-sweatshirt-large-red",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-trigger-scroll-percentage",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-trousers-pants-39-navy-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-retro-ski-jacket-heavyweight-bomber-jacket-small-missing-sizing-label-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-entitled-quantity",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-511-511-denim-slim-jeans-pants-34-grey",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "fbEventId",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-full-zip-up-aztec-fleece-jumper-large-grey",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-discountninjalog",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-shorts-42-khaki-green",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-offer-accepted-XNHXZ",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "fbPageViewId",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-trousers-pants-large-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-acdc-sweatshirt-small-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-acolasia-check-overshirt-long-sleeve-button-up-shirt-large-beige-cream",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-session-id",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-fleece-jumper-xlarge-missing-sizing-label-red",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-bucket-product-liquid",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-trigger-pages-visited-list",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-offerinfo-requested-auto-0-39111",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-activa-lumberjack-check-long-sleeve-button-up-shirt-xlarge-navy-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "infiniteFbBrowserPixel",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-cart-adjustment-quantities",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-a-fleur-de-peau-90s-check-quarter-button-fleece-xxlarge-missing-sizing-label-navy-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-trousers-pants-32-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-9n1m-sense-crewneck-heavyweight-plain-sweatshirt-large-green",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "TriplePixelU",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-CartValue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-24-fitness-24-hour-crewneck-sweatshirt-large-white",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "_kla_test",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "local-storage-test",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "true_rand_gen_sequence.dat_",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "session-storage-test",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ccart-storage-test-key",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "lstest",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "testSupportsCacheSession",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-offerinfo-auto-0-39111-valid-in-session",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "ccart-testo",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "testSupportsCacheLocal",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-active-trousers-pants-32-navy-blue",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "beacon",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "true_rand_gen_sequence.math_",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-bucket-product-api",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "cc-ts-GajTfh",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "bugsnag-anonymous-id",
+        "type": "html_local",
+        "domain": "https:\/\/pay.shopify.com",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": false,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-standard-vintage-mystery-box",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-premium-vintage-mystery-box-8-item",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-rework-single-mystery-box",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "rc::c",
+        "type": "html_session",
+        "domain": "https:\/\/www.google.com",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": false,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-campia-moda-shirt-xlarge-black",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "usf-scroll",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-vintage-mystery-single-item-box",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "rc::a",
+        "type": "html_local",
+        "domain": "https:\/\/www.google.com",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": false,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-rework-triple-item-mystery-box",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "la-dn-v8-GBP-vintage-mystery-double-item-box",
+        "type": "html_session",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Session",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "cc-ts-7FxVBp",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      },
+      {
+        "name": "cc-ts-ps9Qax",
+        "type": "html_local",
+        "domain": "https:\/\/vintageclub.uk",
+        "path": "\/",
+        "provider": "Unknown",
+        "firstParty": true,
+        "retention": "Persistent",
+        "expires": 1,
+        "unit": "declYears",
+        "purpose": {
+          "en": ""
+        }
+      }
+    ]
+  },
+  "blocker": {
+    "isActive": false,
+    "googleConsentMode": {
+      "id": "",
+      "analyticsId": "",
+      "adwordsId": "",
+      "isActive": false,
+      "adStorageCategory": 4,
+      "analyticsStorageCategory": 2,
+      "personalizationStorageCategory": 1,
+      "functionalityStorageCategory": 1,
+      "customEvent": false,
+      "securityStorageCategory": 0,
+      "redactData": false,
+      "urlPassthrough": false,
+      "dataLayerProperty": "dataLayer",
+      "waitForUpdate": 0,
+      "useNativeChannel": false
+    },
+    "facebookPixel": {
+      "id": "",
+      "isActive": false,
+      "ldu": false
+    },
+    "microsoft": {},
+    "rakuten": {
+      "isActive": false,
+      "cmp": false,
+      "ccpa": false
+    },
+    "klaviyoIsActive": false,
+    "gpcIsActive": false,
+    "defaultBlocked": 7,
+    "patterns": {
+      "whiteList": [],
+      "blackList": {
+        "1": [],
+        "2": [],
+        "4": [],
+        "8": []
+      },
+      "iframesWhiteList": [],
+      "iframesBlackList": {
+        "1": [],
+        "2": [],
+        "4": [],
+        "8": []
+      },
+      "beaconsWhiteList": [],
+      "beaconsBlackList": {
+        "1": [],
+        "2": [],
+        "4": [],
+        "8": []
+      }
+    }
+  }
+}

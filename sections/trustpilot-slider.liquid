@@ -1,0 +1,180 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+
+{% stylesheet %}
+.tus-slider {
+    padding: 40px 0;
+    background-image: linear-gradient(180deg, rgba(206, 239, 199, 1), rgba(255, 255, 255, 1) 100%);
+}
+  .tus-item svg {
+       max-width: 115px;
+    height: 32px;
+}
+
+.tus-slider .tus-title_wrap {
+    margin: 0 0 30px;
+    text-align: center;
+}
+
+.tus-slider .tus-title_wrap .tus-sb-wrap p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.tus-slider_wrap .tus-item {
+    padding: 16px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-bottom: 34px;
+}
+
+.tus-slider .swiper-pagination {
+    bottom: -6px !important;
+}
+
+.tus-slider .swiper-pagination span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #00b67a;
+}
+
+.tus-slider_wrap .tus-item img {
+    margin-bottom: 9px;
+}
+
+@media (max-width: 768px) { 
+    .tus-slider .tus-title_wrap h2 {
+    font-size: 24px;
+    line-height: 1.4;
+}
+
+}
+{% endstylesheet %}
+
+<div class="tus-slider">
+    <div class="t4s-container">
+    <div class="tus-title_wrap">
+        <h2>{{ section.settings.heading }}</h2>
+        <div class="tus-sb-wrap">
+            {{ section.settings.subhead }}
+        </div>
+        <p> {{ section.settings.subtext }}</p>
+    </div>
+    <div class="tus-slider_wrap swiper-container">
+        <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+            
+                <div class="tus-item swiper-slide">
+                    {% if block.settings.tsicon != blank %}
+                     <img src="{{ block.settings.tsicon | image_url: width: 120 }}" alt="{{ block.settings.title }}"> 
+                     {% else %}
+                    <div class="star-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="469" width="2500" viewBox="0 0 512 96"><g fill="none"><g fill="#00b67a"><path d="M0 0h96v96H0zM104 0h96v96h-96zM208 0h96v96h-96zM312 0h96v96h-96zM416 0h96v96h-96z"></path></g><path d="M48 64.7L62.6 61l6.1 18.8zm33.6-24.3H55.9L48 16.2l-7.9 24.2H14.4l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM152 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L152 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM256 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L256 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM360 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L360 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM464 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L464 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2z" fill="#fff"></path></g></svg>
+                    </div>
+                    {% endif %}
+                    
+                    <h4 class="tus-item-title">{{ block.settings.name }}</h4>
+                    <div class="content">
+                        {{ block.settings.content }}
+                    </div>
+
+                    <p>{{ block.settings.rname }}</p>
+                </div>
+            {% endfor %}
+            </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+</div>
+
+
+
+  <script>
+    $(document).ready(function() {
+// Swiper: Slider
+    new Swiper('.swiper-container', {
+        loop: false,
+        slidesPerView: 3,
+          pagination: '.swiper-pagination',
+           paginationClickable: true,
+        spaceBetween: 20,
+        breakpoints: {
+            1920: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            },
+            1028: {
+                slidesPerView: 2,
+                spaceBetween: 30
+            },
+            480: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            }
+        }
+    });
+});
+
+
+    </script>
+
+{%  schema  %}  
+    {
+  "name": "Trustpilot Slider",
+  "settings": [
+     {
+          "type": "text",
+          "id": "heading",
+          "label": "Title"
+    },
+     {
+          "type": "richtext",
+          "id": "subhead",
+          "label": "Subheading"
+    },
+     {
+          "type": "text",
+          "id": "subtext",
+          "label": "Sub Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trustpilot",
+      "name": "trustpilot Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "tsicon",
+          "label": "trustpilot Logo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Review Title"
+        },
+         {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+         {
+          "type": "text",
+          "id": "rname",
+          "label": "Reviewer Name"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Trustpilot Slider",
+      "category": "Custom"
+    }
+  ]
+}
+
+{% endschema %}

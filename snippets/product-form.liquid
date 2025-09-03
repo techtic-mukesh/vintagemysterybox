@@ -1,0 +1,1784 @@
+{%- assign product_form_id = 'product-form-' | append: pr_se_id -%}
+{%- liquid 
+  assign pr_variants = product.variants
+  assign PR_buy_pr = false
+  if bk_stts.show_dynamic_checkout and isExternal == false and isProductAvailable
+    assign PR_buy_pr = true 
+  endif
+  assign choose_an_option = 'products.product.choose_an_option' | t
+  assign date_in = settings.date_in
+  assign class_frm = 't4s-form__product has--form__swatch'
+  if isProductDefault
+    assign class_frm = 't4s-form__product'
+  endif
+  if arr_properties.size > 0 and isProductAvailable
+      assign class_frm =  class_frm | append: ' has--properties'
+  endif
+  if settings.sticky_atc and type == 'main'
+    assign class_frm =  class_frm | append: ' is--main-sticky'
+  else if settings.sticky_atc and type == 'main_sticky'
+    assign class_frm =  class_frm | append: ' is--atc-sticky'
+  endif
+
+  assign color_swatch    = 'disabled-'
+  assign color_mode      = bk_stts.color_mode
+  assign selector_mode   = bk_stts.selector_mode
+  assign stt_color_ck    = settings.color_ck | default: ';'
+  assign color_ck        = stt_color_ck | append: ',color,colors,couleur,colour' | remove: ';,'
+  assign get_color       = color_ck | downcase | replace: ' ,', ',' | replace: ', ', ',' | split: ',' | uniq
+  assign color_mode_list = 'color, color is-sw-cl__round, variant_image, variant_image is-sw-cl__round' | split: ', '
+  if color_mode_list contains color_mode
+    assign color_swatch  = 'is-sw__color '
+  endif
+  assign current_variant_available = current_variant.available
+  assign use_incoming_mess = settings.use_incoming_mess
+  assign current_variant_incoming = false
+  assign current_inventory_quantity = current_variant.inventory_quantity
+  if current_inventory_quantity <= 0 and current_variant.inventory_management == 'shopify' and current_variant.incoming
+  assign current_variant_incoming = true
+  endif
+  if pos_sizeg == '1'
+    assign html_sizeg = ''
+  endif
+  if current_variant.inventory_management != null and current_inventory_quantity > 0 and current_variant.inventory_policy != 'continue'
+    assign max_qty = current_inventory_quantity
+  else
+    assign max_qty = 9999
+  endif
+  if current_variant.quantity_rule.max and max_qty > current_variant.quantity_rule.max
+     assign max_qty = current_variant.quantity_rule.max
+  endif
+  if color_mode contains 'color' or color_mode contains 'variant'
+  assign show_tooltip = ''
+  else
+  assign show_tooltip = '-off'
+  endif
+-%}
+{%- liquid
+  assign gift_card_recipient_feature_active = false
+  if bk_stts.show_gift_card_recipient and product.gift_card?
+    assign gift_card_recipient_feature_active = true
+    assign PR_buy_pr = false
+  endif
+-%}
+
+{%- if color_mode == 'dropdown' or selector_mode == 'dropdown' %}<link rel="stylesheet" href="{{ 'base_drop.min.css' | asset_url }}" media="all">{% endif -%}
+
+<div class="t4s-product-form__variants is-no-pick__{{ PR_no_pick }}{% if PR_buy_pr %} is-payment-btn-true t4s-payment-button t4s-btn-color-{{ bk_stts.button_color_payment }}{% endif %}  is-remove-soldout-{{ remove_soldout }} is-btn-full-width__{{ bk_stts.btn_atc_full }} is-btn-atc-txt-{{ bk_stts.btn_txt }} is-btn-ck-txt-{{ bk_stts.btn_txt2 }} is--fist-ratio-{{ is_fit_ratio_img }}" style="{% if is_fit_ratio_img %};--fit-ratio-img:{{ first_ratio_img }};{% endif %} --wishlist-color: {{ bk_stts.wishlist_color }};--wishlist-hover-color: {{ bk_stts.wishlist_color_hover }};--wishlist-active-color: {{ bk_stts.wishlist_color_active }};--compare-color: {{ bk_stts.compare_color }};--compare-hover-color: {{ bk_stts.compare_color_hover }};--compare-active-color: {{ bk_stts.compare_color_active }};" {{ shopify_attributes }}>
+  <div data-callBackVariant id="t4s-callBackVariant{{ product_form_id }}">
+    {%- form 'product', product, id: product_form_id, data-productid: product.id, class: class_frm, novalidate: 'novalidate', data-type: 'add-to-cart-form', data-disable-swatch: isProductDefault -%}
+        
+      {{- form | payment_terms -}}
+
+      {%- if isProductDefault -%}
+        <input name="id" value="{{ pr_variants.first.id }}" type="hidden">
+        {%- if advance_pr_type != blank %}{% render 'choose_style', advance_pr_type: advance_pr_type, title: advance_label, pid: product.id %}{% endif -%}
+
+      {%- else -%}
+
+        {{ 'swatch.css' | asset_url | stylesheet_tag }}
+        <select name="id" id="product-select-{{ pr_se_id }}" class="t4s-product__select t4s-d-none">
+        {%- for variant in pr_variants -%}
+          {%- if variant.available -%}
+            <option value="{{ variant.id }}" data-mdid="{{ variant.featured_media.id | json }}" data-incoming="{{ variant.incoming }}" data-inventoryQuantity="{{ variant.inventory_quantity | json }}" data-inventoryPolicy={{ variant.inventory_policy | json }} data-nextIncomingDate="{{ variant.next_incoming_date | date: date_in }}"{% if variant.id == current_variant.id %} selected="selected"{% endif %}>{{ variant.title | escape }}</option>
+          {%- else -%}
+            <option value="{{ variant.id }}" data-mdid="{{ variant.featured_media.id | json }}" data-incoming="{{ variant.incoming }}" data-inventoryQuantity="{{ variant.inventory_quantity | json }}" data-inventoryPolicy={{ variant.inventory_policy | json }} data-nextIncomingDate="{{ variant.next_incoming_date | date: date_in }}"{% if remove_soldout %} disabled="disabled"{% endif %} class="is--sold-out">{{ variant.title | escape }}</option>
+          {%- endif -%}
+        {%- endfor -%}
+        </select>
+
+        <div class="t4s-swatch t4s-color-mode__{{ color_mode }} t4s-color-size__{{ bk_stts.color_size }} t4s-selector-mode__{{ selector_mode }}">
+          
+          {%- if advance_pr_type != blank %}{% render 'choose_style', advance_pr_type: advance_pr_type, title: advance_label, pid: product.id %}{% endif -%}
+            
+          {%- for option in product.options_with_values -%}
+
+            {%- liquid
+              if option.values.size == 1
+                assign selected_value = option.values.first
+              else
+                assign option_index   = 'option' | append: forloop.index
+                assign selected_value = current_variant[option_index]
+              endif
+              assign option_name    = option.name
+              assign name_downcase  = option_name | downcase
+            -%}
+            
+            {%- if get_color contains name_downcase -%}
+              
+              <div data-swatch-option data-id="{{ forloop.index0 }}" class="t4s-swatch__option is-t4s-style__color is-t4s-name__{{ option_name | handle }} {% cycle 'is--first-color', '', '' %}">
+                <h4 class="t4s-swatch__title"><span>{{ option_name }}: <span data-current-value class="t4s-dib t4s-swatch__current">{{ selected_value | default: choose_an_option }}</span></span>{% if name_sizeg == name_downcase %}{{ html_sizeg }}{% endif %}</h4>
+                <div data-swatch-list class="t4s-swatch__list">
+                  {%- if color_mode != 'dropdown' -%}
+                    {%- for value in option.values -%}
+                    <div data-swatch-item data-tooltip{{ show_tooltip }}="top" title="{{ value | escape }}" class="t4s-swatch__item {{ color_swatch }}bg_color_{{ value | handle }} lazyloadt4s{% if selected_value == value %} is--selected{% endif %}" data-value="{{ value | escape }}">{{ value }}</div>
+                    {%- endfor -%}
+
+                  {%- else -%}
+                    <button type="button" data-dropdown-open data-position="bottom-end" data-id="t4s_nt_{{ pr_se_id }}{{ forloop.index }}"><span  data-current-value>{{ selected_value | default: choose_an_option }}</span><svg class="t4s-icon-select-arrow" role="presentation" viewBox="0 0 19 12"><use xlink:href="#t4s-select-arrow"></use></svg></button>
+                    <div data-dropdown-wrapper class="t4s-dropdown__wrapper t4s-current-scrollbar" id="t4s_nt_{{ pr_se_id }}{{ forloop.index }}">
+                      <div class="t4s-drop-arrow"></div>
+                      <div class="t4s-dropdown__header">
+                        <span class="t4s-dropdown__title">{{ option_name }}: <span data-current-value>{{ selected_value | default: choose_an_option }}</span></span>
+                          <button type="button" data-dropdown-close aria-label="{{ 'general.aria.close' | t }}"><svg role="presentation" class="t4s-iconsvg-close" viewBox="0 0 16 14"><path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path></svg></button>
+                      </div>
+                      <div class="t4s-dropdown__content">
+                          {%- for value in option.values -%}
+                          <div data-swatch-item data-dropdown-off class="t4s-swatch__item t4s-truncate {{ color_swatch }}bg_color_{{ value | handle }} lazyloadt4s{% if selected_value == value %} is--selected{% endif %}" data-value="{{ value | escape }}">{{ value }}</div>
+                          {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- else -%}
+
+              <div data-swatch-option data-id="{{ forloop.index0 }}" class="t4s-swatch__option is-t4s-name__{{ option_name | handle }}">
+                <h4 class="t4s-swatch__title"><span>{{ option_name }}: <span data-current-value class="t4s-dib t4s-swatch__current">{{ selected_value | default: choose_an_option }}</span></span>{% if name_sizeg == name_downcase %}{{ html_sizeg }}{% endif %}
+                {% assign option_name_lower = option_name | downcase %}
+                  {% if option_name_lower == 'size' %}
+                    <span class="recommended_size">Recommended to <a href="javascript:void(0)">size up +1</a></span>
+                  {% endif %}
+                  </h4>
+
+            
+                <div class="t4s-swatch__list {{ option_name_lower }}">
+                  {%- if selector_mode != 'dropdown' -%}
+                    {%- for value in option.values -%}
+                    <div data-swatch-item class="t4s-swatch__item{% if selected_value == value %} is--selected{% endif %}" data-value="{{ value | escape }}">{{ value }}</div>
+                    {%- endfor -%}
+
+                  {%- else -%}
+                    <button type="button" data-dropdown-open data-position="bottom-end" data-id="t4s_nt_{{ pr_se_id }}{{ forloop.index }}"><span data-current-value>{{ selected_value | default: choose_an_option }}</span><svg class="t4s-icon-select-arrow" role="presentation" viewBox="0 0 19 12"><use xlink:href="#t4s-select-arrow"></use></svg></button>
+                    <div data-dropdown-wrapper class="t4s-dropdown__wrapper t4s-current-scrollbar" id="t4s_nt_{{ pr_se_id }}{{ forloop.index }}">
+                      <div class="t4s-drop-arrow"></div>
+                      <div class="t4s-dropdown__header">
+                        <span class="t4s-dropdown__title">{{ option_name }}: <span data-current-value>{{ selected_value | default: choose_an_option }}</span></span>
+                          <button type="button" data-dropdown-close aria-label="{{ 'general.aria.close' | t }}"><svg role="presentation" class="t4s-iconsvg-close" viewBox="0 0 16 14"><path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path></svg></button>
+                      </div>
+                      <div class="t4s-dropdown__content">
+                          {%- for value in option.values -%}
+                          <div data-swatch-item data-dropdown-off class="t4s-swatch__item t4s-truncate{% if selected_value == value %} is--selected{% endif %}" data-value="{{ value | escape }}">{{ value }}</div>
+                          {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                 {% if option_name_lower == 'size' %}
+                  {% if product.type == 'Retro Football Shirt' or product.type == 'Mystery Box' %}
+                    <a href="javascript:void(0)" class="size-guide">Size guide</a>
+                  {% endif %}
+                {% endif %}
+
+
+              </div>
+
+              {%- comment -%}
+Add this code right after the existing properties section in your product form
+Look for the section that renders 'frm_properties' and add this after it
+{%- endcomment -%}
+{% if product.type == 'Retro Football Shirt' %}
+{%- if isProductAvailable -%}
+  {%- comment -%} Custom Name/Number Printing Option {%- endcomment -%}
+  <div class="t4s-custom-options-wrapper">
+    
+    {%- comment -%} Name/Number Printing Option - Radio Buttons {%- endcomment -%}
+    <div class="t4s-custom-option-group">
+      <label class="t4s-custom-option-label">
+        Name/Number Printing?
+      </label>
+      <div class="t4s-radio-group">
+        <label class="t4s-radio-option">
+          <input type="radio" name="properties[Printing]" value="Yes Please!" class="t4s-radio-input">
+          <span class="t4s-radio-custom"></span>
+          <span class="t4s-radio-text">Yes (+£3)</span>
+        </label>
+        <label class="t4s-radio-option active">
+          <input type="radio" name="properties[Printing]" value="No Thanks" class="t4s-radio-input" checked>
+          <span class="t4s-radio-custom"></span>
+          <span class="t4s-radio-text">No</span>
+        </label>
+      </div>
+    </div>
+
+    {%- comment -%} Sleeve Patch Option - Radio Buttons {%- endcomment -%}
+    <div class="t4s-custom-option-group">
+      <label class="t4s-custom-option-label">
+        Sleeve Patch?
+      </label>
+      <div class="t4s-radio-group">
+        <label class="t4s-radio-option">
+          <input type="radio" 
+                 name="properties[Sleeve Patch]" 
+                 value="Yes (+£3)" 
+                 class="t4s-radio-input t4s-patch-selector" 
+                 data-base-price="{{ current_variant.price }}"
+                 data-product-id="{{ product.id }}"
+                 data-patch-product-id="15157668413818"
+                 data-patch-variant="55518491443578" 
+                 data-price="300">
+          <span class="t4s-radio-custom"></span>
+          <span class="t4s-radio-text">Yes (+£3)</span>
+        </label>
+        {% comment %} <label class="t4s-radio-option">
+          <input type="radio" 
+                 name="properties[Sleeve Patch]" 
+                 value="Premier League (+£6.99)" 
+                 class="t4s-radio-input t4s-patch-selector" 
+                 data-base-price="{{ current_variant.price }}"
+                 data-product-id="{{ product.id }}"
+                 data-patch-product-id="15157668413818"
+                 data-patch-variant="55518491476346" 
+                 data-price="699">
+          <span class="t4s-radio-custom"></span>
+          <span class="t4s-radio-text">Premier League (+£6.99)</span>
+        </label> {% endcomment %}
+        <label class="t4s-radio-option active">
+          <input type="radio" 
+                 name="properties[Sleeve Patch]" 
+                 value="No Patch" 
+                 class="t4s-radio-input t4s-patch-selector" 
+                 data-base-price="{{ current_variant.price }}"
+                 data-product-id="{{ product.id }}"
+                 data-patch-product-id="15157668413818"
+                 data-patch-variant="" 
+                 data-price="0"
+                 checked>
+          <span class="t4s-radio-custom"></span>
+          <span class="t4s-radio-text">No Patch</span>
+        </label>
+      </div>
+      <div class="price-addon-display"></div>
+    </div>
+
+    {%- comment -%} Optional Text Area - Hidden by default {%- endcomment -%}
+    <div class="t4s-custom-option-group t4s-text-area-group" style="display: none;">
+      <label for="custom-text-{{ product.id }}" class="t4s-custom-option-label">
+        Type Name & Number here.. (optional)
+      </label>
+      <div class="t4s-custom-textarea-wrapper">
+        <textarea 
+          id="custom-text-{{ product.id }}" 
+          name="properties[Custom Text]" 
+          class="t4s-custom-textarea" 
+          placeholder="Enter your custom text here..."
+          maxlength="50"
+          rows="3"></textarea>
+        <div class="t4s-character-count">
+          <span class="t4s-char-current">0</span>/<span class="t4s-char-max">50</span>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Price Summary {%- endcomment -%}
+    <div class="t4s-price-summary" style="display: none;">
+      <div class="price-breakdown">
+        <div class="base-price">Product: <span class="base-amount">{{ current_variant.price | money }}</span></div>
+        <div class="addon-price" style="display: none;">Patch: <span class="addon-amount">£0.00</span></div>
+        <div class="total-price"><strong>Total: <span class="total-amount">{{ current_variant.price | money }}</span></strong></div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Enhanced CSS Styles {%- endcomment -%}
+  <style>
+    .t4s-custom-options-wrapper {
+      margin: 20px 0 0;
+      padding: 20px 0;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .t4s-custom-option-group {
+      margin-bottom: 20px;
+    }
+
+    .t4s-custom-option-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .t4s-radio-group {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .t4s-radio-option {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 10px 20px;
+      border: 1px solid #d3d1d1;
+      transition: all 0.2s ease;
+    }
+
+    .t4s-radio-option:hover {
+      background-color: #f8f9fa;
+      border-color: #007bff;
+    }
+
+    .t4s-radio-option.active {
+        background-color: #f0f0f0;
+    border-color: #222;
+    }
+
+    .t4s-radio-option.active:after {
+    content: '';
+}
+
+    .t4s-radio-input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .t4s-radio-custom {
+      position: relative;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+      background-color: #fff;
+    }
+
+    .t4s-radio-input:checked + .t4s-radio-custom {
+        border-color: #265d04;
+    background-color: #265d04;
+    }
+
+    .t4s-radio-input:checked + .t4s-radio-custom::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .t4s-radio-input:focus + .t4s-radio-custom {
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    .t4s-radio-text {
+      font-size: 14px;
+      color: #333;
+      user-select: none;
+    }
+
+    .price-addon-display {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #28a745;
+      font-weight: 500;
+      min-height: 16px;
+    }
+
+    .price-addon-display:empty {
+      display: none;
+    }
+
+    .t4s-price-summary {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+      border: 1px solid #e9ecef;
+    }
+
+    .price-breakdown {
+      font-size: 14px;
+    }
+
+    .price-breakdown > div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .price-breakdown .total-price {
+      border-top: 1px solid #ddd;
+      padding-top: 8px;
+      margin-top: 8px;
+      font-size: 16px;
+    }
+
+    .addon-price {
+      color: #28a745;
+    }
+
+    .t4s-custom-textarea-wrapper {
+      position: relative;
+    }
+
+    .t4s-custom-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.3s ease;
+    }
+
+    .t4s-custom-textarea:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    .t4s-character-count {
+      text-align: right;
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .t4s-char-current {
+      font-weight: 500;
+    }
+
+    .t4s-text-area-group {
+      transition: all 0.3s ease;
+      margin-bottom: 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .t4s-custom-options-wrapper {
+        margin: 15px 0;
+        padding: 15px 0;
+      }
+
+      .t4s-custom-option-group {
+        margin-bottom: 15px;
+      }
+
+      .t4s-custom-textarea {
+        padding: 10px 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+
+      .t4s-radio-group {
+        gap: 8px;
+      }
+
+      .t4s-radio-option {
+        padding: 8px 12px;
+      }
+    }
+  </style>
+
+  {%- comment -%} JavaScript for Handling Both Products {%- endcomment -%}
+  <script> 
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Enhanced function to add selected patch to cart
+  function addSelectedPatchToCart() {
+    console.log('Starting addSelectedPatchToCart function');
+    
+    // Get the selected patch details
+    const selectedVariantId = window.selectedPatchVariant;
+    const selectedPatchType = window.selectedPatchType;
+    const selectedPatchPrice = window.selectedPatchPrice;
+    
+    console.log('Selected patch details:', {
+      variantId: selectedVariantId,
+      type: selectedPatchType,
+      price: selectedPatchPrice
+    });
+    
+    // Only proceed if a patch variant is selected (not "No Patch" or empty)
+    if (!selectedVariantId || selectedVariantId === '' || selectedVariantId === 'undefined') {
+      console.log('No patch selected, skipping patch addition');
+      return Promise.resolve();
+    }
+    
+    return fetch('/cart.js')
+      .then(response => response.json())
+      .then(cart => {
+        console.log('Current cart:', cart);
+        
+        // Check if this specific patch variant is already in cart
+        const patchInCart = cart.items.some(item => item.variant_id == selectedVariantId);
+
+        var qtyInput = document.querySelector('.t4s-quantity-input');
+        var currentQty = qtyInput ? parseInt(qtyInput.getAttribute('data-current-qty')) || 1 : 1;
+        
+        if (patchInCart) {
+          console.log('Selected patch already in cart, skipping addition');
+          return Promise.resolve();
+        }
+        
+        // Add the selected patch variant to cart
+        console.log(`Adding patch variant ID: ${selectedVariantId}, quantity: ${currentQty}`);
+        
+        return fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ 
+            items: [{ 
+              id: parseInt(selectedVariantId), 
+              quantity: currentQty
+            }] 
+          })
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.text().then(text => {
+              console.error('Patch add error response:', text);
+              throw new Error(`Failed to add patch to cart: ${response.status} - ${text}`);
+            });
+          }
+          return response.json();
+        })
+        .then(addResult => {
+          console.log('Patch added successfully:', addResult);
+          
+          // Refresh cart display
+          if (typeof jQuery !== 'undefined') {
+            jQuery.getJSON('/cart.js', function (updatedCart) {
+              document.dispatchEvent(new CustomEvent('cart:build', { bubbles: true }));
+              document.dispatchEvent(new CustomEvent('cart:refresh', {
+                bubbles: true,
+                detail: updatedCart.items
+              }));
+            });
+          }
+          
+          return addResult;
+        });
+      })
+      .catch(error => {
+        console.error('Error adding selected patch:', error);
+        throw error;
+      });
+  }
+
+  // Enhanced function to add main product and patch together
+  function addMainProductWithPatch() {
+    console.log('Starting addMainProductWithPatch function');
+    
+    // Get main product form data
+    const productForm = document.querySelector('.t4s-product-form, .product-form, form[action*="/cart/add"]');
+    if (!productForm) {
+      console.error('Product form not found');
+      return Promise.reject('Product form not found');
+    }
+    
+    const formData = new FormData(productForm);
+    const mainVariantId = formData.get('id');
+    const quantity = parseInt(formData.get('quantity')) || 1;
+    
+    if (!mainVariantId) {
+      console.error('Main product variant ID not found');
+      return Promise.reject('Main product variant ID not found');
+    }
+    
+    console.log('Main product details:', {
+      variantId: mainVariantId,
+      quantity: quantity
+    });
+    
+    // Get current selections
+    const printingSelection = formData.get('properties[Printing]');
+    const patchSelection = formData.get('properties[Sleeve Patch]');
+    
+    console.log('Current selections:', {
+      printing: printingSelection,
+      patch: patchSelection
+    });
+    
+    // Get properties
+    const properties = {};
+    if (formData.get('properties[Printing]')) {
+      properties['Printing'] = formData.get('properties[Printing]');
+    }
+    if (formData.get('properties[Sleeve Patch]')) {
+      properties['Sleeve Patch'] = formData.get('properties[Sleeve Patch]');
+    }
+    if (formData.get('properties[Custom Text]')) {
+      properties['Custom Text'] = formData.get('properties[Custom Text]');
+    }
+    
+    // Prepare items array - always include main product
+    const itemsToAdd = [{
+      id: mainVariantId,
+      quantity: quantity,
+      properties: properties
+    }];
+    
+    // NEW LOGIC: Handle conditions based on Printing and Patch selections
+    
+    // Special handling when Printing = "Yes Please!" (regardless of patch selection)
+    if (printingSelection === 'Yes Please!') {
+      console.log('Printing selected: Yes Please! - Adding printing product');
+      
+      // Determine which variant to add based on patch selection
+      let printingVariantId, printingPrice;
+      
+      if (patchSelection === 'No Patch') {
+        // Only printing selected - add £3 product
+        printingVariantId = '55518491443578'; // £3 variant ID
+        printingPrice = 300; // 300 pence = £3.00
+      } else {
+        // Both printing and patch selected - add £6 product
+        printingVariantId = '55518491476346'; // Existing £6 product
+        printingPrice = 600; // 600 pence = £6.00
+      }
+      
+      // Update price display
+      const basePrice = parseInt(document.querySelector('.t4s-patch-selector')?.dataset.basePrice) || 0;
+      updatePriceDisplay(basePrice, printingPrice);
+      
+      // Update global variables
+      window.selectedPatchVariant = printingVariantId;
+      window.selectedPatchType = patchSelection || 'No Patch';
+      window.selectedPatchPrice = printingPrice;
+      
+      // Add the printing variant
+      console.log(`Adding printing variant ID: ${printingVariantId} with quantity: ${quantity}`);
+      itemsToAdd.push({
+        id: parseInt(printingVariantId),
+        quantity: quantity
+      });
+    }
+    
+    // Default case: Use original logic for other combinations
+    else {
+      const selectedVariantId = window.selectedPatchVariant;
+      if (selectedVariantId && selectedVariantId !== '' && selectedVariantId !== 'undefined') {
+        console.log(`Adding regular patch variant ID: ${selectedVariantId} with quantity: ${quantity}`);
+        itemsToAdd.push({
+          id: parseInt(selectedVariantId),
+          quantity: quantity
+        });
+      } else {
+        console.log('No patch selected or invalid patch variant ID');
+      }
+    }
+    
+    console.log('Final items to add:', itemsToAdd);
+    
+    return fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ items: itemsToAdd })
+    })
+    .then(response => {
+      console.log('Cart add response status:', response.status);
+      if (!response.ok) {
+        return response.text().then(text => {
+          console.error('Cart add error response:', text);
+          throw new Error(`Failed to add items to cart: ${response.status} - ${text}`);
+        });
+      }
+      return response.json();
+    })
+    .then(addResult => {
+      console.log('Items added successfully:', addResult);
+      
+      // Enhanced cart refresh
+      return new Promise((resolve) => {
+        if (typeof jQuery !== 'undefined') {
+          jQuery.getJSON('/cart.js', function (updatedCart) {
+            console.log('Updated cart after addition:', updatedCart);
+            
+            document.dispatchEvent(new CustomEvent('cart:build', { bubbles: true }));
+            document.dispatchEvent(new CustomEvent('cart:refresh', {
+              bubbles: true,
+              detail: updatedCart.items
+            }));
+            
+            // Small delay to ensure cart is updated
+            setTimeout(() => resolve(addResult), 100);
+          });
+        } else {
+          resolve(addResult);
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Error in addMainProductWithPatch:', error);
+      throw error;
+    });
+  }
+
+  // Function to verify patch is in cart
+  function verifyPatchInCart(patchVariantId) {
+    return fetch('/cart.js')
+      .then(response => response.json())
+      .then(cart => {
+        const patchInCart = cart.items.some(item => item.variant_id == patchVariantId);
+        console.log(`Patch verification: ${patchInCart ? 'Found' : 'Not found'} in cart`);
+        return patchInCart;
+      })
+      .catch(error => {
+        console.error('Error verifying patch in cart:', error);
+        return false;
+      });
+  }
+
+  function addPopupProductToCart() {
+    console.log('Starting addPopupProductToCart function');
+
+    const checkoutButton = document.querySelector('button[name="checkout"]');
+
+    return fetch('/products/sleeve-patch.js')
+      .then(response => response.json())
+      .then(product => {
+        console.log('Popup product fetched:', product);
+        const variantId = product.variants.length > 0 ? product.variants[0].id : null;
+
+        if (!variantId) {
+          console.error('No available variants for popup product.');
+          return Promise.reject('No variants available');
+        }
+
+        return fetch('/cart.js')
+          .then(response => response.json())
+          .then(cart => {
+            console.log('Cart fetched:', cart);
+
+            const popupInCart = cart.items.some(item => item.variant_id == variantId);
+            if (popupInCart) {
+              console.log('Popup product already in cart, skipping addition');
+              return Promise.resolve();
+            }
+
+            console.log(`Adding popup product (variant ID: ${variantId}), quantity: 1`);
+            return fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+            })
+            .then(response => {
+              if (!response.ok) throw new Error(`Failed to add popup item to cart: ${response.status}`);
+              return response.json();
+            })
+            .then(addResult => {
+              console.log('Popup product added successfully:', addResult);
+              return addResult;
+            });
+          });
+      });
+  }
+  
+  const patchSelectors = document.querySelectorAll('.t4s-patch-selector');
+  const printingSelectors = document.querySelectorAll('input[name="properties[Printing]"]');
+  const textareas = document.querySelectorAll('.t4s-custom-textarea');
+  const textAreaGroup = document.querySelector('.t4s-text-area-group');
+  
+  // Function to handle active class for radio buttons
+  function handleActiveClass(radioGroup) {
+    const radios = radioGroup.querySelectorAll('input[type="radio"]');
+    
+    radios.forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        // Remove active class from all labels in this group
+        radioGroup.querySelectorAll('.t4s-radio-option').forEach(function(label) {
+          label.classList.remove('active');
+        });
+        
+        // Add active class to the selected label
+        if (this.checked) {
+          this.closest('.t4s-radio-option').classList.add('active');
+        }
+      });
+    });
+  }
+  
+  // Apply active class handling to all radio groups
+  document.querySelectorAll('.t4s-radio-group').forEach(handleActiveClass);
+  
+  // Character counter for textarea
+  textareas.forEach(function(textarea) {
+    const charCurrent = textarea.parentElement.querySelector('.t4s-char-current');
+    
+    textarea.addEventListener('input', function() {
+      if (charCurrent) {
+        charCurrent.textContent = this.value.length;
+      }
+    });
+  });
+  
+  // Enhanced patch selection handler
+  function handlePatchSelection() {
+    patchSelectors.forEach(function(radio) {
+      const basePrice = parseInt(radio.dataset.basePrice) || 0;
+      
+      radio.addEventListener('change', function() {
+        if (this.checked) {
+          const addonPrice = parseInt(this.dataset.price) || 0;
+          const patchVariantId = this.dataset.patchVariant;
+          
+          console.log('Patch selection changed:', {
+            value: this.value,
+            variantId: patchVariantId,
+            price: addonPrice,
+            element: this
+          });
+          
+          // Validate patch variant ID
+          if (this.value !== 'No Patch' && (!patchVariantId || patchVariantId === 'undefined')) {
+            console.error('Invalid patch variant ID for:', this.value);
+            alert('There was an error with this patch selection. Please try again or contact support.');
+            return;
+          }
+          
+          // Check if printing is selected (use different pricing and variants)
+          const printingSelected = document.querySelector('input[name="properties[Printing]"]:checked');
+          if (printingSelected && printingSelected.value === 'Yes Please!') {
+            // When printing is selected, use different pricing based on patch selection
+            if (this.value === 'No Patch') {
+              // Only printing - £3
+              updatePriceDisplay(basePrice, 300);
+              storePatchSelection('55518491443578', this.value, 300);
+            } else {
+              // Printing + patch - £6
+              updatePriceDisplay(basePrice, 600);
+              storePatchSelection('55518491476346', this.value, 600);
+            }
+          } else {
+            // Normal pricing when printing is not selected
+            updatePriceDisplay(basePrice, addonPrice);
+            storePatchSelection(patchVariantId, this.value, addonPrice);
+          }
+          
+          // Show/hide text area based on patch selection
+          if (this.value !== 'No Patch' && textAreaGroup) {
+            textAreaGroup.style.display = 'block';
+          } else if (textAreaGroup) {
+            textAreaGroup.style.display = 'none';
+            // Clear textarea when hiding
+            const textarea = textAreaGroup.querySelector('.t4s-custom-textarea');
+            if (textarea) {
+              textarea.value = '';
+              const charCurrent = textAreaGroup.querySelector('.t4s-char-current');
+              if (charCurrent) charCurrent.textContent = '0';
+            }
+          }
+        }
+      });
+    });
+  }
+  
+  // Initialize patch selection handler
+  handlePatchSelection();
+  
+  // Enhanced printing selection handler
+  printingSelectors.forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      if (this.checked) {
+        console.log('Printing selection changed:', this.value);
+        
+        // Check current patch selection
+        const selectedPatch = document.querySelector('input[name="properties[Sleeve Patch]"]:checked');
+        
+        // Show/hide text area based on printing selection
+        if (this.value === 'Yes Please!' && textAreaGroup) {
+          textAreaGroup.style.display = 'block';
+
+          // When printing is selected, use different pricing based on patch selection
+          const selectedPatch = document.querySelector('input[name="properties[Sleeve Patch]"]:checked');
+          if (selectedPatch) {
+            const basePrice = parseInt(selectedPatch.dataset.basePrice) || 0;
+            if (selectedPatch.value === 'No Patch') {
+              // Only printing - £3
+              updatePriceDisplay(basePrice, 300);
+              storePatchSelection('55518491443578', selectedPatch.value, 300);
+            } else {
+              // Printing + patch - £6
+              updatePriceDisplay(basePrice, 600);
+              storePatchSelection('55518491476346', selectedPatch.value, 600);
+            }
+          }
+        } else if (this.value === 'No Thanks' && textAreaGroup) {
+          // Only hide if patch is also "No Patch"
+          const selectedPatch = document.querySelector('input[name="properties[Sleeve Patch]"]:checked');
+          if (selectedPatch && selectedPatch.value === 'No Patch') {
+            textAreaGroup.style.display = 'none';
+            
+            // Clear textarea when hiding
+            const textarea = textAreaGroup.querySelector('.t4s-custom-textarea');
+            if (textarea) {
+              textarea.value = '';
+              const charCurrent = textAreaGroup.querySelector('.t4s-char-current');
+              if (charCurrent) charCurrent.textContent = '0';
+            }
+          }
+
+          // Reset patch pricing to normal when printing is not selected
+          if (selectedPatch) {
+            const basePrice = parseInt(selectedPatch.dataset.basePrice) || 0;
+            const normalAddonPrice = parseInt(selectedPatch.dataset.price) || 0;
+            updatePriceDisplay(basePrice, normalAddonPrice);
+            storePatchSelection(selectedPatch.dataset.patchVariant, selectedPatch.value, normalAddonPrice);
+          }
+
+          console.log('User selected "No Thanks" for printing');
+        }
+      }
+    });
+  });
+  
+  function updatePriceDisplay(basePrice, addonPrice) {
+    const totalPrice = basePrice + addonPrice;
+    
+    // Update addon display
+    const addonDisplay = document.querySelector('.price-addon-display');
+    if (addonDisplay) {
+      addonDisplay.textContent = addonPrice > 0 ? `+${formatPrice(addonPrice)}` : '';
+    }
+    
+    // Update price summary
+    const priceSummary = document.querySelector('.t4s-price-summary');
+    const baseAmount = document.querySelector('.base-amount');
+    const addonPriceDiv = document.querySelector('.addon-price');
+    const addonAmount = document.querySelector('.addon-amount');
+    const totalAmount = document.querySelector('.total-amount');
+    
+    if (priceSummary && baseAmount && totalAmount) {
+      baseAmount.textContent = formatPrice(basePrice);
+      totalAmount.textContent = formatPrice(totalPrice);
+      
+      if (addonPrice > 0) {
+        addonPriceDiv.style.display = 'flex';
+        addonAmount.textContent = formatPrice(addonPrice);
+      } else {
+        addonPriceDiv.style.display = 'none';
+        priceSummary.style.display = 'none';
+      }
+    }
+  }
+  
+  // Enhanced patch selection storage
+  function storePatchSelection(variantId, patchType, price) {
+    // Validate and clean the variant ID
+    let cleanVariantId = '';
+    if (variantId && variantId !== 'undefined' && variantId !== 'null') {
+      cleanVariantId = variantId.toString();
+    }
+    
+    // Store selected patch variant ID and details globally
+    window.selectedPatchVariant = cleanVariantId;
+    window.selectedPatchType = patchType;
+    window.selectedPatchPrice = price;
+    
+    console.log('Stored patch selection:', {
+      variantId: cleanVariantId,
+      type: patchType,
+      price: price
+    });
+    
+    // Also store in sessionStorage as backup
+    try {
+      sessionStorage.setItem('selectedPatchVariant', cleanVariantId);
+      sessionStorage.setItem('selectedPatchType', patchType);
+      sessionStorage.setItem('selectedPatchPrice', price.toString());
+    } catch (e) {
+      console.warn('Could not store patch selection in sessionStorage:', e);
+    }
+  }
+  
+  function formatPrice(priceInPence) {
+    return '£' + (priceInPence / 100).toFixed(2);
+  }
+
+  // Enhanced submit button handler with better error handling
+  $(document).on('click', '.t4s-product-form__buttons .t4s-product-form__submit', function(e) {
+    e.preventDefault();
+    console.log('Submit button clicked');
+
+    // Show loading state
+    const submitButton = $(this);
+    const originalText = submitButton.text();
+    submitButton.prop('disabled', true).text('Adding...');
+
+    // Validate patch selection first
+    const selectedPatchVariant = window.selectedPatchVariant;
+    const selectedPatchType = window.selectedPatchType;
+    
+    console.log('Current patch selection:', {
+      variantId: selectedPatchVariant,
+      type: selectedPatchType
+    });
+
+    // Add main product with patch together
+    addMainProductWithPatch()
+      .then(() => {
+        console.log('Products added successfully');
+        
+        // Additional verification - check if patch was actually added
+        if (selectedPatchVariant && selectedPatchVariant !== '') {
+          return verifyPatchInCart(selectedPatchVariant);
+        }
+        return Promise.resolve(true);
+      })
+      .then((patchVerified) => {
+        if (!patchVerified && selectedPatchVariant && selectedPatchVariant !== '') {
+          console.warn('Patch not found in cart, attempting to add separately');
+          return addSelectedPatchToCart();
+        }
+        return Promise.resolve();
+      })
+      .then(() => {
+        console.log('All products confirmed in cart');
+        // Restore button state
+        submitButton.prop('disabled', false).text(originalText);
+        
+        // Redirect to cart or show success message
+        // window.location.href = '/cart'; // Uncomment if you want to redirect to cart
+        
+        // Or show success message
+        // alert('Products added to cart successfully!');
+      })
+      .catch(error => {
+        console.error('Error during product addition process:', error);
+        
+        // Restore button state
+        submitButton.prop('disabled', false).text(originalText);
+        
+        // Show error message to user
+        alert('There was an error adding the product to cart. Please try again.');
+      });
+  });
+  
+  // Initialize default selections and store them
+  const defaultPatchSelector = document.querySelector('input[name="properties[Sleeve Patch]"][value="No Patch"]');
+  if (defaultPatchSelector) {
+    const basePrice = parseInt(defaultPatchSelector.dataset.basePrice) || 0;
+    storePatchSelection('', 'No Patch', 0);
+    updatePriceDisplay(basePrice, 0);
+  }
+
+  // Debug function to check all patch variant IDs
+  function debugPatchVariants() {
+    console.log('=== PATCH VARIANT DEBUG ===');
+    
+    const patchSelectors = document.querySelectorAll('.t4s-patch-selector');
+    patchSelectors.forEach((selector, index) => {
+      console.log(`Patch ${index + 1}:`, {
+        value: selector.value,
+        variantId: selector.dataset.patchVariant,
+        price: selector.dataset.price,
+        element: selector
+      });
+    });
+    
+    console.log('Currently selected:', {
+      variantId: window.selectedPatchVariant,
+      type: window.selectedPatchType,
+      price: window.selectedPatchPrice
+    });
+    
+    // Try to get from sessionStorage
+    try {
+      console.log('SessionStorage backup:', {
+        variantId: sessionStorage.getItem('selectedPatchVariant'),
+        type: sessionStorage.getItem('selectedPatchType'),
+        price: sessionStorage.getItem('selectedPatchPrice')
+      });
+    } catch (e) {
+      console.log('SessionStorage not available');
+    }
+    
+    console.log('=== END DEBUG ===');
+  }
+
+  // Utility function to get selected patch info
+  window.getSelectedPatchInfo = function() {
+    return {
+      variantId: window.selectedPatchVariant,
+      type: window.selectedPatchType,
+      price: window.selectedPatchPrice
+    };
+  };
+
+  // Utility function to validate patch selection
+  window.validatePatchSelection = function() {
+    const patchSelector = document.querySelector('.t4s-patch-selector:checked');
+    return true; // Since both options are now optional, always return true
+  };
+
+  // Add debug function to window for manual testing
+  window.debugPatchVariants = debugPatchVariants;
+
+  // Function to restore patch selection from sessionStorage on page load
+  function restorePatchSelection() {
+    try {
+      const savedVariantId = sessionStorage.getItem('selectedPatchVariant');
+      const savedPatchType = sessionStorage.getItem('selectedPatchType');
+      const savedPatchPrice = sessionStorage.getItem('selectedPatchPrice');
+      
+      if (savedVariantId !== null) {
+        window.selectedPatchVariant = savedVariantId;
+        window.selectedPatchType = savedPatchType;
+        window.selectedPatchPrice = parseInt(savedPatchPrice) || 0;
+        
+        console.log('Restored patch selection from sessionStorage:', {
+          variantId: savedVariantId,
+          type: savedPatchType,
+          price: savedPatchPrice
+        });
+      }
+    } catch (e) {
+      console.log('Could not restore patch selection from sessionStorage:', e);
+    }
+  }
+
+  // Restore patch selection on page load
+  restorePatchSelection();
+  
+  // IMPORTANT: Define your patch variant IDs here
+  window.allPatchVariantIds = [
+    '55518491443578', // £3 printing-only variant
+    '55518491476346'  // £6 printing+patch variant
+    // Add any other patch variant IDs here
+  ];
+  
+});
+  </script>
+   {%- endif -%}
+            {%- endif -%}
+             {%- endif -%}
+
+          {%- endfor -%}
+        </div>
+
+      {%- endif -%}
+
+      {%- liquid 
+        if arr_properties.size > 0 and isProductAvailable
+          render 'frm_properties', arr_properties: arr_properties, product: product
+        endif
+      -%}
+
+      {%- if use_incoming_mess and current_variant_incoming and pr_variants.size == 1 and current_variant.next_incoming_date != blank -%}
+        {%- assign format_date = current_variant.next_incoming_date | date: date_in -%}
+        <div class="t4s-incoming__mess">{% if current_variant_available %}{{ 'products.product_single.will_not_ship_until_html' | t: date: format_date }}{% else %}{{ 'products.product_single.will_be_in_stock_after_html' | t: date: format_date }}{% endif %}</div>
+      {%- elsif use_incoming_mess and pr_variants.size > 1 -%}
+        {%- liquid
+          assign format_date = current_variant.next_incoming_date | date: date_in
+          unless format_date 
+            assign format_date = '19041994'
+          endunless
+        -%}
+        <div data-incoming__mess class="t4s-incoming__mess"{% unless current_variant_incoming %} hidden{% endunless %}><span data-incoming-available{% if current_variant_available == false or current_variant == blank %} style="display:none"{% endif %}>{{ 'products.product_single.will_not_ship_until_html' | t: date: format_date }}</span><span data-incoming-soldout{% if current_variant_available or current_variant == blank %} style="display: none"{% endif %}>{{ 'products.product_single.will_be_in_stock_after_html' | t: date: format_date }}</span></div>
+      {%- endif -%}
+      {{ 'button-style.css' | asset_url | stylesheet_tag }}
+      <link href="{{ 'custom-effect.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">
+      
+      {{- html_price -}}
+      
+      {%- if gift_card_recipient_feature_active -%}
+        <div class="t4s-d-flex t4s-flex-wrap">
+          {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+        </div>
+      {%- endif -%}
+      <p class="afterpay-paragraph">
+        <span class="afterpay-main-text">or 4 interest-free payments of <strong>{{ current_variant.price | json }}</strong> with </span>
+        <span class="afterpay-logo-link">
+          <button class="afterpay-logo brand-clearpay compact-badge type-badge black-on-mint" aria-label="Clearpay logo - Opens a dialog" title="Clearpay logo - Opens a dialog">
+            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" width="100" height="21" viewBox="0 0 102 21" class="compact-badge-logo">
+              <path fill="#b2fce4" d="M89.85 20.92h-78.9a10.42 10.42 0 110-20.82h78.89a10.42 10.42 0 010 20.83v-.01z" class="afterpay-logo-badge-background"></path>
+              <g class="afterpay-logo-badge-lockup">
+                <path d="M72.05 6.76l-5.13 10.57H64.8l1.91-3.95-3-6.62h2.18l1.93 4.44 2.11-4.44h2.12z"></path>
+                <path d="M52.55 10.52c0-1.22-.92-2.15-2.04-2.15-1.13 0-2.04.9-2.04 2.15 0 1.23.91 2.14 2.04 2.14 1.12 0 2.04-.93 2.04-2.14m-5.94 6.81V6.76h1.84v.98a2.98 2.98 0 012.37-1.12c2.03 0 3.62 1.67 3.62 3.88 0 2.2-1.62 3.88-3.67 3.88a2.9 2.9 0 01-2.26-1v3.95h-1.9z"></path>
+                <path d="M61.1 10.52c0-1.27-.92-2.15-2.04-2.15-1.13 0-2.04.9-2.04 2.15 0 1.23.91 2.14 2.04 2.14 1.12 0 2.04-.89 2.04-2.14m.01 3.75v-.97a3 3 0 01-2.37 1.09c-2.06 0-3.62-1.65-3.62-3.87 0-2.2 1.62-3.89 3.67-3.89a3 3 0 012.32 1.08v-.95h1.85v7.5H61.1z"></path>
+                <path d="M43.28 7.5s.46-.88 1.62-.88c.5 0 .8.17.8.17v1.92s-.69-.43-1.33-.34c-.63.09-1.04.67-1.04 1.45v4.45h-1.9v-7.5h1.84v.73z"></path>
+                <path d="M86.37 6.34L84.2 5.09l-2.22-1.27a2.2 2.2 0 00-3.3 1.9v.3c0 .15.09.3.22.37l1.03.59c.29.16.64-.05.64-.37v-.68c0-.34.36-.54.65-.38l2.02 1.16 2.02 1.16c.3.16.3.59 0 .75l-2.02 1.16-2.02 1.16a.44.44 0 01-.65-.38v-.33a2.2 2.2 0 00-3.3-1.91l-2.21 1.27-2.19 1.25a2.2 2.2 0 000 3.82l2.19 1.25 2.21 1.27a2.2 2.2 0 003.3-1.9v-.3c0-.15-.08-.3-.22-.37l-1.03-.59a.43.43 0 00-.64.37v.68c0 .34-.36.54-.65.38L76 14.29 74 13.13a.43.43 0 010-.75L76 11.22l2.02-1.16c.3-.16.65.05.65.38v.33a2.2 2.2 0 003.3 1.91l2.22-1.27 2.18-1.25a2.2 2.2 0 000-3.82z"></path>
+                <path d="M20.22 11.47a3.77 3.77 0 01-3.81 2.91 3.8 3.8 0 01-3.89-3.87c0-2.2 1.7-3.89 3.92-3.89A3.78 3.78 0 0120.2 9.5h-1.95a2.04 2.04 0 00-1.8-1.12c-1.11 0-2.04.92-2.04 2.13s.93 2.13 2.04 2.13c.8 0 1.49-.45 1.81-1.17h1.96z"></path>
+                <path d="M21.1 14.26V3.67h1.88v10.6H21.1z"></path>
+                <path d="M25.83 11a1.86 1.86 0 001.93 1.75c.8 0 1.4-.38 1.77-.98h1.93c-.45 1.6-1.87 2.61-3.75 2.61-2.27 0-3.85-1.59-3.85-3.85s1.68-3.9 3.9-3.9a3.75 3.75 0 013.8 4.38h-5.73zm3.76-1.17c-.13-.97-.93-1.56-1.86-1.56-.92 0-1.69.57-1.88 1.56h3.74z"></path>
+                <path d="M38.35 14.26v-.97a3 3 0 01-2.36 1.1c-2.06 0-3.62-1.66-3.62-3.88 0-2.2 1.62-3.89 3.66-3.89.96 0 1.77.42 2.32 1.08v-.94h1.85v7.5h-1.85zm-.01-3.75c0-1.26-.92-2.15-2.05-2.15-1.12 0-2.04.9-2.04 2.15 0 1.23.92 2.15 2.04 2.15 1.13 0 2.05-.89 2.05-2.15z"></path>
+              </g>
+            </svg>
+          </button> 
+          {% comment %}
+          <button id="logo-link" class="afterpay-link" tabindex="0" aria-label="Learn More about Clearpay - Opens a dialog" title="Learn More about Clearpay - Opens a dialog">
+            <template style="text-decoration: none; display: inline-block;"></template>
+          </button>
+          {% endcomment %}
+        </span>     
+      </p>
+      
+      <div class="t4s-product-form__buttons" style="--pr-btn-round:{{ bk_stts.pr_btn_round }}px;"> 
+        <div class="t4s-d-flex t4s-flex-wrap">
+          {%- if isExternal -%}
+
+            <a href="{{ external_link }}" rel="nofollow" target="_blank" class="t4s-product-form__submit t4s-truncate is--btn-external t4s-btn t4s-btn-base t4s-btn-style-{{ bk_stts.button_style }} t4s-btn-color-{{ bk_stts.button_color }} t4s-w-100 t4s-justify-content-center{% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline' %} t4s-btn-effect-{{ bk_stts.button_effect }}{% endif %} t4s-btn-loading__svg">
+              {%- if bk_stts.btn_icon -%}<svg class="t4s-btn-icon" viewBox="0 0 24 24"><use xlink:href="#t4s-icon-atc"></use></svg>{%- endif -%}<span class="t4s-btn-atc_text">{{ external_title }}</span>
+              <span class="t4s-loading__spinner" hidden>
+                <svg width="16" height="16" hidden class="t4s-svg-spinner" focusable="false" role="presentation" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="t4s-path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg>
+              </span>
+            </a>
+            {%- if bk_stts.enable_wishlist or bk_stts.enable_compare -%}
+              <!-- render t4s_wis_cp.liquid -->
+              {%- render 't4s_wis_cp', product: product, bk_stts: bk_stts -%}
+            {%- endif -%}
+
+          {%- else -%}
+
+            {%- if bk_stts.show_qty and isProductAvailable -%}
+                    {% if product.type contains 'Mystery Box' %}
+  <!-- Upsell options -->
+  <p class="upsell-options-heading">BUY MORE, SAVE MORE</p>
+
+  <div class="upsell-options">
+    {% assign mini_subtitle_value = product.metafields.custom.mini_subtitle
+      | remove: ' items'
+      | remove: '('
+      | remove: ')'
+      | strip
+    %}
+    {% assign mini_subtitle_number = mini_subtitle_value | plus: 0 %}
+
+    {% if mini_subtitle_number != 0 %}
+      {% assign multiplied_by_2 = mini_subtitle_number | times: 2 %}
+      {% assign multiplied_by_3 = mini_subtitle_number | times: 3 %}
+    {% endif %}
+
+  {% assign shirt_option_index = nil %}
+{% assign shown_values = "" %}
+
+{%- for option in product.options_with_values -%}
+  {% if option.name == "Shirts" %}
+    {% assign shirt_option_index = forloop.index0 %}
+  {% endif %}
+{%- endfor -%}
+
+{% if shirt_option_index != nil %}
+  {% for variant in product.variants %}
+    {% assign shirt_value = variant.options[shirt_option_index] %}
+    
+    {% unless shown_values contains shirt_value %}
+      {% assign shown_values = shown_values | append: shirt_value | append: "," %}
+
+      {% assign subtitle_value = shirt_value | plus: 0 %}
+      {% assign total_items = mini_subtitle_number | times: subtitle_value %}
+      {% assign base_price = product.price | times: subtitle_value %}
+      {% assign compare_price = product.compare_at_price | times: subtitle_value %}
+
+      {%- comment -%}
+      Apply 20% discount if 3 or more boxes
+      {%- endcomment -%}
+      {% assign discount_percent = 0 %}
+      {% if subtitle_value >= 3 %}
+        {% assign discount_percent = 20 %}
+      {% endif %}
+
+      {% assign discount_amount = base_price | times: discount_percent | divided_by: 100 %}
+      {% assign final_price = base_price | minus: discount_amount %}
+      {% assign price_per_piece = final_price | divided_by: total_items %}
+
+      <label for="box{{ shirt_value }}" class="upsell_btns">
+        <div class="left">
+          <input
+            type="radio"
+            id="box{{ shirt_value }}"
+            name="box-quantity"
+            value="{{ shirt_value }}"
+            class="radio-input"
+            data-variant-id="{{ variant.id }}"
+          >
+          <div class="content">
+            <h5>
+             {% if subtitle_value >= 2 %}
+              {{ shirt_value }} BOXES
+              {%  else %} 
+              {{ shirt_value }} BOX
+             {% endif %}
+              {% if subtitle_value == 3 %}
+                <span class="upsell_badge green">MOST POPULAR</span>
+              {% elsif subtitle_value >= 4 %}
+                <span class="upsell_badge">BEST VALUE</span>
+              {% endif %}
+            </h5>
+            <div class="bar-subtitle">{{ shirt_value }} items</div>
+          </div>
+        </div>
+
+        {% if discount_percent > 0 %}
+          <span class="discount-badge">{{ discount_percent }}% OFF</span>
+        {% else %}
+          <span></span>
+        {% endif %}
+
+        <div class="price-info">
+          {% if compare_price > base_price %}
+            <span class="compare-price" style="text-decoration: line-through;">
+              {{ compare_price | money }}
+            </span>
+          {% endif %}
+          <span class="current-price">{{ final_price | money }}</span>
+          <div class="per-piece">
+            (£{{ price_per_piece | divided_by: 1.0 | round: 2 | money_without_currency }} pp)
+          </div>
+        </div>
+      </label>
+
+    {% endunless %}
+  {% endfor %}
+{% endif %}
+
+
+
+
+    {% comment %} <!-- Option for 1 BOX -->
+    <label for="box1" class="upsell_btns">
+      <div class="left">
+        <input type="radio" id="box1" name="box-quantity" value="1" class="radio-input">
+        <div class="content">
+          <h5>1 BOX</h5>
+          <div class="bar-subtitle">{{ mini_subtitle_value }} items</div>
+        </div>
+      </div>
+      <span></span>
+      <div class="price-info">
+        <span class="current-price">{{ product.price | money }}</span>
+        {% assign price_per_piece_1 = product.price | divided_by: mini_subtitle_number %}
+        <div class="per-piece">(£{{ price_per_piece_1 | divided_by: 1.0 | round: 3 | money_without_currency }} pp)</div>
+      </div>
+    </label>
+
+    <!-- Option for 2 BOXES -->
+    <label for="box2" class="upsell_btns">
+      <div class="left">
+        <input type="radio" id="box2" name="box-quantity" value="2" class="radio-input">
+        <div class="content">
+          <h5>2 BOXES <span class="upsell_badge green">MOST POPULAR</span></h5>
+          <div class="bar-subtitle">{{ multiplied_by_2 }} items</div>
+        </div>
+      </div>
+      <span class="discount-badge">15% OFF</span>
+      <div class="price-info">
+        {% assign price_2box = product.price | times: 2 %}
+        {% assign compare_at_price_2box = product.compare_at_price | times: 2 %}
+        {% assign Second_discount = price_2box | times: 16 | divided_by: 100 %}
+        {% assign FinalSecond_price = price_2box | minus: Second_discount %}
+        {% assign total_items_2 = mini_subtitle_number | times: 2 %}
+        {% assign price_per_piece_2 = FinalSecond_price | divided_by: total_items_2 %}
+
+        {% if product.compare_at_price > product.price %}
+          <span class="compare-price" style="text-decoration: line-through;">
+            {{ compare_at_price_2box | money }}
+          </span>
+        {% endif %}
+
+        <span class="current-price">{{ FinalSecond_price | money }}</span>
+        <div class="per-piece">(£{{ price_per_piece_2 | divided_by: 1.0 | round: 3 | money_without_currency }} pp)</div>
+      </div>
+    </label>
+
+    <!-- Option for 3 BOXES -->
+    <label for="box3" class="upsell_btns">
+      <div class="left">
+        <input type="radio" id="box3" name="box-quantity" value="3" class="radio-input">
+        <div class="content">
+          <h5>3 BOXES <span class="upsell_badge">BEST VALUE</span></h5>
+          <div class="bar-subtitle">{{ multiplied_by_3 }} items</div>
+        </div>
+      </div>
+      <span class="discount-badge">20% OFF</span>
+      <div class="price-info">
+        {% assign price_3box = product.price | times: 3 %}
+        {% assign compare_at_price_3box = product.compare_at_price | times: 3 %}
+        {% assign third_discount = price_3box | times: 20 | divided_by: 100 %}
+        {% assign Finalthird_price = price_3box | minus: third_discount %}
+        {% assign total_items_3 = mini_subtitle_number | times: 3 %}
+        {% assign price_per_piece_3 = Finalthird_price | divided_by: total_items_3 %}
+
+        {% if product.compare_at_price > product.price %}
+          <span class="compare-price" style="text-decoration: line-through;">
+            {{ compare_at_price_3box | money }}
+          </span>
+        {% endif %}
+        <span class="current-price">{{ Finalthird_price | money }}</span>
+        <div class="per-piece">(£{{ price_per_piece_3 | divided_by: 1.0 | round: 3 | money_without_currency }} pp)</div>
+      </div>
+    </label> {% endcomment %}
+  </div>
+{% endif %}
+              <div data-quantity-wrapper class="t4s-quantity-wrapper t4s-product-form__qty"> 
+                <button data-quantity-selector data-decrease-qty type="button" class="t4s-quantity-selector is--minus"><svg focusable="false" class="icon icon--minus" viewBox="0 0 10 2" role="presentation"><path d="M10 0v2H0V0z" fill="currentColor"></path></svg></button>
+                <input data-quantity-value type="number" class="t4s-quantity-input" step="{{ current_variant.quantity_rule.increment | default: 1 }}" min="{{ cus_qty }}" max="{{ max_qty }}" name="quantity" value="{{ cus_qty }}" size="4" pattern="[0-9]*" inputmode="numeric">
+                <button data-quantity-selector data-increase-qty type="button" class="t4s-quantity-selector is--plus"><svg focusable="false" class="icon icon--plus" viewBox="0 0 10 10" role="presentation"><path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path></svg></button>
+              </div>
+            {%- else -%}
+              <input type="hidden" name="quantity" value="1"> 
+            {%- endif -%}
+
+            {%- if bk_stts.enable_wishlist or bk_stts.enable_compare -%}
+              <!-- render t4s_wis_cp.liquid -->
+              {%- render 't4s_wis_cp', product: product, bk_stts: bk_stts -%}
+            {%- endif -%}
+
+            <button data-animation-atc='{ "ani":"{{ bk_stts.ani }}","time":{{ bk_stts.time }}000 }' type="submit" name="add" data-atc-form class="t4s-product-form__submit t4s-btn t4s-btn-base t4s-btn-style-{{ bk_stts.button_style }} t4s-btn-color-{{ bk_stts.button_color }} t4s-w-100 t4s-justify-content-center {% if bk_stts.button_style == 'default' or bk_stts.button_style == 'outline' %} t4s-btn-effect-{{ bk_stts.button_effect }}{% endif %} t4s-btn-loading__svg"{% unless current_variant_available %} aria-disabled="true"{% endunless %}{% unless isProductAvailable %} disabled="disabled"{% endunless %}>{%- if bk_stts.btn_icon -%}<svg class="t4s-btn-icon" viewBox="0 0 24 24"><use xlink:href="#t4s-icon-atc"></use></svg>{%- endif -%}<span class="t4s-btn-atc_text">{% if current_variant_available == false or isProductAvailable == false %}{{ 'products.product.sold_out' | t }}{% elsif isPreoder %}{{ 'products.product.pre_order' | t }}{%- else -%}{{ 'products.product.add_to_cart' | t }}{%- endif -%}</span>
+              <span class="t4s-loading__spinner" hidden>
+                <svg width="16" height="16" hidden class="t4s-svg-spinner" focusable="false" role="presentation" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="t4s-path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg>
+              </span>
+            </button>
+
+          {%- endif -%}
+        </div>
+        {%- if PR_buy_pr and type != 'main_sticky' %}{{- form | payment_button -}}{% endif -%}
+        {%- if settings.use_notify_me -%}<button data-class="t4s-mfp-btn-close-inline" data-id="t4s-pr-popup__notify-stock" data-storageid="notify-stock{{ current_variant.id }}" data-mfp-src data-open-mfp-ajax class="t4s-pr__notify-stock" type="button" data-notify-stock-btn data-variant-id="{{ current_variant.id }}" data-root-url="{{ routes.root_url }}"{% if current_variant_available or current_variant == blank %} style="display: none"{% endif %}>{{ 'products.notify_stock.trigger' | t }}</button>{%- endif -%}
+      </div>
+    {%- endform -%}
+
+    {%- unless isProductDefault or type == 'main_sticky' -%}
+      <script type="application/json" class="pr_variants_json">{{ product.variants | json }}</script>
+      <script type="application/json" class="pr_options_json">{{ product.options_with_values | json }}</script>
+    {%- endunless -%}
+
+    {%- if bk_stts.ani != 'none' -%}<link href="{{ 'ani-atc.min.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all'">{%- endif -%}
+    
+  </div>
+</div>
+{%- if PR_buy_pr and current_variant_available != true and type != 'main_sticky' -%}<style> #t4s-callBackVariant{{ product_form_id }} .shopify-payment-button { display: none;} </style>{% endif -%}
+
+
+   {% if template == 'product' %}
+  <script>
+   document.addEventListener('DOMContentLoaded', function() {
+  // Debug logging
+  console.log('Combined Swatch & Upsell Script initialized');
+
+  // =========================
+  // SHARED QUANTITY FUNCTIONS
+  // =========================
+  
+  // Get all possible quantity input selectors
+  function getQuantityInput() {
+    return document.querySelector('[data-quantity-value], input[name="quantity"], .quantity-input input, .t4s-quantity input');
+  }
+  
+  // Universal quantity update function
+  function updateQuantity(value, source = 'unknown') {
+    const quantityInput = getQuantityInput();
+    console.log(`Updating quantity to ${value} from ${source}`);
+    
+    if (quantityInput) {
+      quantityInput.value = value;
+      
+      // Trigger all necessary events
+      quantityInput.dispatchEvent(new Event('change', { bubbles: true }));
+      quantityInput.dispatchEvent(new Event('input', { bubbles: true }));
+      
+      // Trigger form change if exists
+      const form = quantityInput.closest('form');
+      if (form) {
+        form.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      
+      console.log('Quantity updated successfully');
+      return true;
+    }
+    
+    console.warn('No quantity input found');
+    return false;
+  }
+
+  // =========================
+  // SWATCH FUNCTIONALITY
+  // =========================
+  
+  // Find swatch items only inside .t4s-swatch__list.shirts
+  const swatchItems = document.querySelectorAll('.t4s-swatch__list.shirts [data-swatch-item]');
+  console.log('Swatch items found:', swatchItems.length);
+  
+  // Handle swatch selection
+  function handleSwatchSelection(swatchElement) {
+    const selectedValue = swatchElement.getAttribute('data-value');
+    const quantityValue = parseInt(selectedValue, 10);
+    
+    if (!isNaN(quantityValue) && quantityValue > 0) {
+      // Update quantity
+      updateQuantity(quantityValue, 'swatch');
+      
+      // Update current value display
+      const currentValueSpan = document.querySelector('[data-current-value]');
+      if (currentValueSpan) {
+        currentValueSpan.textContent = selectedValue;
+      }
+      
+      // Update swatch selection state
+      const allShirtSwatches = document.querySelectorAll('.t4s-swatch__list.shirts [data-swatch-item]');
+      allShirtSwatches.forEach(swatch => swatch.classList.remove('is--selected'));
+      swatchElement.classList.add('is--selected');
+      
+      // Sync with upsell radio buttons
+      syncUpsellWithQuantity(quantityValue);
+      
+      console.log('Swatch selection handled:', selectedValue);
+    }
+  }
+  
+  // Add event listeners to existing swatch items
+  swatchItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      handleSwatchSelection(this);
+    });
+  });
+
+  // =========================
+  // UPSELL FUNCTIONALITY
+  // =========================
+  
+  const radioInputs = document.querySelectorAll('input[name="box-quantity"]');
+  const labels = document.querySelectorAll('.upsell_btns');
+  
+  console.log('Radio buttons found:', radioInputs.length);
+  console.log('Upsell labels found:', labels.length);
+  
+  // Function to update active class on upsell labels
+  function updateActiveLabels(selectedValue) {
+    console.log('Updating active label for value:', selectedValue);
+    
+    // Remove active class from all labels
+    labels.forEach((label) => {
+      label.classList.remove('active');
+    });
+    
+    // Find and activate the correct label
+    const activeLabel = document.querySelector(`label[for="box${selectedValue}"]`);
+    if (activeLabel) {
+      console.log('Setting active class on label:', activeLabel.getAttribute('for'));
+      activeLabel.classList.add('active');
+    }
+  }
+  
+  // Handle upsell quantity change
+  function handleUpsellChange(boxCount) {
+    console.log('Upsell selection changed:', boxCount);
+    
+    // Update active labels
+    updateActiveLabels(boxCount);
+    
+    // Update quantity
+    updateQuantity(boxCount, 'upsell');
+    
+    // Sync with swatch selection
+    syncSwatchWithQuantity(boxCount);
+  }
+  
+  // Sync upsell radio with quantity value
+  function syncUpsellWithQuantity(quantity) {
+    const matchingRadio = Array.from(radioInputs).find(radio => parseInt(radio.value) === quantity);
+    if (matchingRadio) {
+      matchingRadio.checked = true;
+      updateActiveLabels(quantity);
+    }
+  }
+  
+  // Sync swatch with quantity value
+  function syncSwatchWithQuantity(quantity) {
+    const matchingSwatch = document.querySelector(`.t4s-swatch__list.shirts [data-swatch-item][data-value="${quantity}"]`);
+    if (matchingSwatch) {
+      const allShirtSwatches = document.querySelectorAll('.t4s-swatch__list.shirts [data-swatch-item]');
+      allShirtSwatches.forEach(swatch => swatch.classList.remove('is--selected'));
+      matchingSwatch.classList.add('is--selected');
+      
+      // Update current value display
+      const currentValueSpan = document.querySelector('[data-current-value]');
+      if (currentValueSpan) {
+        currentValueSpan.textContent = quantity.toString();
+      }
+    }
+  }
+  
+  // Add change handlers to radio buttons
+  radioInputs.forEach((radio) => {
+    radio.addEventListener('change', function() {
+      if (this.checked) {
+        const boxCount = parseInt(this.value);
+        handleUpsellChange(boxCount);
+      }
+    });
+  });
+  
+  // Add click handlers to labels
+ labels.forEach((label) => {
+  label.addEventListener('click', function () {
+    const radioId = this.getAttribute('for');
+    const value = parseInt(radioId.replace('box', ''));
+
+    // Get the current price inside this label
+    const currentPriceElement = this.querySelector('.current-price');
+    if (currentPriceElement) {
+      const price = currentPriceElement.textContent.trim();
+
+      // Update price in target element
+      const targetPriceElement = document.querySelector('.t4s-product-price');
+      if (targetPriceElement) {
+        targetPriceElement.textContent = price;
+      }
+    }
+
+    updateActiveLabels(value);
+  });
+});
+
+
+  // =========================
+  // EVENT DELEGATION & DYNAMIC CONTENT
+  // =========================
+  
+  // Event delegation for dynamically added swatch items
+  document.addEventListener('click', function(e) {
+    // Handle swatch clicks - only for .t4s-swatch__list.shirts
+    if (e.target.hasAttribute('data-swatch-item') && e.target.closest('.t4s-swatch__list.shirts')) {
+      handleSwatchSelection(e.target);
+    }
+  });
+  
+  // Monitor quantity input changes and sync both systems
+  const quantityInput = getQuantityInput();
+  if (quantityInput) {
+    quantityInput.addEventListener('change', function() {
+      const currentValue = parseInt(this.value);
+      if (!isNaN(currentValue)) {
+        // Sync both swatch and upsell
+        syncSwatchWithQuantity(currentValue);
+        syncUpsellWithQuantity(currentValue);
+      }
+    });
+  }
+
+  // =========================
+  // CART FUNCTIONALITY
+  // =========================
+  
+  // Cart refresh function
+  function refreshCart(quantity) {
+    console.log('Attempting cart refresh with quantity:', quantity);
+    
+    const variantId = document.querySelector('input[name="id"]')?.value;
+    
+    if (!variantId) {
+      console.error('No variant ID found');
+      return;
+    }
+    
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        items: [{
+          id: variantId,
+          quantity: quantity,
+        }],
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Cart updated successfully:', data);
+      if (window.refreshCart) {
+        window.refreshCart();
+      }
+    })
+    .catch(error => {
+      console.error('Error updating cart:', error);
+    });
+  }
+  
+  // Add to cart button handler
+  const addToCartBtn = document.querySelector('[data-add-to-cart]');
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const quantity = parseInt(getQuantityInput()?.value || 1);
+      refreshCart(quantity);
+    });
+  }
+
+  // =========================
+  // INITIALIZATION
+  // =========================
+  
+  // Set default selection
+  function setDefaultSelection() {
+    // Try to set default to 1 box
+    const defaultRadio = Array.from(radioInputs).find(radio => parseInt(radio.value) === 1);
+    if (defaultRadio) {
+      defaultRadio.checked = true;
+      handleUpsellChange(1);
+    } else if (radioInputs.length > 0) {
+      // Fallback to first radio
+      const firstRadio = radioInputs[0];
+      firstRadio.checked = true;
+      handleUpsellChange(parseInt(firstRadio.value));
+    }
+  }
+  
+  // Initialize default selection
+  setDefaultSelection();
+
+  // =========================
+  // MUTATION OBSERVER FOR DYNAMIC CONTENT
+  // =========================
+  
+  function setupMutationObserver() {
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'childList') {
+          // Check for new swatch items in .t4s-swatch__list.shirts
+          const newSwatchItems = document.querySelectorAll('.t4s-swatch__list.shirts [data-swatch-item]:not([data-listener-attached])');
+          
+          newSwatchItems.forEach(function(item) {
+            item.setAttribute('data-listener-attached', 'true');
+            item.addEventListener('click', function() {
+              handleSwatchSelection(this);
+              
+            });
+          });
+          
+          // Check for new upsell elements
+          const newRadios = document.querySelectorAll('input[name="box-quantity"]:not([data-listener-attached])');
+          newRadios.forEach(function(radio) {
+            radio.setAttribute('data-listener-attached', 'true');
+            radio.addEventListener('change', function() {
+              if (this.checked) {
+                const boxCount = parseInt(this.value);
+                handleUpsellChange(boxCount);
+              }
+            });
+          });
+        }
+      });
+    });
+    
+    // Observe the document for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+  
+  // Initialize mutation observer
+  setupMutationObserver();
+  
+  console.log('Combined script initialization complete');
+});
+  </script>
+{% endif %}

@@ -1,0 +1,78 @@
+{% comment %}
+  Section: Collection Quick Tabs
+  Description: Dynamic collection links for quick navigation with preset options.
+{% endcomment %}
+
+<div class="quick-tabs">
+  {% for block in section.blocks %}
+    {% assign collection = collections[block.settings.collection] %}
+    
+    {% if collection and collection.handle != collection.handle %}
+      <a class="display-tag" href="{{ collection.url }}">{{ block.settings.link_text }}</a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Collection Quick Tabs",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection_link",
+      "name": "Collection Link",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "Collection Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default Quick Tabs",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "collection_link",
+          "settings": {
+            "collection": "all-mens",
+            "link_text": "All"
+          }
+        },
+        {
+          "type": "collection_link",
+          "settings": {
+            "collection": "mens-jeans",
+            "link_text": "Jeans"
+          }
+        },
+        {
+          "type": "collection_link",
+          "settings": {
+            "collection": "jackets-mens",
+            "link_text": "Coats & Jackets"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.quick-tabs a {
+  /* Add your styles here */
+  padding: 10px;
+  display: inline-block;
+  text-decoration: none;
+}
+{% endstylesheet %}
