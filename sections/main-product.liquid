@@ -326,6 +326,7 @@
                   data-main-media
                   class="t4s-row t4s-g-0 t4s-product__media t4s_{{ image_ratio }} t4s_position_{{ se_stts.image_position }} t4s_{{ se_stts.image_size }}"
                 >
+   
                   {%- render 'product-thumbnail',
                     media: media,
                     imgatt: imgatt,
@@ -363,6 +364,11 @@
               {{ 'slider-settings.css' | asset_url | stylesheet_tag }}
               <div class="t4s-row t4s-g-0" timeline hdt-reveal="slide-in">
                 <div data-product-single-media-group class="{{ class_main }}t4s-col-12 t4s-col-item t4s-pr">
+                  {% if product.metafields.custom.feature_free_piece %}
+                    <div class="animated-badge">
+                      <img src="https://cdn.shopify.com/s/files/1/0304/1270/1741/files/image3.png?v=1755513528" />
+                    </div> 
+                  {% endif %}
                   <div
                     data-t4s-gallery
                     data-main-media
@@ -693,6 +699,9 @@
                     {%- endif -%}
                   </div>
 
+                {%- when 'buy_more' -%}
+                  {% render 'buy-more' %}
+
                 {%- when 'form' -%}
                   {%- liquid
                     assign product_list = bk_stts.product_list
@@ -924,27 +933,6 @@
                   {%- endcapture -%}
                   {%- if ck_meta -%}
                     {%- if product.type == 'Mystery Box' -%}
-                          <button id="size-accodian" class="vcaccordion">Size Chart</button>
-                      <div class="vcpanel">
-                        <div class="t4s-size_cart">
-                          {{ section.settings.sizecart }}
-
-                          <div class="t4s-size_image">
-                            {% if section.settings.sizecart1 %}
-                              <div class="size-chart-image">
-                                <img src="{{ section.settings.sizecart1 | img_url: 'master' }}" alt="Size Chart 1">
-                              </div>
-                            {% endif %}
-
-                            {% if section.settings.sizecart2 %}
-                              <div class="size-chart-image">
-                                <img src="{{ section.settings.sizecart2 | img_url: 'master' }}" alt="Size Chart 2">
-                              </div>
-                            {% endif %}
-
-                          </div>
-                        </div>
-                      </div>
                       {% comment %}
                         <button class="vcaccordion">{{ section.settings.mstitle }}</button>
                         <div class="vcpanel">{{ section.settings.msdescription }}</div>
@@ -959,46 +947,110 @@
                         <div class="t4s-product_meta" {{ block.shopify_attributes }}>
                           <table>
                             <tbody>
-                              {% if product.type != blank %}
+                              {% if product.vendor != blank %}
                                 <tr>
                                   <td>
                                     <b style="font-weight: 600;">Brand</b>
                                   </td>
                                   <td>
-                                    {{ product.type }}
+                                    {{ product.vendor }}
                                   </td>
                                 </tr>
                               {% endif %}
-                              {% if product.vendor != blank %}
+                              {% if product.variants.size > 0 and product.variants.first.option1 %}
                                 <tr>
                                   <td>
-                                    <b style="font-weight: 600;">Club</b>
+                                    <b style="font-weight: 600;">Size</b>
                                   </td>
                                   <td>
-                                      {{ product.vendor }}
+                                    {% if product.variants.size > 0 and product.variants.first.option1 %}
+                                      {{ product.variants.first.option1 }}
+                                    {% endif %}
                                   </td>
                                 </tr>
                               {% endif %}
-                              {% if product.metafields.custom.country.value != blank %}
+                              {% if product.metafields.web4.main_colour.value != blank %}
                                 <tr>
                                   <td>
-                                    <b style="font-weight: 600;">Country</b>
+                                    <b style="font-weight: 600;">Colour</b>
                                   </td>
-                                  <td>{{ product.metafields.custom.country.value }}</td>
+                                  <td>{{ product.metafields.web4.main_colour.value }}</td>
                                 </tr>
                               {% endif %}
                               
-                             {% if product.metafields.custom.year.value != blank %}
+                              {% if product.type != blank %}
                                 <tr>
                                   <td>
-                                    <b style="font-weight: 600;">Year</b>
+                                    <b style="font-weight: 600;">Type</b>
                                   </td>
                                   <td>
-                                      {{ product.metafields.custom.year.value }}
+                                    {% if product.type %}
+                                      {{ product.type }}
+                                    {% endif %}
                                   </td>
                                 </tr>
                               {% endif %}
-                              
+                              {% if product.metafields.web4.gender.value != blank %}
+                                <tr>
+                                  <td>
+                                    <b style="font-weight: 600;">Gender</b>
+                                  </td>
+                                  <td>
+                                    {{ product.metafields.web4.gender.value }}
+                                  </td>
+                                </tr>
+                              {% endif %}
+                               {% if product.metafields.web4.damage_preset.value != blank %}
+                                <tr>
+                                  <td>
+                                    <b style="font-weight: 600;">Condition</b>
+                                  </td>
+                                  <td>
+                                    {{ product.metafields.web4.damage_preset.value }}
+                                  </td>
+                                </tr>
+                              {% endif %}
+                              {% if product.metafields.custom.material != blank %}
+                                <tr>
+                                  <td>
+                                    <b style="font-weight: 600;">Material</b>
+                                  </td>
+                                  <td>
+                                    {% if product.metafields.custom.material %}
+                                      {{ product.metafields.custom.material.value }}
+                                    {% endif %}
+                                  </td>
+                                </tr>
+                              {% endif %}
+                              {% if product.metafields.web4.detail_1.value %}
+                                <tr>
+                                  <td>
+                                    <b style="font-weight: 600;">Detail</b>
+                                  </td>
+                                  <td>
+                                    {{ product.metafields.web4.detail_1.value }}
+                                  </td>
+                                </tr>
+                              {% endif %}
+                              {% if product.metafields.web4.embroidered_printed.value != blank %}
+                                <tr>
+                                  <td>
+                                    <b style="font-weight: 600;">Style</b>
+                                  </td>
+                                  <td>
+                                    {{ product.metafields.web4.embroidered_printed.value }}
+                                  </td>
+                                </tr>
+                              {% endif %}
+                              <tr>
+                                <td>
+                                  <b style="font-weight: 600;">SKU</b>
+                                </td>
+                                <td>
+                                  {% assign current_variant = product.selected_or_first_available_variant %}
+                                  <span class="variant-sku">{{ current_variant.sku }}</span>
+                                </td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -1090,27 +1142,6 @@
                           </div>
                         </div>
                       {% endif %}
-                       <button id="size-accodian" class="vcaccordion">Size Chart</button>
-                      <div class="vcpanel">
-                        <div class="t4s-size_cart">
-                          {{ section.settings.sizecart }}
-
-                          <div class="t4s-size_image">
-                            {% if section.settings.sizecart1 %}
-                              <div class="size-chart-image">
-                                <img src="{{ section.settings.sizecart1 | img_url: 'master' }}" alt="Size Chart 1">
-                              </div>
-                            {% endif %}
-
-                            {% if section.settings.sizecart2 %}
-                              <div class="size-chart-image">
-                                <img src="{{ section.settings.sizecart2 | img_url: 'master' }}" alt="Size Chart 2">
-                              </div>
-                            {% endif %}
-
-                          </div>
-                        </div>
-                      </div>
 
                       <button class="vcaccordion">Delivery and returns</button>
                       <div class="vcpanel">
@@ -1646,135 +1677,89 @@
                     });
                   </script>
 
-                  {% if collection.metafields.custom.customer_review %}
+                 {% assign has_collection_reviews = false %}
 
-               
-                    
-                     {% for collection in product.collections %}
-                          {% if collection.metafields.custom.customer_review %}
-                            <div class="ms-review swiper-container {{ collection.handle }}" style="margin:0 0 8px;">
-                              <ul class="ms_review-slider swiper-wrapper">
-                                {% assign current_collection_reviews = collection.metafields.custom.customer_review.value %}
-                                {% for metaobject in current_collection_reviews %}
-                                  <li class="swiper-slide">
-                                    <img
-                                      src="{{ metaobject.reviewer_image | img_url: 'master' }}"
-                                      alt="{{ metaobject.reviewer_title }}"
-                                    >
-                        
-                                    <div class="reviews-content-template">
-                                      <div class="reviews-top-template">
-                                        {% if metaobject.reviewer_title != blank %}
-                                        <p class="reviews-author-template">{{ metaobject.reviewer_title | metafield_tag }}</p>
-                                        {% endif %}
-                        
-                                        <div class="testimonials-stars">
-                                          {% assign rating = metaobject.rating %}
-                                          {% for star in (1..5) %}
-                                            <svg
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              width="20"
-                                              height="19"
-                                              viewBox="0 0 20 19"
-                                              fill="none"
-                                              {% if star <= rating %}
-                                                class="filled-star"
-                                              {% else %}
-                                                class="empty-star"
-                                              {% endif %}
-                                            >
-                                              <path
-                                                d="M10 0L12.9389 5.95492L19.5106 6.90983L14.7553 11.5451L15.8779 18.0902L10 15L4.12215 18.0902L5.24472 11.5451L0.489435 6.90983L7.06107 5.95492L10 0Z"
-                                                fill="#1F448C"></path>
-                                            </svg>
-                                          {% endfor %}
-                                        </div>
-                                      </div>
-                        
-                                      <p class="reviews-text">{{ metaobject.review }}</p>
-                                    </div>
-                                  </li>
-                                {% endfor %}
-                              </ul>
-                              <div class="swiper-button swiper-button-prev">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="m13.172 12-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414 4.95-4.95Z"></path>
-                                </svg>
-                              </div>
-                              <div class="swiper-button swiper-button-next">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="m13.172 12-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414 4.95-4.95Z"></path>
-                                </svg>
-                              </div>
-                            </div>
-                            {% break %} <!-- Exit the loop once the current collection reviews are displayed -->
-                          {% endif %}
-                   {% endfor %}
-                    
-                  {% else %}
-                    <div class="ms-review swiper-container" style="margin:0 0 8px;">
-                      <ul class="ms_review-slider swiper-wrapper">
-                        {%- if shop.metaobjects.vc_global_review != blank -%}
-                          {%- for review in shop.metaobjects.vc_global_review.values -%}
-                            <li class="swiper-slide">
-                              {%- if review.review_image != blank -%}
-                                <img
-                                  src="{{ review.review_image | img_url: 'master' }}"
-                                  alt="{{ review.review_title | escape }}"
-                                  loading="lazy"
-                                  width="auto"
-                                  height="auto"
-                                >
-                              {%- endif -%}
-
-                              <div class="reviews-content-template">
-                                <div class="reviews-top-template">
-                                  {%- if review.review_title != blank -%}
-                                    <p class="reviews-author-template">
-                                      {{ review.review_title }}
-                                    </p>
-                                  {%- endif -%}
-
-                                  <div class="testimonials-stars">
-                                    {%- assign rating = review.rating_count | default: 0 | floor -%}
-                                    {%- for star in (1..5) -%}
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="20"
-                                        height="19"
-                                        viewBox="0 0 20 19"
-                                        fill="none"
-                                        class="{% if star <= rating %}filled-star{% else %}empty-star{% endif %}"
-                                      >
-                                        <path
-                                          d="M10 0L12.9389 5.95492L19.5106 6.90983L14.7553 11.5451L15.8779 18.0902L10 15L4.12215 18.0902L5.24472 11.5451L0.489435 6.90983L7.06107 5.95492L10 0Z"
-                                          fill="#1F448C"
-                                        ></path>
-                                      </svg>
-                                    {%- endfor -%}
-                                  </div>
-                                </div>
-
-                                {%- if review.review_content != blank -%}
-                                  <p class="reviews-text">{{ review.review_content }}</p>
-                                {%- endif -%}
-                              </div>
-                            </li>
-                          {%- endfor -%}
-                        {%- endif -%}
-                      </ul>
-                      <div class="swiper-button swiper-button-prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="m13.172 12-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414 4.95-4.95Z"></path>
-                        </svg>
-                      </div>
-                      <div class="swiper-button swiper-button-next">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="m13.172 12-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414 4.95-4.95Z"></path>
-                        </svg>
-                      </div>
-                    </div>
+{% if product.collections != blank %}
+  {% for collection in product.collections %}
+    {% if collection.metafields.custom.customer_review != blank %}
+      <div class="ms-review swiper-container {{ collection.handle }}" style="margin:0 0 8px;">
+        <ul class="ms_review-slider swiper-wrapper">
+          {% assign current_collection_reviews = collection.metafields.custom.customer_review.value %}
+          {% for metaobject in current_collection_reviews %}
+            <li class="swiper-slide">
+              <img src="{{ metaobject.reviewer_image | img_url: 'master' }}" alt="{{ metaobject.reviewer_title }}">
+              <div class="reviews-content-template">
+                <div class="reviews-top-template">
+                  {% if metaobject.reviewer_title != blank %}
+                    <p class="reviews-author-template">{{ metaobject.reviewer_title | metafield_tag }}</p>
                   {% endif %}
+                  <div class="testimonials-stars">
+                    {% assign rating = metaobject.rating %}
+                    {% for star in (1..5) %}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none" class="{% if star <= rating %}filled-star{% else %}empty-star{% endif %}">
+                        <path d="M10 0L12.9389 5.95492L19.5106 6.90983L14.7553 11.5451L15.8779 18.0902L10 15L4.12215 18.0902L5.24472 11.5451L0.489435 6.90983L7.06107 5.95492L10 0Z" fill="#1F448C"></path>
+                      </svg>
+                    {% endfor %}
+                  </div>
+                </div>
+                <p class="reviews-text">{{ metaobject.review }}</p>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="swiper-button swiper-button-prev">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="m13.172 12-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414 4.95-4.95Z"></path>
+                                </svg>
+        </div>
+        <div class="swiper-button swiper-button-next">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="m13.172 12-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414 4.95-4.95Z"></path>
+                                </svg>
+        </div>
+      </div>
+      {% assign has_collection_reviews = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% unless has_collection_reviews %}
+  <div class="ms-review swiper-container" style="margin:0 0 8px;">
+    <ul class="ms_review-slider swiper-wrapper">
+      {% if shop.metaobjects.vc_global_review != blank %}
+        {% for review in shop.metaobjects.vc_global_review.values %}
+          <li class="swiper-slide">
+            {% if review.review_image != blank %}
+              <img src="{{ review.review_image | img_url: 'master' }}" alt="{{ review.review_title | escape }}" loading="lazy" width="auto" height="auto">
+            {% endif %}
+            <div class="reviews-content-template">
+              <div class="reviews-top-template">
+                {% if review.review_title != blank %}
+                  <p class="reviews-author-template">{{ review.review_title }}</p>
+                {% endif %}
+                <div class="testimonials-stars">
+                  {% assign rating = review.rating_count | default: 0 | floor %}
+                  {% for star in (1..5) %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none" class="{% if star <= rating %}filled-star{% else %}empty-star{% endif %}">
+                      <path d="M10 0L12.9389 5.95492L19.5106 6.90983L14.7553 11.5451L15.8779 18.0902L10 15L4.12215 18.0902L5.24472 11.5451L0.489435 6.90983L7.06107 5.95492L10 0Z" fill="#1F448C"></path>
+                    </svg>
+                  {% endfor %}
+                </div>
+              </div>
+              {% if review.review_content != blank %}
+                <p class="reviews-text">{{ review.review_content }}</p>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+    <div class="swiper-button swiper-button-prev">...</div>
+    <div class="swiper-button swiper-button-next">...</div>
+  </div>
+{% endunless %}
+
 
                 {%- when 'countdown' %}
                   {% unless bk_stts.source == '1' or pr_tags contains 'has_stock_countdown' -%}
@@ -3276,21 +3261,6 @@
       "label": "Delivery and returns"
     },
     {
-      "type": "richtext",
-      "id": "sizecart",
-      "label": "Size Chart"
-    },
-    {
-      "type": "image_picker",
-      "id": "sizecart1",
-      "label": "Size Chart Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "sizecart2",
-      "label": "Size Chart Image"
-    },
-    {
       "type": "header",
       "content": "Mystery Accodian"
     },
@@ -3572,516 +3542,697 @@
         }
       ]
     },
-    {
-      "type": "form",
-      "name": "Product Form",
+     {
+      "type": "buy_more",
+      "name": "Buy More Save More",
       "limit": 1,
       "settings": [
         {
           "type": "header",
-          "content": "+ Product Swatch"
+          "content": "Buy More"
+        }
+       
+      ]
+    },
+    {
+  "type": "form",
+  "name": "Product Form",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "+ Product Swatch"
+    },
+    {
+      "type": "select",
+      "id": "selector_mode",
+      "label": "Selector type",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
         },
         {
-          "type": "select",
-          "id": "selector_mode",
-          "label": "Selector type",
-          "options": [
-            {
-              "value": "circle",
-              "label": "Circle"
-            },
-            {
-              "value": "radio",
-              "label": "Radio"
-            },
-            {
-              "value": "radio is-sw__full",
-              "label": "Radio full"
-            },
-            {
-              "value": "block",
-              "label": "Block"
-            },
-            {
-              "value": "block2",
-              "label": "Block round"
-            },
-            {
-              "value": "dropdown",
-              "label": "Dropdown"
-            }
-          ],
-          "default": "block"
+          "value": "radio",
+          "label": "Radio"
         },
         {
-          "type": "select",
-          "id": "color_mode",
-          "label": "Color selector type",
-          "options": [
-            {
-              "value": "circle",
-              "label": "Circle"
-            },
-            {
-              "value": "radio",
-              "label": "Radio"
-            },
-            {
-              "value": "radio is-sw-cl__full",
-              "label": "Radio full"
-            },
-            {
-              "value": "block",
-              "label": "Block"
-            },
-            {
-              "value": "block2",
-              "label": "Block round"
-            },
-            {
-              "value": "dropdown",
-              "label": "Dropdown"
-            },
-            {
-              "value": "color",
-              "label": "Color swatch"
-            },
-            {
-              "value": "color is-sw-cl__round",
-              "label": "Color swatch round"
-            },
-            {
-              "value": "variant_image",
-              "label": "Variant image"
-            },
-            {
-              "value": "variant_image is-sw-cl__round",
-              "label": "Variant image round"
-            }
-          ],
-          "default": "color"
+          "value": "radio is-sw__full",
+          "label": "Radio full"
         },
         {
-          "type": "checkbox",
-          "id": "enable_fit_ratio_img",
-          "label": "Enable adapt to first swatch image variant",
-          "default": false
+          "value": "block",
+          "label": "Block"
         },
         {
-          "type": "select",
-          "id": "color_size",
-          "options": [
-            {
-              "value": "small",
-              "label": "Small"
-            },
-            {
-              "value": "medium",
-              "label": "Medium"
-            },
-            {
-              "value": "large",
-              "label": "Large"
-            },
-            {
-              "value": "exlarge",
-              "label": "Extra Large"
-            }
-          ],
-          "label": "Color selector size",
-          "info": "Only working with color swatch, variant image",
-          "default": "medium"
+          "value": "block2",
+          "label": "Block round"
         },
         {
-          "type": "checkbox",
-          "id": "show_qty",
-          "label": "Show quantity selector",
-          "default": true
+          "value": "dropdown",
+          "label": "Dropdown"
+        }
+      ],
+      "default": "block"
+    },
+    {
+      "type": "select",
+      "id": "color_mode",
+      "label": "Color selector type",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
         },
         {
-          "type": "checkbox",
-          "id": "enable_wishlist",
-          "label": "Enable wishlist",
-          "default": true
+          "value": "radio",
+          "label": "Radio"
         },
         {
-          "type": "checkbox",
-          "id": "enable_compare",
-          "label": "Enable compare",
-          "default": true
+          "value": "radio is-sw-cl__full",
+          "label": "Radio full"
         },
         {
-          "type": "checkbox",
-          "id": "btn_atc_full",
-          "label": "Enable button full width",
-          "default": false
+          "value": "block",
+          "label": "Block"
         },
         {
-          "type": "range",
-          "id": "pr_btn_round",
-          "min": 0,
-          "max": 40,
-          "step": 1,
-          "label": "Button round corners",
-          "unit": "px",
-          "default": 40
+          "value": "block2",
+          "label": "Block round"
         },
         {
-          "type": "header",
-          "content": "+ Add to cart button"
+          "value": "dropdown",
+          "label": "Dropdown"
         },
         {
-          "type": "select",
-          "id": "ani",
-          "options": [
-            {
-              "value": "none",
-              "label": "None"
-            },
-            {
-              "value": "t4s-ani-bounce",
-              "label": "Bounce"
-            },
-            {
-              "value": "t4s-ani-tada",
-              "label": "Tada"
-            },
-            {
-              "value": "t4s-ani-swing",
-              "label": "Swing"
-            },
-            {
-              "value": "t4s-ani-flash",
-              "label": "Flash"
-            },
-            {
-              "value": "t4s-ani-fadeIn",
-              "label": "FadeIn"
-            },
-            {
-              "value": "t4s-ani-heartBeat",
-              "label": "HeartBeat"
-            },
-            {
-              "value": "t4s-ani-shake",
-              "label": "Shake"
-            }
-          ],
-          "label": "Add to cart animation"
+          "value": "color",
+          "label": "Color swatch"
         },
         {
-          "type": "range",
-          "id": "time",
-          "min": 2,
-          "max": 40,
-          "step": 1,
-          "label": "Loop time (seconds)",
-          "info": "Loop time add to cart animation",
-          "unit": "s",
-          "default": 6
+          "value": "color is-sw-cl__round",
+          "label": "Color swatch round"
         },
         {
-          "type": "select",
-          "id": "btn_txt",
-          "default": "3",
-          "options": [
-            {
-              "value": "0",
-              "label": "None"
-            },
-            {
-              "value": "1",
-              "label": "Lowercase"
-            },
-            {
-              "value": "2",
-              "label": "Capitalize"
-            },
-            {
-              "value": "3",
-              "label": "Uppercase"
-            }
-          ],
-          "label": "Button transform text"
+          "value": "variant_image",
+          "label": "Variant image"
         },
         {
-          "type": "checkbox",
-          "id": "btn_icon",
-          "label": "Enable button icon",
-          "default": false
+          "value": "variant_image is-sw-cl__round",
+          "label": "Variant image round"
+        }
+      ],
+      "default": "color"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_fit_ratio_img",
+      "label": "Enable adapt to first swatch image variant",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "color_size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
         },
         {
-          "type": "select",
-          "id": "button_style",
-          "label": "Button style",
-          "options": [
-            {
-              "label": "Default",
-              "value": "default"
-            },
-            {
-              "label": "Outline",
-              "value": "outline"
-            },
-            {
-              "label": "Bordered bottom",
-              "value": "bordered"
-            },
-            {
-              "label": "Link",
-              "value": "link"
-            }
-          ]
+          "value": "medium",
+          "label": "Medium"
         },
         {
-          "type": "select",
-          "id": "button_color",
-          "label": "Button color",
-          "default": "dark",
-          "options": [
-            {
-              "value": "light",
-              "label": "Light"
-            },
-            {
-              "value": "dark",
-              "label": "Dark"
-            },
-            {
-              "value": "primary",
-              "label": "Primary"
-            },
-            {
-              "value": "custom1",
-              "label": "Custom color 1"
-            },
-            {
-              "value": "custom2",
-              "label": "Custom color 2"
-            }
-          ]
+          "value": "large",
+          "label": "Large"
         },
         {
-          "type": "select",
-          "id": "button_effect",
-          "label": "Button hover effect",
-          "default": "fade",
-          "info": "Only working button style default, outline",
-          "options": [
-            {
-              "label": "Default",
-              "value": "default"
-            },
-            {
-              "label": "Fade",
-              "value": "fade"
-            },
-            {
-              "label": "Rectangle out",
-              "value": "rectangle-out"
-            },
-            {
-              "label": "Sweep to right",
-              "value": "sweep-to-right"
-            },
-            {
-              "label": "Sweep to left",
-              "value": "sweep-to-left"
-            },
-            {
-              "label": "Sweep to bottom",
-              "value": "sweep-to-bottom"
-            },
-            {
-              "label": "Sweep to top",
-              "value": "sweep-to-top"
-            },
-            {
-              "label": "Shutter out horizontal",
-              "value": "shutter-out-horizontal"
-            },
-            {
-              "label": "Outline",
-              "value": "outline"
-            },
-            {
-              "label": "Shadow",
-              "value": "shadow"
-            }
-          ]
+          "value": "exlarge",
+          "label": "Extra Large"
+        }
+      ],
+      "label": "Color selector size",
+      "info": "Only working with color swatch, variant image",
+      "default": "medium"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_qty",
+      "label": "Show quantity selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_wishlist",
+      "label": "Enable wishlist",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_compare",
+      "label": "Enable compare",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "btn_atc_full",
+      "label": "Enable button full width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "pr_btn_round",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "label": "Button round corners",
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "+ Add to cart button"
+    },
+    {
+      "type": "select",
+      "id": "ani",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
         },
         {
-          "type": "header",
-          "content": "+ Wishlist button color"
+          "value": "t4s-ani-bounce",
+          "label": "Bounce"
         },
         {
-          "type": "color",
-          "id": "wishlist_color",
-          "label": "Button wishlistt",
-          "default": "#222222"
+          "value": "t4s-ani-tada",
+          "label": "Tada"
         },
         {
-          "type": "color",
-          "id": "wishlist_color_hover",
-          "label": "Button wishlist hover",
-          "default": "#56cfe1"
+          "value": "t4s-ani-swing",
+          "label": "Swing"
         },
         {
-          "type": "color",
-          "id": "wishlist_color_active",
-          "label": "Button wishlist active",
-          "default": "#E81E1E"
+          "value": "t4s-ani-flash",
+          "label": "Flash"
         },
         {
-          "type": "header",
-          "content": "+ Compare button color"
+          "value": "t4s-ani-fadeIn",
+          "label": "FadeIn"
         },
         {
-          "type": "color",
-          "id": "compare_color",
-          "label": "Button compare",
-          "default": "#222222"
+          "value": "t4s-ani-heartBeat",
+          "label": "HeartBeat"
         },
         {
-          "type": "color",
-          "id": "compare_color_hover",
-          "label": "Button compare hover",
-          "default": "#56cfe1"
+          "value": "t4s-ani-shake",
+          "label": "Shake"
+        }
+      ],
+      "label": "Add to cart animation"
+    },
+    {
+      "type": "range",
+      "id": "time",
+      "min": 2,
+      "max": 40,
+      "step": 1,
+      "label": "Loop time (seconds)",
+      "info": "Loop time add to cart animation",
+      "unit": "s",
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "btn_txt",
+      "default": "3",
+      "options": [
+        {
+          "value": "0",
+          "label": "None"
         },
         {
-          "type": "color",
-          "id": "compare_color_active",
-          "label": "Button compare active",
-          "default": "#222222"
+          "value": "1",
+          "label": "Lowercase"
         },
         {
-          "type": "header",
-          "content": "+ Dynamic checkout buttons"
+          "value": "2",
+          "label": "Capitalize"
         },
         {
-          "type": "checkbox",
-          "id": "show_dynamic_checkout",
-          "label": "Show dynamic checkout buttons",
-          "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
-          "default": false
+          "value": "3",
+          "label": "Uppercase"
+        }
+      ],
+      "label": "Button transform text"
+    },
+    {
+      "type": "checkbox",
+      "id": "btn_icon",
+      "label": "Enable button icon",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "label": "Default",
+          "value": "default"
         },
         {
-          "type": "select",
-          "id": "btn_txt2",
-          "default": "3",
-          "options": [
-            {
-              "value": "0",
-              "label": "None"
-            },
-            {
-              "value": "1",
-              "label": "Lowercase"
-            },
-            {
-              "value": "2",
-              "label": "Capitalize"
-            },
-            {
-              "value": "3",
-              "label": "Uppercase"
-            }
-          ],
-          "label": "Button transform text"
+          "label": "Outline",
+          "value": "outline"
         },
         {
-          "type": "select",
-          "id": "button_color_payment",
-          "label": "Button color",
-          "default": "dark",
-          "options": [
-            {
-              "value": "light",
-              "label": "Light"
-            },
-            {
-              "value": "dark",
-              "label": "Dark"
-            },
-            {
-              "value": "primary",
-              "label": "Primary"
-            },
-            {
-              "value": "custom1",
-              "label": "Custom color 1"
-            },
-            {
-              "value": "custom2",
-              "label": "Custom color 2"
-            }
-          ]
+          "label": "Bordered bottom",
+          "value": "bordered"
         },
         {
-          "type": "header",
-          "content": "+ Recipient information form"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_gift_card_recipient",
-          "default": true,
-          "label": "Show recipient information form for gift cards",
-          "info": "Allows buyers to send gift cards on a scheduled date along with a personal message. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
-        },
-        {
-          "type": "header",
-          "content": "+ Grouped Product"
-        },
-        {
-          "type": "product_list",
-          "id": "product_list",
-          "label": "Products",
-          "limit": 10
-        },
-        {
-          "type": "checkbox",
-          "id": "show_product_current",
-          "label": "Show product current",
-          "default": true
-        },
-        {
-          "type": "select",
-          "id": "qty_val",
-          "label": "Quantity value default",
-          "default": "0",
-          "options": [
-            {
-              "value": "0",
-              "label": "0"
-            },
-            {
-              "value": "1",
-              "label": "1"
-            }
-          ]
-        },
-        {
-          "type": "header",
-          "content": "+ Advance Product Type"
-        },
-        {
-          "type": "paragraph",
-          "content": "Not working if enabled grouped product."
-        },
-        {
-          "type": "text",
-          "id": "advance_label",
-          "label": "Label",
-          "default": "Choose style"
-        },
-        {
-          "type": "product_list",
-          "id": "advance_pr_list",
-          "label": "Products",
-          "limit": 10
+          "label": "Link",
+          "value": "link"
         }
       ]
     },
+    {
+      "type": "select",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "dark",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "custom1",
+          "label": "Custom color 1"
+        },
+        {
+          "value": "custom2",
+          "label": "Custom color 2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_effect",
+      "label": "Button hover effect",
+      "default": "fade",
+      "info": "Only working button style default, outline",
+      "options": [
+        {
+          "label": "Default",
+          "value": "default"
+        },
+        {
+          "label": "Fade",
+          "value": "fade"
+        },
+        {
+          "label": "Rectangle out",
+          "value": "rectangle-out"
+        },
+        {
+          "label": "Sweep to right",
+          "value": "sweep-to-right"
+        },
+        {
+          "label": "Sweep to left",
+          "value": "sweep-to-left"
+        },
+        {
+          "label": "Sweep to bottom",
+          "value": "sweep-to-bottom"
+        },
+        {
+          "label": "Sweep to top",
+          "value": "sweep-to-top"
+        },
+        {
+          "label": "Shutter out horizontal",
+          "value": "shutter-out-horizontal"
+        },
+        {
+          "label": "Outline",
+          "value": "outline"
+        },
+        {
+          "label": "Shadow",
+          "value": "shadow"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "+ Wishlist button color"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_color",
+      "label": "Button wishlistt",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_color_hover",
+      "label": "Button wishlist hover",
+      "default": "#56cfe1"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_color_active",
+      "label": "Button wishlist active",
+      "default": "#E81E1E"
+    },
+    {
+      "type": "header",
+      "content": "+ Compare button color"
+    },
+    {
+      "type": "color",
+      "id": "compare_color",
+      "label": "Button compare",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "compare_color_hover",
+      "label": "Button compare hover",
+      "default": "#56cfe1"
+    },
+    {
+      "type": "color",
+      "id": "compare_color_active",
+      "label": "Button compare active",
+      "default": "#222222"
+    },
+    {
+      "type": "header",
+      "content": "+ Dynamic checkout buttons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Show dynamic checkout buttons",
+      "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "btn_txt2",
+      "default": "3",
+      "options": [
+        {
+          "value": "0",
+          "label": "None"
+        },
+        {
+          "value": "1",
+          "label": "Lowercase"
+        },
+        {
+          "value": "2",
+          "label": "Capitalize"
+        },
+        {
+          "value": "3",
+          "label": "Uppercase"
+        }
+      ],
+      "label": "Button transform text"
+    },
+    {
+      "type": "select",
+      "id": "button_color_payment",
+      "label": "Button color",
+      "default": "dark",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "custom1",
+          "label": "Custom color 1"
+        },
+        {
+          "value": "custom2",
+          "label": "Custom color 2"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "+ Recipient information form"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_card_recipient",
+      "default": true,
+      "label": "Show recipient information form for gift cards",
+      "info": "Allows buyers to send gift cards on a scheduled date along with a personal message. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
+    },
+    {
+      "type": "header",
+      "content": "+ Grouped Product"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Products",
+      "limit": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_current",
+      "label": "Show product current",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "qty_val",
+      "label": "Quantity value default",
+      "default": "0",
+      "options": [
+        {
+          "value": "0",
+          "label": "0"
+        },
+        {
+          "value": "1",
+          "label": "1"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "+ Advance Product Type"
+    },
+    {
+      "type": "paragraph",
+      "content": "Not working if enabled grouped product."
+    },
+    {
+      "type": "text",
+      "id": "advance_label",
+      "label": "Label",
+      "default": "Choose style"
+    },
+    {
+      "type": "product_list",
+      "id": "advance_pr_list",
+      "label": "Products",
+      "limit": 10
+    },
+    {
+      "type": "header",
+      "content": "+ Buy More Save More Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_buy_more_save_more",
+      "label": "Enable Buy More Save More",
+      "default": false,
+      "info": "Show quantity-based pricing options for Mystery Box products"
+    },
+    {
+      "type": "text",
+      "id": "buy_more_heading",
+      "label": "Section Heading",
+      "default": "BUY MORE, SAVE MORE"
+    },
+    {
+      "type": "text",
+      "id": "option_label",
+      "label": "Option Label (e.g., BOX, ITEM)",
+      "default": "BOX"
+    },
+    {
+      "type": "header",
+      "content": "+ Option 1 Settings"
+    },
+    {
+      "type": "number",
+      "id": "option_1_quantity",
+      "label": "Option 1 Quantity",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "+ Option 2 Settings"
+    },
+    {
+      "type": "number",
+      "id": "option_2_quantity",
+      "label": "Option 2 Quantity",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "option_2_discount",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "label": "Option 2 Discount Percentage",
+      "default": 15
+    },
+    {
+      "type": "text",
+      "id": "option_2_badge",
+      "label": "Option 2 Badge Text",
+      "default": "MOST POPULAR"
+    },
+    {
+      "type": "select",
+      "id": "option_2_badge_style",
+      "label": "Option 2 Badge Style",
+      "options": [
+        {
+          "value": "green",
+          "label": "Green"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "red",
+          "label": "Red"
+        },
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "purple",
+          "label": "Purple"
+        }
+      ],
+      "default": "green"
+    },
+    {
+      "type": "checkbox",
+      "id": "option_2_free_item",
+      "label": "Option 2 Free Item",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "+ Option 3 Settings"
+    },
+    {
+      "type": "number",
+      "id": "option_3_quantity",
+      "label": "Option 3 Quantity",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "option_3_discount",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "label": "Option 3 Discount Percentage",
+      "default": 20
+    },
+    {
+      "type": "text",
+      "id": "option_3_badge",
+      "label": "Option 3 Badge Text",
+      "default": "BEST VALUE"
+    },
+    {
+      "type": "select",
+      "id": "option_3_badge_style",
+      "label": "Option 3 Badge Style",
+      "options": [
+        {
+          "value": "green",
+          "label": "Green"
+        },
+        {
+          "value": "blue",
+          "label": "Blue"
+        },
+        {
+          "value": "red",
+          "label": "Red"
+        },
+        {
+          "value": "orange",
+          "label": "Orange"
+        },
+        {
+          "value": "purple",
+          "label": "Purple"
+        }
+      ],
+      "default": "red"
+    },
+     {
+      "type": "checkbox",
+      "id": "option_3_free_item",
+      "label": "Option 3 Free Item",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "+ Free Item Settings",
+        "info": "Feature Free Piece – a product metafield. You can set this metafield to TRUE from the product backend."
+    },
+    {
+      "type": "text",
+      "id": "free_item_text",
+      "label": "Free Item Text",
+      "default": "CARHARTT PIECE"
+    },
+    {
+      "type": "image_picker",
+      "id": "free_item_image",
+      "label": "Free Item Image"
+    }
+  ]
+},
     {
   "type": "excellent",
   "name": "Excellent",

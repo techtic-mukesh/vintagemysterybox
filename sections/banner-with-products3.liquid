@@ -136,13 +136,25 @@
             <div class="t4s-banner-product__wrapper">
                 <div class="t4s-banner-product__list">
                     {%- assign product_list = se_stts.product_list -%}
+                  
                     {%- if product_list != blank -%}
                         {%- for product in product_list -%}
+
+                              <div class="top-title-wrap">
+                                    <h4>{{ product.title }}</h4>
+
+                                    <div class="price-p">
+                                        {{ product.price |  money_without_currency }}
+                                    </div>
+                                </div>
                             {%- assign image = product.featured_image -%}
                             <a href="{{ product.url }}" class="t4s-banner-product__item t4s-d-inline-block t4s-pr t4s-btn-loading__svg" data-tooltip="top" title="{{ 'products.product_card.quick_view' | t }}" data-id="{{ product.id }}" data-action-quickview style="background-image: url({{ image | image_url: width: 1 }});">
                                 <img class="lazyloadt4s t4s-lz--fadeIn t4s-obj-eff" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg', w: image.width, h: image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
                                 <span class="t4s-loading__spinner t4s-pa"><svg width="16" height="16" class="t4s-svg-spinner" focusable="false" role="presentation" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="t4s-path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg></span>
                             </a>
+
+
+                              <a href="{{ product.url }}" class="t4s-pr-item-btn t4s-pr-addtocart" data-variant-id="{{ product.variants.first.id }}" data-action-atc rel="nofollow"><span class="t4s-svg-pr-icon"><svg viewBox="0 0 24 24"><use xlink:href="#t4s-icon-atc"></use></svg></span><span class="t4s-text-pr">{% if isPreoder %}{{ 'products.product.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}</span></a>
                         {%- endfor -%}
                     {%- else -%}
                         {%- for i in (1..5) -%}
