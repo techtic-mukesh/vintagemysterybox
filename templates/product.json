@@ -74,7 +74,7 @@
             "compare_color": "#222222",
             "compare_color_hover": "#56cfe1",
             "compare_color_active": "#222222",
-            "show_dynamic_checkout": false,
+            "show_dynamic_checkout": true,
             "btn_txt2": "3",
             "button_color_payment": "dark",
             "show_gift_card_recipient": true,
@@ -86,7 +86,23 @@
               "mens-long-sleeve-rash-guard",
               "combat-hoodie",
               "combat-long-sleeve-rashguard"
-            ]
+            ],
+            "enable_buy_more_save_more": true,
+            "buy_more_heading": "BUY MORE, SAVE MORE",
+            "option_label": "BOX",
+            "option_1_quantity": 1,
+            "option_2_quantity": 2,
+            "option_2_discount": 15,
+            "option_2_badge": "MOST POPULAR",
+            "option_2_badge_style": "green",
+            "option_2_free_item": true,
+            "option_3_quantity": 3,
+            "option_3_discount": 20,
+            "option_3_badge": "BEST VALUE",
+            "option_3_badge_style": "red",
+            "option_3_free_item": true,
+            "free_item_text": "CARHARTT PIECE",
+            "free_item_image": "shopify:\/\/shop_images\/Sb83a3c74a34c4ac381253cd6bc359c88b.jpg_960x960q75.jpg__1_300x300_b343e482-92ce-4b5d-83aa-6cd1fb0c1af5.png"
           }
         },
         "excellent_DCJJJj": {
@@ -114,7 +130,6 @@
         },
         "mysreview_slider_kGnici": {
           "type": "mysreview_slider",
-          "disabled": true,
           "settings": {}
         },
         "23551ebc-3be1-40d6-81b2-30f03478cccb": {
@@ -207,16 +222,6 @@
             "space_h_item_mb": "20",
             "space_v_item_mb": "4"
           }
-        },
-        "complimentary_products_kfQUQd": {
-          "type": "complimentary_products",
-          "disabled": true,
-          "settings": {
-            "text": "Pairs well with",
-            "product_1": "",
-            "product_2": "corinthians-110-year-anniversary-retro-special-edition-shirt-2023-24-football-shirt",
-            "product_3": "new-york-red-bulls-home-shirt-2010-2011-football-shirt"
-          }
         }
       },
       "block_order": [
@@ -234,8 +239,7 @@
         "95d4f334-8ea7-4cd2-b609-2373b1e848b8",
         "e36839f5-0847-44e2-97d3-2885597bd1ff",
         "754ad4a0-7308-4a3e-b325-e2f2c0b85d4c",
-        "94011ade-ec25-4d68-b37a-70660ede49dd",
-        "complimentary_products_kfQUQd"
+        "94011ade-ec25-4d68-b37a-70660ede49dd"
       ],
       "settings": {
         "buy_text": "3 FOR 2",
@@ -284,9 +288,6 @@
         "ani": "t4s-ani-shake",
         "time": 3,
         "delivery": "<p>Our policy lasts 14 days. If 14 days have gone by since you received your item, unfortunately we can’t offer you a refund.<\/p><p>To be eligible for a return, your item must be unused and returned in the same condition that you received it.<\/p><p><strong>Shipping<\/strong><br\/>To return your product, you should mail your product to:<br\/>Unit 2B,<br\/>Cherry Walk,<br\/>Sarratt,<br\/>Hertfordshire,<br\/>WD3 6AF<br\/>Inside the parcel please include:<br\/>Full Name<br\/>Order Number<br\/>Reason for return. If reason is sizing, please let us know if the item was too big or small, and what size you usually wear!<br\/>Email<br\/>Payment Method<br\/>Item in the same condition it arrived<br\/>Flyer<br\/>You will be responsible for paying for your own shipping costs for returning your item. Shipping costs are non-refundable. If you receive a refund, the original cost of shipping will be deducted from the refund amount<\/p><p>If you are shipping an item to be returned, you should consider using a trackable shipping service and purchasing shipping insurance. Until we receive the returned item it is the senders responsibility. We don’t guarantee that we will receive your returned item.<\/p><p><strong>Refunds<\/strong><br\/>Once your return is received and inspected, we will send you an email to notify you of the status of your returned item.<br\/>If you are eligible for a refund. It will be automatically applied to your original method of payment.<br\/>You will be refunded for the cost of the ITEM only. Any shipping cost will not be refunded. If the item was purchased with free shipping then a fee of £3 will be taken out for all UK orders to cover the initial shipping costs. If the order was international then the equivilant shipping cost will be taken out to cover the initial shipping costs.<\/p><p>We do not offer refunds to anyone who purchases through our depop shop. Please contact us on Depop directly about any Depop orders.<\/p><p><strong>Exchanges<\/strong><br\/>If you are looking to exchange your item for another size\/product then please follow the above steps, however you must include a note inside to inform our team the item is for an exchange. Please also send an email to our customer service team so they can prepare the exchange for you: <a href=\"mailto:customerservice@vintageclub.uk\" title=\"mailto:customerservice@vintageclub.uk\">customerservice@vintageclub.uk<\/a><\/p><p>Late or missing refunds<br\/>If you haven’t received a refund yet, first check your original payment method again. Then contact your payment method company, it may take some time before your refund is officially posted.<br\/>If you’ve done all of this and you still have not received your refund yet, please contact us at <a href=\"mailto:vintageclubuk@gmail.com\" title=\"mailto:vintageclubuk@gmail.com\">vintageclubuk@gmail.com<\/a>.<\/p>",
-        "sizecart": "<p><strong>Size Guide<\/strong><\/p><p>Please see the below charts for our size guide. We recommend to size up one size bigger than your usual UK size, particularly in Retros as these come up smaller fitting. <br\/><br\/>Our selection of shirts includes a wide variety of styles and fabrics across different eras and teams, therefore certain shirts may fit differently to others. <\/p>",
-        "sizecart1": "shopify:\/\/shop_images\/Screenshot_2024-11-18_at_09_25_00.png",
-        "sizecart2": "shopify:\/\/shop_images\/Screenshot_2024-11-18_at_09_25_23.png",
         "mstitle": "item 1",
         "msdescription": "<p>item 1<\/p>",
         "mstitle2": "item 2",
@@ -298,7 +299,8 @@
     "insta_images_slider_kFgy7x": {
       "type": "insta-images-slider",
       "settings": {
-        "html": "<p><strong>150,000+ CUSTOMERS<\/strong> LOVED THEIR MYSTERY BOXES<\/p>"
+        "html": "",
+        "content": "<p> <strong>150,000+ CUSTOMERS<\/strong> LOVED THEIR MYSTERY BOXES<\/p>"
       }
     },
     "review_section_MULeRr": {
@@ -568,7 +570,6 @@
       "settings": {
         "left_heading": "vs them",
         "left_subtext": "<p>We take the hard work out of Vintage shopping. Here's how:<br\/><\/p>",
-        "logoimg": "shopify:\/\/shop_images\/Untitled_5.png",
         "righttext": "Other vintage stores"
       }
     },
@@ -578,163 +579,64 @@
         "logo_item_hnnHpi": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/stussy-1-logo-png-transparent.png"
           }
         },
         "logo_item_JW4MYe": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/e8eb6e4c70e01899c19d62991f64f870.jpg"
           }
         },
         "logo_item_tJVmra": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/the-north-face-1-logo-png-transparent.png"
           }
         },
         "logo_item_4PmiCM": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/Logo_NIKE_svg_b1b131c8-7411-4b35-9960-d5cee088004f.png"
           }
         },
         "logo_item_EdrQG8": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/e8eb6e4c70e01899c19d62991f64f870.jpg"
           }
         },
         "logo_item_AQgUPL": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/adidas-logo-adidas-icon-free-free-vector.jpg"
           }
         },
         "logo_item_jQVgCz": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/carhartt-black6539.logowik.com_94796b59-2f1e-434f-87d7-4c0175a42b29.jpg"
           }
         },
         "logo_item_tyeYab": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/c0be6c015c79aa78bcbb3bbeec7621fa.png"
           }
         },
         "logo_item_HD66Ew": {
           "type": "logo_item",
           "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_HjdJxA": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_p4LaNi": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_9BFmnd": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_MwXFpa": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_9axCkf": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_Hxtkd6": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_dNHrnm": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_eXtaNd": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_wPyEJr": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_nz9khA": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_RdDkkF": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_wdVFnz": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_wEEeeE": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_wCxPkj": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_DiXamb": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_EdcQWn": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_GtUgXf": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
-          }
-        },
-        "logo_item_JCqbNh": {
-          "type": "logo_item",
-          "settings": {
-            "brandlink": ""
+            "brandlink": "",
+            "brandlogo": "shopify:\/\/shop_images\/the-north-face-1-logo-png-transparent.png"
           }
         }
       },
@@ -747,27 +649,8 @@
         "logo_item_AQgUPL",
         "logo_item_jQVgCz",
         "logo_item_tyeYab",
-        "logo_item_HD66Ew",
-        "logo_item_HjdJxA",
-        "logo_item_p4LaNi",
-        "logo_item_9BFmnd",
-        "logo_item_MwXFpa",
-        "logo_item_9axCkf",
-        "logo_item_Hxtkd6",
-        "logo_item_dNHrnm",
-        "logo_item_eXtaNd",
-        "logo_item_wPyEJr",
-        "logo_item_nz9khA",
-        "logo_item_RdDkkF",
-        "logo_item_wdVFnz",
-        "logo_item_wEEeeE",
-        "logo_item_wCxPkj",
-        "logo_item_DiXamb",
-        "logo_item_EdcQWn",
-        "logo_item_GtUgXf",
-        "logo_item_JCqbNh"
+        "logo_item_HD66Ew"
       ],
-      "disabled": true,
       "settings": {
         "left_heading": "BRANDS TO FIND INSIDE YOUR BOX"
       }
@@ -811,7 +694,7 @@
         "top_heading": "FAQ's",
         "icon_heading": "las la-gem",
         "top_subheading": "",
-        "tophead_mb": 40,
+        "tophead_mb": 30,
         "accor_des": "1",
         "title_cl": "#222222",
         "bg_title_cl": "#f6f6f8",
@@ -826,7 +709,7 @@
         "cl_bg": "",
         "cl_bg_gradient": "",
         "mg": ",,50px,",
-        "pd": "30px",
+        "pd": "",
         "mg_tb": "",
         "pd_tb": "",
         "mg_mb": ",,30px,",
@@ -1009,7 +892,7 @@
         "show_vendor": false,
         "use_cdt": false,
         "limit": 500,
-        "display_type": "4",
+        "display_type": "6",
         "image_ratio": "ratio1_1",
         "image_size": "nt_cover",
         "image_position": "8",
@@ -1189,7 +1072,7 @@
         "limit": 14,
         "sortby": "1",
         "unavailable_prs": "show",
-        "image_ratio": "ratio1_1",
+        "image_ratio": "ratioadapt",
         "image_size": "cover",
         "image_position": "8",
         "content_align": "default",
@@ -1360,7 +1243,6 @@
         "item_mPR8CN",
         "item_kbbLP7"
       ],
-      "disabled": true,
       "settings": {
         "design_heading": "2",
         "heading_align": "t4s-text-center",
@@ -1446,22 +1328,22 @@
     "complimentary_products_drCUCK": {
       "type": "complimentary-products",
       "blocks": {
-        "complimentary_NGUMPW": {
-          "type": "Complimentary",
-          "settings": {
-            "crproduct": "retro-corinthians-3rd-shirt-1998-1999-football-shirt"
-          }
-        },
         "complimentary_TRtCf9": {
           "type": "Complimentary",
           "settings": {
-            "crproduct": "retro-mystery-football-shirt-box"
+            "crproduct": "retro-1997-98-juventus-pink-centenary-away-football-shirt"
+          }
+        },
+        "complimentary_NGUMPW": {
+          "type": "Complimentary",
+          "settings": {
+            "crproduct": "premium-box-8-item"
           }
         },
         "complimentary_q9DUHt": {
           "type": "Complimentary",
           "settings": {
-            "crproduct": "corinthians-110-year-anniversary-retro-special-edition-shirt-2023-24-football-shirt"
+            "crproduct": "monaco-grand-prix-poster-from-1963-copy"
           }
         },
         "complimentary_NUkPh3": {
@@ -1472,8 +1354,8 @@
         }
       },
       "block_order": [
-        "complimentary_NGUMPW",
         "complimentary_TRtCf9",
+        "complimentary_NGUMPW",
         "complimentary_q9DUHt",
         "complimentary_NUkPh3"
       ],

@@ -1,0 +1,168 @@
+{% comment %}
+  Product Highlights Slider with Swiper
+{% endcomment %}
+
+<div class="product-highlights relative">
+  <div class="t4s-container">
+    <div class="swiper product-swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% assign highlight_url = blank %}
+          {% assign product = blank %}
+
+          {% if block.settings.product != blank %}
+            {% assign product = all_products[block.settings.product] %}
+          {% endif %}
+
+          {% if product %}
+            {% assign highlight_url = product.url %}
+          {% elsif block.settings.url != blank %}
+            {% assign highlight_url = block.settings.url %}
+          {% endif %}
+
+
+            <div class="swiper-slide text-center">
+              <a href="{{ block.settings.url }}" class="block">
+                {% if block.settings.image != blank %}
+                  <div class="circle-image">
+                    <img 
+                      src="{{ block.settings.image | img_url: '300x300' }}" 
+                      alt="{{ block.settings.title | default: product.title }}" 
+                      loading="lazy"
+                    >
+                  </div>
+                {% elsif product and product.featured_image %}
+                  <div class="circle-image">
+                    <img 
+                      src="{{ product.featured_image | img_url: '300x300' }}" 
+                      alt="{{ block.settings.title | default: product.title }}" 
+                      loading="lazy"
+                    >
+                  </div>
+                {% endif %}
+                <span class="block mt-2 text-sm font-medium">
+                  {{ block.settings.title | default: product.title }}
+                </span>
+              </a>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .product-highlights .circle-image {
+     width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 2px solid transparent;
+    background: #9ae86a;
+    padding: 2px;
+    transition: transform 0.3s ease;
+  }
+ 
+  .product-highlights .circle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+     transition: transform 0.3s ease;
+    border-radius: 50%;
+  }
+
+   .product-highlights .circle-image:hover img {
+    transform: scale(1.05);
+  }
+
+  .product-swiper {
+    overflow: hidden;
+}
+
+.product-highlights .t4s-container {
+    max-width: 900px;
+}
+
+.product-highlights {
+    position: relative;
+    padding: 10px 0;
+}
+
+.product-swiper .swiper-slide {
+    text-align: center;
+}
+
+.product-swiper .swiper-slide span.block {
+    margin: 10px 0 0;
+    display: inline-block;
+}
+
+@media screen and (max-width: 480px) {
+   .product-highlights .circle-image {
+       width: 80px;
+       height: 80px;
+   }
+
+   .product-highlights .circle-image img {
+       border-radius: 50%;
+   }
+}
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Swiper(".product-swiper", {
+      slidesPerView: 7,
+      spaceBetween: 15,
+      loop: true,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        320: { slidesPerView: 2.5 },
+        480: { slidesPerView: 2.5 },
+        768: { slidesPerView: 4 },
+        1024: { slidesPerView: 7 },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Highlights",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom highlight image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Highlight title (optional)"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Custom URL (used if product not selected)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Product Highlights"
+    }
+  ]
+}
+{% endschema %}

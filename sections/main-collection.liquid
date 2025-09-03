@@ -116,25 +116,26 @@
 
 
     {% if collection.title == "Mystery Box" %}
-      <div class="CollectionInner__Division">
-        <span>
-          <a href="/collections/vintage-new-collection/menswear" title="featured collection">
-            Menswear
-          </a>
-        </span>
-        <span class="pip">|</span>
-        <span>
-          <a href="/collections/vintage-new-collection/womenswear" title="featured collection">
-            Womenswear
-          </a>
-        </span>
-        <span  class="pip">|</span>
-        <span>
-           <a href="/collections/vintage-new-collection/jewellery" title="featured collection">
-          Jewellery
-          </a>
-        </span>
-      </div>
+     <div class="CollectionInner__Division">
+  <span>
+    <a href="{{ collection.url }}/menswear" title="featured collection">
+      Menswear
+    </a>
+  </span>
+  <span class="pip">|</span>
+  <span>
+    <a href="{{ collection.url }}/womenswear" title="featured collection">
+      Womenswear
+    </a>
+  </span>
+  <span class="pip">|</span>
+  <span>
+    <a href="{{ collection.url }}/jewellery" title="featured collection">
+      Jewellery
+    </a>
+  </span>
+</div>
+
       {% else %}
       {% assign collections = collections | where: "handle", "!=" , "frontpage" %}
       {% assign current_collection_handle = collection.handle %}

@@ -1,4 +1,9 @@
 <div class="t4s-product-img t4s_ratio" {{ imgatt }}style="--aspect-ratioapt: {{ image.aspect_ratio | default: 1 }}">
+ {% if feature_free_piece %}
+    <div class="animated-badge">
+      <img src="https://cdn.shopify.com/s/files/1/0304/1270/1741/files/image3.png?v=1755513528" alt="Free Piece Badge">
+    </div>
+  {% endif %}
   <img
     data-pr-img
     class="t4s-product-main-img lazyloadt4s"
@@ -22,3 +27,15 @@
       alt="{{ image.alt | escape }}"
   ></noscript>
 </div>
+
+
+<style>
+ .t4s-product-img .animated-badge {
+    position: absolute !important;
+    z-index: 11;
+    left: 4px !important;
+    top: 4px !important;
+    max-width: 90px;
+    height: auto !important;
+}
+</style>

@@ -541,7 +541,7 @@
           "base_Xa39KG": {
             "type": "base",
             "settings": {
-              "title": "POSTERS",
+              "title": "HOME",
               "url": "shopify:\/\/collections\/football-posters",
               "open_link": "_self",
               "icon": "",
@@ -551,10 +551,23 @@
               "lb_cl": "#ec0101"
             }
           },
+          "base_eGinw3": {
+            "type": "base",
+            "settings": {
+              "title": "MYSTERY BOXES",
+              "url": "shopify:\/\/collections\/mystery-box",
+              "open_link": "_self",
+              "icon": "",
+              "cus_cl": true,
+              "cl": "#ec0101",
+              "lb": "New",
+              "lb_cl": "#ec0101"
+            }
+          },
           "base_DaiWRE": {
             "type": "base",
             "settings": {
-              "title": "VINTAGE FOOTBALL CLOTHES",
+              "title": "INFO",
               "url": "shopify:\/\/collections\/vintage-football-clothing",
               "open_link": "_self",
               "icon": "",
@@ -567,7 +580,7 @@
           "b52b8dda-3d6a-485a-8c89-e12b4c51e2b1": {
             "type": "base",
             "settings": {
-              "title": "RETRO FOOTBALL SHIRTS",
+              "title": "ABOUT US",
               "url": "shopify:\/\/collections\/retro-football-shirt",
               "open_link": "_self",
               "icon": "",
@@ -576,26 +589,13 @@
               "lb": "",
               "lb_cl": ""
             }
-          },
-          "base_eGinw3": {
-            "type": "base",
-            "settings": {
-              "title": "MYSTERY BOXES",
-              "url": "shopify:\/\/products\/retro-mystery-football-shirt-box",
-              "open_link": "_self",
-              "icon": "",
-              "cus_cl": true,
-              "cl": "#ec0101",
-              "lb": "New",
-              "lb_cl": "#ec0101"
-            }
           }
         },
         "block_order": [
           "base_Xa39KG",
+          "base_eGinw3",
           "base_DaiWRE",
-          "b52b8dda-3d6a-485a-8c89-e12b4c51e2b1",
-          "base_eGinw3"
+          "b52b8dda-3d6a-485a-8c89-e12b4c51e2b1"
         ],
         "settings": {
           "layout": "logo_left",

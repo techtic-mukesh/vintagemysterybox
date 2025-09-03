@@ -208,7 +208,7 @@
                 {% endif %}
               {% endif %}
               {%- if prioritized_product.featured_image != blank -%}
-                {%- render 'product-img', image: prioritized_product.featured_image, imgatt: imgatt -%}
+                {%- render 'product-img', image: prioritized_product.featured_image, imgatt: imgatt,  feature_free_piece: prioritized_product.metafields.custom.feature_free_piece -%}
               {%- endif -%}
               <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-product-badge"></div>
               {% if template contains 'collection' %}
@@ -511,7 +511,7 @@
                   {% endif %}
                 {% endif %}
                 {%- if prioritized_product.featured_image != blank -%}
-                  {%- render 'product-img', image: prioritized_product.featured_image, imgatt: imgatt -%}
+                  {%- render 'product-img', image: prioritized_product.featured_image, imgatt: imgatt,  feature_free_piece: prioritized_product.metafields.custom.feature_free_piece -%}
                 {%- endif -%}
                 <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-product-badge"></div>
 
@@ -772,6 +772,7 @@
   data-type="{{ product.type | escape }}"
   data-collection="{{ collection.title | escape }}"
 >
+
   {% assign current_variant = product.variants.first %}
   <span id="belowe-product-varriant">{{ current_variant.option1 }}</span>
   <span id="belowe-product-vendor">{{ product.vendor }}</span>
@@ -793,7 +794,7 @@
           ></a>
         {% endif %}
       {% endif %}
-      {%- if image != blank %}{% render 'product-img', image: image, imgatt: imgatt %}{% endif -%}
+      {%- if image != blank %}{% render 'product-img', image: image, imgatt: imgatt,  feature_free_piece: product.metafields.custom.feature_free_piece %}{% endif -%}
       <div data-product-badge data-sort="sale,new,soldout,preOrder,custom" class="t4s-product-badge"></div>
       {% if template contains 'collection' %}
         {% if product.type contains 'Mystery Box' or product.type contains 'Ring' or product.type contains 'Poster' %}
@@ -890,14 +891,13 @@
           {% else %}
             <h3 class="t4s-product-title">
               <a data-pr-href href="{{ pr_url }}">
-                {{ product.title }}
-                {% comment %} <span class="brand-name">
+                <span class="brand-name">
                   {{- product.vendor }}
                 </span>
                 {{ product.type }}
                 {% if product.variants.size > 0 and product.variants.first.option1 %}
                   {{ product.variants.first.option1 }}
-                {% endif -%} {% endcomment %}
+                {% endif -%}
               </a>
             </h3>
           {% endif %}

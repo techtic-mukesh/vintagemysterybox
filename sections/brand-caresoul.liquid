@@ -9,6 +9,27 @@
           </a>
         </li>
       {% endfor %}
+      {% for block in section.blocks %}
+        <li class="swiper-slide">
+          <a href="{{ block.settings.brandlink }}">
+            <img src="{{ block.settings.brandlogo |  img_url: '' }}">
+          </a>
+        </li>
+      {% endfor %}
+      {% for block in section.blocks %}
+        <li class="swiper-slide">
+          <a href="{{ block.settings.brandlink }}">
+            <img src="{{ block.settings.brandlogo |  img_url: '' }}">
+          </a>
+        </li>
+      {% endfor %}
+      {% for block in section.blocks %}
+        <li class="swiper-slide">
+          <a href="{{ block.settings.brandlink }}">
+            <img src="{{ block.settings.brandlogo |  img_url: '' }}">
+          </a>
+        </li>
+      {% endfor %}
     </ul>
   </div>
 
