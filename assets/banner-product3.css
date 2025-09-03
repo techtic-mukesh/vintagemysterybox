@@ -82,6 +82,12 @@
     transform: translate(-50%, -50%);
 }
 
+@media(max-width:991px) {
+    .t4s_ratio_cuspx.t4scuspx1_true {
+        min-height: auto;
+    }
+ }
+
 @media(max-width:1024px) {
     .t4s-banner-product__wrapper {
         position: relative;
