@@ -1,0 +1,127 @@
+<section class="text-marquee-section" data-section-id="{{ section.id }}" data-section-type="text-marquee">
+  <div class="marquee" data-marquee-duration="{{ section.settings.speed }}">
+    <div class="marquee__inner">
+      {% for block in section.blocks %}
+        <div class="marquee__content">
+          {{ block.settings.text }}
+        </div>
+      {% endfor %}
+      
+    </div>
+  </div>
+</section>
+
+<style>
+section.text-marquee-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  overflow: hidden;
+}
+
+.marquee {
+  padding: 1vw;
+  white-space: nowrap;
+}
+
+.marquee:first-child {
+  background-color: #191919;
+  /* transform: rotateZ(-2deg); */
+}
+
+.marquee:last-child {
+  background-color: #191919;
+  /* transform: rotateZ(-1deg); */
+}
+
+.marquee__inner {
+  display: flex;
+  gap: 100px; /* space between texts */
+}
+
+.marquee__content {
+  color: #fff;
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1.3;
+  padding: 10px 0;
+
+}
+
+@media screen and (max-width: 768px) {
+ .marquee__inner {
+  gap: 40px; /* space between texts */
+} 
+}
+</style>
+
+<script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<script>
+const init = () => {
+  const marquee = document.querySelectorAll('.marquee')
+  
+  if(!marquee) return
+
+  marquee.forEach(item => {
+    const marqueeInner = item.querySelector('.marquee__inner')
+    
+    // Duration
+    const duration = item.getAttribute('data-marquee-duration')
+    
+    // Clone inner content for infinite scroll effect
+    const marqueeInnerClone = marqueeInner.cloneNode(true)
+    marqueeInner.append(marqueeInnerClone)
+
+    gsap.to(marqueeInner, {
+      x: "-50%",
+      repeat: -1,
+      duration: duration,
+      ease: 'linear'
+    })
+  })
+}
+
+document.addEventListener('DOMContentLoaded', init)
+</script>
+
+{% schema %}
+{
+  "name": "Text Carousel",
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll Speed",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_item",
+      "name": "Text Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Sample Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text Carousel",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

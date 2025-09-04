@@ -1887,20 +1887,6 @@
       "mb_nav": {
         "type": "mb_nav",
         "blocks": {
-          "mb_nav-0": {
-            "type": "menu",
-            "disabled": true,
-            "settings": {
-              "title": "NEW ARRIVALS",
-              "url": "\/collections\/new-collection",
-              "open_link": "_self",
-              "menu": "",
-              "lb": "",
-              "lb_cl": "",
-              "icons_op": "2",
-              "icon": ""
-            }
-          },
           "menu_gLgTAm": {
             "type": "menu",
             "settings": {
@@ -2096,7 +2082,6 @@
           }
         },
         "block_order": [
-          "mb_nav-0",
           "menu_gLgTAm",
           "menu_4KCLi8",
           "menu_MaVxA8",
