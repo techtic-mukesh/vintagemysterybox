@@ -656,6 +656,44 @@
         "left_heading": "BRANDS TO FIND INSIDE YOUR BOX"
       }
     },
+    "pdp_videos_fiHBnh": {
+      "type": "pdp-videos",
+      "name": "Pdp Video",
+      "settings": {
+        "se_height": "t4s_ratio_po",
+        "custom_dk": true,
+        "height_dk": 600,
+        "custom_tb": true,
+        "height_tb": 400,
+        "custom_mb": true,
+        "height_mb": 250,
+        "source": "2",
+        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "video": "shopify:\/\/files\/videos\/f5bd1648e0af483e94a39c34098065b7.HD-1080p-7.2Mbps-37699402.mp4",
+        "video_dis": false,
+        "video_url2": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "video2": "shopify:\/\/files\/videos\/ce34142e26324443abed7d9b3484c057.HD-1080p-7.2Mbps-37699283.mp4",
+        "video_dis2": false,
+        "video_url3": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "video3": "shopify:\/\/files\/videos\/4c552cb07d6d4c0680ea0a6cbdb1b831.HD-1080p-7.2Mbps-37699195.mp4",
+        "video_dis3": false,
+        "au_video": false,
+        "loop_video": true,
+        "bg_overlay": "#000",
+        "bg_opacity": 0,
+        "layout": "t4s-container-fluid",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
     "accordion_dfTbin": {
       "type": "accordion",
       "blocks": {
@@ -1373,6 +1411,7 @@
     "review_section_BwkReq",
     "compare_section_xHkKBm",
     "brand_caresoul_QcakTR",
+    "pdp_videos_fiHBnh",
     "accordion_dfTbin",
     "featured_collection_brtqYc",
     "sidebar",
