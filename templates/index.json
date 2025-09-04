@@ -72,6 +72,59 @@
       "name": "Collection Highlights",
       "settings": {}
     },
+    "text_marquee_4URiWr": {
+      "type": "text-marquee",
+      "blocks": {
+        "text_item_LxMQax": {
+          "type": "text_item",
+          "settings": {
+            "text": "LABOR DAY SALE"
+          }
+        },
+        "text_item_ffrPKj": {
+          "type": "text_item",
+          "settings": {
+            "text": "CODE 'CASH'"
+          }
+        },
+        "text_item_jtBBjA": {
+          "type": "text_item",
+          "settings": {
+            "text": "$20 STORE CREDIT"
+          }
+        },
+        "text_item_LUTERV": {
+          "type": "text_item",
+          "settings": {
+            "text": "LABOR DAY SALE"
+          }
+        },
+        "text_item_L4g6X9": {
+          "type": "text_item",
+          "settings": {
+            "text": "CODE 'CASH'"
+          }
+        },
+        "text_item_c3TzVi": {
+          "type": "text_item",
+          "settings": {
+            "text": "$20 STORE CREDIT"
+          }
+        }
+      },
+      "block_order": [
+        "text_item_LxMQax",
+        "text_item_ffrPKj",
+        "text_item_jtBBjA",
+        "text_item_LUTERV",
+        "text_item_L4g6X9",
+        "text_item_c3TzVi"
+      ],
+      "name": "Text Carousel",
+      "settings": {
+        "speed": 5
+      }
+    },
     "hero_image_nJy3jN": {
       "type": "hero_image",
       "blocks": {
@@ -372,6 +425,165 @@
         "code_cus_css": ""
       }
     },
+    "featured_collection_PxtEU8": {
+      "type": "featured-collection",
+      "blocks": {
+        "product_t3mqNE": {
+          "type": "product",
+          "settings": {
+            "product": "standard-outfit-box-3-item"
+          }
+        },
+        "product_jqTKch": {
+          "type": "product",
+          "settings": {
+            "product": "vintage-mystery-double-item-box"
+          }
+        },
+        "product_P4VkHM": {
+          "type": "product",
+          "settings": {
+            "product": "vintage-mystery-single-item-box"
+          }
+        },
+        "product_mtQrXw": {
+          "type": "product",
+          "settings": {
+            "product": "mega-reseller-box"
+          }
+        }
+      },
+      "block_order": [
+        "product_t3mqNE",
+        "product_jqTKch",
+        "product_P4VkHM",
+        "product_mtQrXw"
+      ],
+      "name": "Featured collection",
+      "settings": {
+        "design_heading": "1",
+        "heading_align": "t4s-text-center",
+        "top_heading": "",
+        "icon_heading": "las la-gem",
+        "top_subheading": "",
+        "tophead_mb": 30,
+        "head_btn_label": "View All",
+        "head_btn_url": "",
+        "head_btn_icon": false,
+        "head_btn_style": "default",
+        "head_btn_size": "medium",
+        "head_btn_cl": "dark",
+        "head_btn_effect": "default",
+        "head_btn_hidden_mb": false,
+        "collection": "",
+        "product_des": "1",
+        "show_vendor": false,
+        "use_cdt": false,
+        "image_ratio": "ratioadapt",
+        "image_size": "cover",
+        "image_position": "8",
+        "content_align": "default",
+        "limit": 8,
+        "col_dk": "4",
+        "col_tb": "2",
+        "col_mb": "2",
+        "space_h_item": "30",
+        "space_v_item": "30",
+        "space_h_item_mb": "10",
+        "space_v_item_mb": "10",
+        "layout_des": "2",
+        "loop": true,
+        "au_time": 0,
+        "au_hover": true,
+        "center_slide": false,
+        "nav_btn": false,
+        "btns_pos": "default",
+        "btn_vi": "hover",
+        "btn_owl": "default",
+        "btn_shape": "none",
+        "btn_cl": "dark",
+        "btn_size": "small",
+        "btn_hidden_mobile": true,
+        "nav_dot": false,
+        "dot_owl": "default",
+        "dots_cl": "dark",
+        "dots_round": true,
+        "dots_space": 10,
+        "dots_hidden_mobile": false,
+        "use_pagination": "none",
+        "enable_bar_lm": true,
+        "btn_icon": false,
+        "button_style": "default",
+        "btns_size": "large",
+        "btns_cl": "dark",
+        "button_effect": "default",
+        "btn_pos": "t4s-text-center",
+        "layout": "t4s-container-wrap",
+        "cl_bg": "",
+        "cl_bg_gradient": "",
+        "mg": ",,30px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "text_marquee_qUK4qr": {
+      "type": "text-marquee",
+      "blocks": {
+        "text_item_Aqey8H": {
+          "type": "text_item",
+          "settings": {
+            "text": "Sample Text"
+          }
+        },
+        "text_item_U6FDjp": {
+          "type": "text_item",
+          "settings": {
+            "text": "Sample Text"
+          }
+        },
+        "text_item_gLCYth": {
+          "type": "text_item",
+          "settings": {
+            "text": "Sample Text"
+          }
+        },
+        "text_item_QBDkb9": {
+          "type": "text_item",
+          "settings": {
+            "text": "Sample Text"
+          }
+        },
+        "text_item_RVrAVp": {
+          "type": "text_item",
+          "settings": {
+            "text": "Sample Text"
+          }
+        },
+        "text_item_pkRLCP": {
+          "type": "text_item",
+          "settings": {
+            "text": "Sample Text"
+          }
+        }
+      },
+      "block_order": [
+        "text_item_Aqey8H",
+        "text_item_U6FDjp",
+        "text_item_gLCYth",
+        "text_item_QBDkb9",
+        "text_item_RVrAVp",
+        "text_item_pkRLCP"
+      ],
+      "name": "Text Carousel",
+      "settings": {
+        "speed": 5
+      }
+    },
     "insta_images_slider_ifTjBr": {
       "type": "insta-images-slider",
       "blocks": {
@@ -531,6 +743,117 @@
         "content": "<p><strong>100,000+ CUSTOMERS <\/strong>LOVED THEIR MYSTERY BOXES<\/p>"
       }
     },
+    "banner_with_products3_VKDeC3": {
+      "type": "banner-with-products3",
+      "blocks": {
+        "custom_text_CUMmC7": {
+          "type": "custom_text",
+          "disabled": true,
+          "settings": {
+            "text": "LOOKBOOK 2023",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 40,
+            "text_lh": 46,
+            "text_fw": 600,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 10,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10,
+            "animation": "none"
+          }
+        },
+        "custom_text_bNUHPU": {
+          "type": "custom_text",
+          "disabled": true,
+          "settings": {
+            "text": "MAKE LOVE THIS LOOK",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 24,
+            "text_lh": 30,
+            "text_fw": 400,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 0,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10,
+            "animation": "none"
+          }
+        }
+      },
+      "block_order": [
+        "custom_text_CUMmC7",
+        "custom_text_bNUHPU"
+      ],
+      "name": "Products with banner 3",
+      "settings": {
+        "section_height": "t4s_ratio_cuspx",
+        "custom_dk": true,
+        "height_dk": 600,
+        "custom_tb": true,
+        "height_tb": 400,
+        "custom_mb": true,
+        "height_mb": 250,
+        "image_parallax": "shopify:\/\/shop_images\/Untitled_6_d1a7ba77-20e5-4691-9010-dd31706b83f8.png",
+        "parallax": false,
+        "image_position": "8",
+        "b_link": "",
+        "open_link": "_self",
+        "content_align": "center",
+        "content_align_mobile": "center",
+        "content_width": "auto",
+        "bg_overlay": "#000000",
+        "bg_opacity": 0,
+        "bg_content_bl": false,
+        "bg_content_cl": "#ffffff",
+        "bg_content_op": 50,
+        "content_pd_tb": 20,
+        "content_pd_lr": 20,
+        "content_pd_tb_mb": 10,
+        "content_pd_lr_mb": 10,
+        "border_bl": false,
+        "br_color": "#222222",
+        "br_bg": "#ffffff",
+        "br_opacity": 50,
+        "br_style": "solid",
+        "br_pd": 20,
+        "br_pd_mb": 10,
+        "cv_pos": 50,
+        "ch_pos": 50,
+        "cv_pos_mb": 50,
+        "ch_pos_mb": 50,
+        "time_animation": 1,
+        "animation_delay": 40,
+        "product_list": [
+          "standard-outfit-box-3-item"
+        ],
+        "layout": "t4s-container-fluid",
+        "cl_bg": "#f5f5f5",
+        "cl_bg_gradient": "",
+        "mg": "30px,,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
     "featured_collection_6JnBVD": {
       "type": "featured-collection",
       "blocks": {
@@ -627,118 +950,7 @@
         "layout": "t4s-container-wrap",
         "cl_bg": "",
         "cl_bg_gradient": "",
-        "mg": "50px,,50px,",
-        "pd": "",
-        "mg_tb": "",
-        "pd_tb": "",
-        "mg_mb": ",,30px,",
-        "pd_mb": "",
-        "use_cus_css": false,
-        "code_cus_css": ""
-      }
-    },
-    "banner_with_products3_VKDeC3": {
-      "type": "banner-with-products3",
-      "blocks": {
-        "custom_text_CUMmC7": {
-          "type": "custom_text",
-          "disabled": true,
-          "settings": {
-            "text": "LOOKBOOK 2023",
-            "remove_br_tag": false,
-            "tag": "p",
-            "fontf": "inherit",
-            "text_cl": "#000000",
-            "text_fs": 40,
-            "text_lh": 46,
-            "text_fw": 600,
-            "text_ls": 0,
-            "font_italic": false,
-            "text_shadow": false,
-            "text_mgb": 10,
-            "hidden_mobile": false,
-            "text_fs_mb": 16,
-            "text_lh_mb": 0,
-            "text_ls_mb": 0,
-            "text_mgb_mobile": 10,
-            "animation": "none"
-          }
-        },
-        "custom_text_bNUHPU": {
-          "type": "custom_text",
-          "disabled": true,
-          "settings": {
-            "text": "MAKE LOVE THIS LOOK",
-            "remove_br_tag": false,
-            "tag": "p",
-            "fontf": "inherit",
-            "text_cl": "#000000",
-            "text_fs": 24,
-            "text_lh": 30,
-            "text_fw": 400,
-            "text_ls": 0,
-            "font_italic": false,
-            "text_shadow": false,
-            "text_mgb": 0,
-            "hidden_mobile": false,
-            "text_fs_mb": 16,
-            "text_lh_mb": 0,
-            "text_ls_mb": 0,
-            "text_mgb_mobile": 10,
-            "animation": "none"
-          }
-        }
-      },
-      "block_order": [
-        "custom_text_CUMmC7",
-        "custom_text_bNUHPU"
-      ],
-      "name": "Products with banner 3",
-      "settings": {
-        "section_height": "t4s_ratio_cuspx",
-        "custom_dk": true,
-        "height_dk": 600,
-        "custom_tb": true,
-        "height_tb": 400,
-        "custom_mb": true,
-        "height_mb": 250,
-        "image_parallax": "shopify:\/\/shop_images\/Untitled_6_d1a7ba77-20e5-4691-9010-dd31706b83f8.png",
-        "parallax": false,
-        "image_position": "8",
-        "b_link": "",
-        "open_link": "_self",
-        "content_align": "center",
-        "content_align_mobile": "center",
-        "content_width": "auto",
-        "bg_overlay": "#000",
-        "bg_opacity": 0,
-        "bg_content_bl": false,
-        "bg_content_cl": "#fff",
-        "bg_content_op": 50,
-        "content_pd_tb": 20,
-        "content_pd_lr": 20,
-        "content_pd_tb_mb": 10,
-        "content_pd_lr_mb": 10,
-        "border_bl": false,
-        "br_color": "#222",
-        "br_bg": "#fff",
-        "br_opacity": 50,
-        "br_style": "solid",
-        "br_pd": 20,
-        "br_pd_mb": 10,
-        "cv_pos": 50,
-        "ch_pos": 50,
-        "cv_pos_mb": 50,
-        "ch_pos_mb": 50,
-        "time_animation": 1,
-        "animation_delay": 40,
-        "product_list": [
-          "standard-outfit-box-3-item"
-        ],
-        "layout": "t4s-container-fluid",
-        "cl_bg": "#f5f5f5",
-        "cl_bg_gradient": "",
-        "mg": ",,50px,",
+        "mg": "30px,,30px,",
         "pd": "",
         "mg_tb": "",
         "pd_tb": "",
@@ -751,11 +963,14 @@
   },
   "order": [
     "collection_highlights_GrDMng",
+    "text_marquee_4URiWr",
     "hero_image_nJy3jN",
     "featured_collection_FUwyrL",
     "banner_with_products3_ydDFQz",
+    "featured_collection_PxtEU8",
+    "text_marquee_qUK4qr",
     "insta_images_slider_ifTjBr",
-    "featured_collection_6JnBVD",
-    "banner_with_products3_VKDeC3"
+    "banner_with_products3_VKDeC3",
+    "featured_collection_6JnBVD"
   ]
 }

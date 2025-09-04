@@ -72,8 +72,8 @@ function initializeTypeWriterEffect() {
   if (inputs.length === 0) return; // No valid inputs found
   
  const baseText = 'Search for: ';
- const textList = ['Best Sellers', 'Shop by Country', 'Shop by Club', 'Mystery Box'];
-  
+ const textList = ['Sweatshirts', 'Womenswear', 'T-shirts', 'Accessories'];
+
   // Setup each input element
   inputs.forEach(input => {
     let state = {
