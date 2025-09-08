@@ -372,13 +372,13 @@ span#main-product-varriant, span#belowe-product-varriant, span#main-product-vend
   min-width: 60px;
   min-height: 24px;
   font-size: 14px;
-  color: #9ae86a;
+  color: #fff;
   margin-bottom: 5px;
   word-break: break-word;
   padding: 0 5px;
   line-height: 1;
   text-align: center;
-background-color:#222;
+  background-color: #ec0101;
 }
 .t4s-product-badge > span:last-child {
   margin-bottom: 0;

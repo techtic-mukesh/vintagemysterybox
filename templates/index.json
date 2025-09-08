@@ -78,37 +78,37 @@
         "text_item_LxMQax": {
           "type": "text_item",
           "settings": {
-            "text": "LABOR DAY SALE"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_ffrPKj": {
           "type": "text_item",
           "settings": {
-            "text": "CODE 'CASH'"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_jtBBjA": {
           "type": "text_item",
           "settings": {
-            "text": "$20 STORE CREDIT"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_LUTERV": {
           "type": "text_item",
           "settings": {
-            "text": "LABOR DAY SALE"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_L4g6X9": {
           "type": "text_item",
           "settings": {
-            "text": "CODE 'CASH'"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_c3TzVi": {
           "type": "text_item",
           "settings": {
-            "text": "$20 STORE CREDIT"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         }
       },
@@ -271,7 +271,7 @@
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-center",
-        "top_heading": "",
+        "top_heading": "Mystery Box",
         "icon_heading": "las la-gem",
         "top_subheading": "",
         "tophead_mb": 30,
@@ -291,8 +291,8 @@
         "image_size": "cover",
         "image_position": "8",
         "content_align": "default",
-        "limit": 4,
-        "col_dk": "4",
+        "limit": 12,
+        "col_dk": "5",
         "col_tb": "2",
         "col_mb": "2",
         "space_h_item": "30",
@@ -451,26 +451,33 @@
           "settings": {
             "product": "mega-reseller-box"
           }
+        },
+        "product_JtgRD6": {
+          "type": "product",
+          "settings": {
+            "product": "premium-outfit-box-5-item"
+          }
         }
       },
       "block_order": [
         "product_t3mqNE",
         "product_jqTKch",
         "product_P4VkHM",
-        "product_mtQrXw"
+        "product_mtQrXw",
+        "product_JtgRD6"
       ],
       "name": "Featured collection",
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-center",
-        "top_heading": "",
+        "top_heading": "Mystery Box",
         "icon_heading": "las la-gem",
         "top_subheading": "",
         "tophead_mb": 30,
         "head_btn_label": "View All",
-        "head_btn_url": "",
+        "head_btn_url": "shopify:\/\/collections",
         "head_btn_icon": false,
-        "head_btn_style": "default",
+        "head_btn_style": "link",
         "head_btn_size": "medium",
         "head_btn_cl": "dark",
         "head_btn_effect": "default",
@@ -483,8 +490,8 @@
         "image_size": "cover",
         "image_position": "8",
         "content_align": "default",
-        "limit": 8,
-        "col_dk": "4",
+        "limit": 16,
+        "col_dk": "5",
         "col_tb": "2",
         "col_mb": "2",
         "space_h_item": "30",
@@ -537,37 +544,37 @@
         "text_item_Aqey8H": {
           "type": "text_item",
           "settings": {
-            "text": "Sample Text"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_U6FDjp": {
           "type": "text_item",
           "settings": {
-            "text": "Sample Text"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_gLCYth": {
           "type": "text_item",
           "settings": {
-            "text": "Sample Text"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_QBDkb9": {
           "type": "text_item",
           "settings": {
-            "text": "Sample Text"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_RVrAVp": {
           "type": "text_item",
           "settings": {
-            "text": "Sample Text"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         },
         "text_item_pkRLCP": {
           "type": "text_item",
           "settings": {
-            "text": "Sample Text"
+            "text": "FREE SHIPPING - WORLDWIDE"
           }
         }
       },
@@ -880,26 +887,33 @@
           "settings": {
             "product": "premium-outfit-box-5-item"
           }
+        },
+        "product_ykRFGX": {
+          "type": "product",
+          "settings": {
+            "product": "premium-outfit-box-5-item"
+          }
         }
       },
       "block_order": [
         "product_9cwEih",
         "product_i7zjGa",
         "product_cbJtqP",
-        "product_hptBzi"
+        "product_hptBzi",
+        "product_ykRFGX"
       ],
       "name": "Featured collection",
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-center",
-        "top_heading": "",
+        "top_heading": "Mystery Box",
         "icon_heading": "las la-gem",
         "top_subheading": "",
         "tophead_mb": 30,
         "head_btn_label": "View All",
-        "head_btn_url": "",
+        "head_btn_url": "shopify:\/\/collections\/mystery-box",
         "head_btn_icon": false,
-        "head_btn_style": "default",
+        "head_btn_style": "link",
         "head_btn_size": "medium",
         "head_btn_cl": "dark",
         "head_btn_effect": "default",
@@ -912,8 +926,8 @@
         "image_size": "cover",
         "image_position": "8",
         "content_align": "default",
-        "limit": 8,
-        "col_dk": "4",
+        "limit": 16,
+        "col_dk": "5",
         "col_tb": "2",
         "col_mb": "2",
         "space_h_item": "30",
