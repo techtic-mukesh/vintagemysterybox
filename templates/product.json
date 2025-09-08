@@ -299,8 +299,8 @@
     "insta_images_slider_kFgy7x": {
       "type": "insta-images-slider",
       "settings": {
-        "html": "",
-        "content": "<p> <strong>150,000+ CUSTOMERS<\/strong> LOVED THEIR MYSTERY BOXES<\/p>"
+        "collection": "mystery-box",
+        "html": ""
       }
     },
     "review_section_MULeRr": {
@@ -679,7 +679,7 @@
         "video_dis3": false,
         "au_video": false,
         "loop_video": true,
-        "bg_overlay": "#000",
+        "bg_overlay": "#000000",
         "bg_opacity": 0,
         "layout": "t4s-container-fluid",
         "cl_bg": "",

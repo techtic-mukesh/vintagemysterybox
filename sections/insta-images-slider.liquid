@@ -1,62 +1,26 @@
 <div class="scrolling-image-slider-template--23169654817063__ss_scrolling_images_KtVBeA collection-review {{ collection.title }}">
   <div class="marquee-horizontal-template--23169654817063__ss_scrolling_images_KtVBeA">
     {% capture images %}     
-      {% if product and product.collections.size > 0 %}
-        {% for collection in product.collections %}
-          {% if collection.metafields.custom.instagram_images %}
-            <div class="ms-review swiper-container">
-              <ul class="ms_review-slider swiper-wrapper">
-                {% for metaobject in collection.metafields.custom.instagram_images.value %}
-                  <div class="scrolling-image-slide-template--23169654817063__ss_scrolling_images_KtVBeA">
-                    <img src="{{ metaobject.imagesinstagram | img_url: 'original' }}" alt="">
-                  </div>
-                {% endfor %}
-              </ul>
-            </div>
-          {% endif %}
-        {% endfor %}
-        {% for collection in product.collections %}
-          {% if collection.metafields.custom.instagram_images %}
-            <div class="ms-review swiper-container">
-              <ul class="ms_review-slider swiper-wrapper">
-                {% for metaobject in collection.metafields.custom.instagram_images.value %}
-                  <div class="scrolling-image-slide-template--23169654817063__ss_scrolling_images_KtVBeA">
-                    <img src="{{ metaobject.imagesinstagram | img_url: 'original' }}" alt="">
-                  </div>
-                {% endfor %}
-              </ul>
-            </div>
-          {% endif %}
-        {% endfor %}
-        {% for collection in product.collections %}
-          {% if collection.metafields.custom.instagram_images %}
-            <div class="ms-review swiper-container">
-              <ul class="ms_review-slider swiper-wrapper">
-                {% for metaobject in collection.metafields.custom.instagram_images.value %}
-                  <div class="scrolling-image-slide-template--23169654817063__ss_scrolling_images_KtVBeA">
-                    <img src="{{ metaobject.imagesinstagram | img_url: 'original' }}" alt="">
-                  </div>
-                {% endfor %}
-              </ul>
-            </div>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
 
-      {%- if section.blocks.size > 0 -%}
-        <div class="ms-review swiper-container">
-          <ul class="ms_review-slider swiper-wrapper">
-            {% for block in section.blocks %}
-              {% if block.settings.image != blank %}
-                <div class="scrolling-image-slide-template--23169654817063__ss_scrolling_images_KtVBeA">
-                  <img src="{{ block.settings.image | img_url: 'original' }}" alt="">
-                </div>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      {%- endif -%}
-    {% endcapture %}
+      {% assign selected_collection = collections[section.settings.collection] %}
+                       {% if selected_collection and selected_collection.metafields.custom.instagram_images %}
+                            <div class="ms-review swiper-container">
+                              <ul class="ms_review-slider swiper-wrapper">
+                                {% for metaobject in selected_collection.metafields.custom.instagram_images.value %}
+                                   <div class="scrolling-image-slide-template--23169654817063__ss_scrolling_images_KtVBeA">
+                                      <img src="{{ metaobject.imagesinstagram | img_url: 'original' }}" alt="">
+                                    </div>
+                                {% endfor %}
+                             {% for metaobject in selected_collection.metafields.custom.instagram_images.value %}
+                                   <div class="scrolling-image-slide-template--23169654817063__ss_scrolling_images_KtVBeA">
+                                      <img src="{{ metaobject.imagesinstagram | img_url: 'original' }}" alt="">
+                                    </div>
+                                {% endfor %}
+                              </ul>
+                             
+                            </div>
+                          {% endif %}
+      {% endcapture %}
 
     {% for i in (1..4) %}
       <div class="track-horizontal-template--23169654817063__ss_scrolling_images_KtVBeA {{ forloop.index }}">
@@ -65,29 +29,16 @@
     {% endfor %}
   </div>
 </div>
-
 {% if images != blank %}
-  <div class="scrolling-image-content-template--23169654817063__ss_scrolling_images_KtVBeA globle-reviews">
+<div class="scrolling-image-content-template--23169654817063__ss_scrolling_images_KtVBeA globle-reviews">
+  
     <div class="review_internal">
-      {% assign review_found = false %}
-      {% for collection in product.collections %}
-        {% if collection.metafields.custom.review_content and collection.metafields.custom.review_content.value != blank and review_found == false %}
-          <p>{{ collection.metafields.custom.review_content.value }}</p>
-          {% assign review_found = true %}
-        {% endif %}
-      {% endfor %}
-      {% if review_found == false %}
-
-        {% if section.settings.content != blank %}
-          {{ section.settings.content }}
-        {% else %}
-          <p>No reviews available.</p>
-        {% endif %}  
-        {% endif %}
+      {% assign value_review = selected_collection.metafields.custom.review_content.value %}
+      <p>{{  value_review.reviews }}</p>
     </div>
-  </div>
+  
+</div>
 {% endif %}
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   // Check if the element with the given ID or class contains the 'collection-review' class
@@ -387,31 +338,17 @@ document.addEventListener('DOMContentLoaded', function () {
   "name": "Instagram Images Slider",
   "class": "marquee-section",
   "settings": [
+     {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
     {
       "type": "html",
       "id": "html",
       "label": "Customer"
-    },
-    {
-      "type": "richtext",
-      "id": "content",
-      "label": "Content"
     }
   ],
-  "blocks": [
-    {
-      "type": "image",
-      "name": "Slider Image",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Upload Image"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 21,
   "presets": [
     {
       "name": "Instagram Images Slider"

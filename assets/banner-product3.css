@@ -49,7 +49,11 @@
 .t4s-banner-product__placeholder,
 .t4s-banner-product__item img {
     min-width: 86px;
-    max-width: 400px;
+    max-width: 350px;
+}
+
+.t4s-banner-product__wrapper .top-title-wrap p.prod-rating-meta {
+    margin: 0;
 }
 
 .t4s-banner-product__item:hover {
