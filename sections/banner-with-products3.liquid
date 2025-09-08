@@ -141,7 +141,30 @@
                         {%- for product in product_list -%}
 
                               <div class="top-title-wrap">
+                                <div class="left-item">
                                     <h4>{{ product.title }}</h4>
+                                     {% if product.metafields.my_fields.productview %}
+                                        <p class="prod-rating-meta">
+                                            <span
+                                            href="{% if collection.template_suffix contains 'dropship' %} /pages/drop-ship-reviews {% else %} /pages/new-plp-review {% endif %}"
+                                            title="product review"
+                                            class="prod-rating-meta-link"
+                                            >
+                                            {% assign starcount = product.metafields.my_fields.productview | plus: 0 %}
+                                            {% for i in (1..5) %}
+                                                {% if i <= starcount %}
+                                                <span>&#9733;</span>
+                                                {% else %}
+                                                <span>&#9734;</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if product.metafields.my_fields.productreview2 %}
+                                                <span class="prod-rating-meta-link-count">({{ product.metafields.my_fields.productreview2 }})</span>
+                                            {% endif %}
+                                            </span>
+                                        </p>
+                                        {% endif %}
+                                </div>
 
                                     <div class="price-p">
                                         {{ product.price | money }}
