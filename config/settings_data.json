@@ -437,14 +437,6 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "blocks": {
-          "announcement-bar-0": {
-            "type": "announcement",
-            "settings": {
-              "link": "shopify://collections/retro-football-shirt",
-              "content": "<p><strong>[countdown] - DEAL ENDING</strong><br/></p>",
-              "adding_border": false
-            }
-          },
           "announcement_nLD63D": {
             "type": "announcement",
             "settings": {
@@ -452,11 +444,19 @@
               "content": "<p><strong>FREE CARHARTT PIECE</strong></p>",
               "adding_border": false
             }
+          },
+          "announcement-bar-0": {
+            "type": "announcement",
+            "settings": {
+              "link": "shopify://collections/retro-football-shirt",
+              "content": "<p><strong>[countdown] - DEAL ENDING</strong><br/></p>",
+              "adding_border": false
+            }
           }
         },
         "block_order": [
-          "announcement-bar-0",
-          "announcement_nLD63D"
+          "announcement_nLD63D",
+          "announcement-bar-0"
         ],
         "settings": {
           "show_announcement": true,
