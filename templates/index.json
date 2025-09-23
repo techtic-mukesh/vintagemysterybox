@@ -40,7 +40,7 @@
           "type": "product",
           "settings": {
             "image": "shopify://shop_images/3ItemFootballShirtBoxCoverImage.jpg",
-            "title": "Nike",
+            "title": "Womens Box",
             "url": ""
           }
         },
@@ -48,7 +48,7 @@
           "type": "product",
           "settings": {
             "image": "shopify://shop_images/mysteryboxphoto_3b3ef704-c677-4f60-a99c-5d0cc2876790.jpg",
-            "title": "Mens",
+            "title": "Premium Box",
             "url": ""
           }
         },
