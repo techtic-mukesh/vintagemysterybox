@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "collection_highlights_GrDMng": {
@@ -6,15 +15,15 @@
         "product_B4iRFm": {
           "type": "product",
           "settings": {
-            "image": "shopify:\/\/shop_images\/5_Item_Outfit_e9ac81be-54ea-49c9-8c79-eddda0f073da.jpg",
+            "image": "shopify://shop_images/5_Item_Outfit_e9ac81be-54ea-49c9-8c79-eddda0f073da.jpg",
             "title": "All Boxes",
-            "url": "shopify:\/\/collections\/mystery-box"
+            "url": "shopify://collections/mystery-box"
           }
         },
         "product_eBwh4U": {
           "type": "product",
           "settings": {
-            "image": "shopify:\/\/shop_images\/1_Fav_6eeaf467-6773-4c48-8819-77e9242370a3.png",
+            "image": "shopify://shop_images/1_Fav_6eeaf467-6773-4c48-8819-77e9242370a3.png",
             "title": "T-shirts",
             "url": ""
           }
@@ -22,7 +31,7 @@
         "product_G3PVRG": {
           "type": "product",
           "settings": {
-            "image": "shopify:\/\/shop_images\/3_Item_Outfit_Image_1.jpg",
+            "image": "shopify://shop_images/3_Item_Outfit_Image_1.jpg",
             "title": "Summer",
             "url": ""
           }
@@ -30,7 +39,7 @@
         "product_67RW7r": {
           "type": "product",
           "settings": {
-            "image": "shopify:\/\/shop_images\/3ItemFootballShirtBoxCoverImage.jpg",
+            "image": "shopify://shop_images/3ItemFootballShirtBoxCoverImage.jpg",
             "title": "Nike",
             "url": ""
           }
@@ -38,7 +47,7 @@
         "product_jbThC8": {
           "type": "product",
           "settings": {
-            "image": "shopify:\/\/shop_images\/mysteryboxphoto_3b3ef704-c677-4f60-a99c-5d0cc2876790.jpg",
+            "image": "shopify://shop_images/mysteryboxphoto_3b3ef704-c677-4f60-a99c-5d0cc2876790.jpg",
             "title": "Mens",
             "url": ""
           }
@@ -46,7 +55,7 @@
         "product_Fr8pPB": {
           "type": "product",
           "settings": {
-            "image": "shopify:\/\/shop_images\/3_Item_Outfit_Image_3.jpg",
+            "image": "shopify://shop_images/3_Item_Outfit_Image_3.jpg",
             "title": "Womens",
             "url": ""
           }
@@ -54,7 +63,7 @@
         "product_g968Wy": {
           "type": "product",
           "settings": {
-            "image": "shopify:\/\/shop_images\/nikehoodies2_1.png",
+            "image": "shopify://shop_images/nikehoodies2_1.png",
             "title": "Sweatshirts",
             "url": ""
           }
@@ -223,11 +232,11 @@
         "height_tb": 400,
         "custom_mb": true,
         "height_mb": 250,
-        "image": "shopify:\/\/shop_images\/Untitled_-_2025-08-26T123012.370.png",
-        "imagemob": "shopify:\/\/shop_images\/3_Item_Outfit_Image_1.jpg",
+        "image": "shopify://shop_images/Untitled_-_2025-08-26T123012.370.png",
+        "imagemob": "shopify://shop_images/Experimental_Creative_02.jpg",
         "parallax": false,
         "image_position": "0",
-        "link_img1": "shopify:\/\/collections\/retro-football-shirt",
+        "link_img1": "shopify://collections/retro-football-shirt",
         "open_link": "_self",
         "text_align": "center",
         "text_align_mb": "center",
@@ -276,7 +285,7 @@
         "top_subheading": "",
         "tophead_mb": 30,
         "head_btn_label": "View All",
-        "head_btn_url": "shopify:\/\/collections\/mystery-box",
+        "head_btn_url": "shopify://collections/mystery-box",
         "head_btn_icon": false,
         "head_btn_style": "link",
         "head_btn_size": "medium",
@@ -379,7 +388,7 @@
         "height_tb": 300,
         "custom_mb": true,
         "height_mb": 250,
-        "image_parallax": "shopify:\/\/shop_images\/nikehoodies2_1.png",
+        "image_parallax": "shopify://shop_images/nikehoodies2_1.png",
         "parallax": false,
         "image_position": "8",
         "b_link": "",
@@ -475,7 +484,7 @@
         "top_subheading": "",
         "tophead_mb": 30,
         "head_btn_label": "View All",
-        "head_btn_url": "shopify:\/\/collections",
+        "head_btn_url": "shopify://collections",
         "head_btn_icon": false,
         "head_btn_style": "link",
         "head_btn_size": "medium",
@@ -664,7 +673,7 @@
         "height_tb": 400,
         "custom_mb": true,
         "height_mb": 250,
-        "image_parallax": "shopify:\/\/shop_images\/Untitled_6_d1a7ba77-20e5-4691-9010-dd31706b83f8.png",
+        "image_parallax": "shopify://shop_images/Untitled_6_d1a7ba77-20e5-4691-9010-dd31706b83f8.png",
         "parallax": false,
         "image_position": "8",
         "b_link": "",
@@ -760,7 +769,7 @@
         "top_subheading": "",
         "tophead_mb": 30,
         "head_btn_label": "View All",
-        "head_btn_url": "shopify:\/\/collections\/mystery-box",
+        "head_btn_url": "shopify://collections/mystery-box",
         "head_btn_icon": false,
         "head_btn_style": "link",
         "head_btn_size": "medium",
