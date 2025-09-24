@@ -554,6 +554,66 @@
         "code_cus_css": ""
       }
     },
+    "text_marquee_yigrfV": {
+      "type": "text-marquee",
+      "blocks": {
+        "text_item_TxKVRd": {
+          "type": "text_item",
+          "settings": {
+            "text": "FREE CARHARTT"
+          }
+        },
+        "text_item_tk4aFP": {
+          "type": "text_item",
+          "settings": {
+            "text": "NEXT DAY DELIVERY"
+          }
+        },
+        "text_item_QBk6gP": {
+          "type": "text_item",
+          "settings": {
+            "text": "OVER 125,000 BOXES SOLD"
+          }
+        },
+        "text_item_b4Xf99": {
+          "type": "text_item",
+          "settings": {
+            "text": "NEXT DAY DELIVERY"
+          }
+        },
+        "text_item_btkjre": {
+          "type": "text_item",
+          "settings": {
+            "text": "FREE CARHARTT"
+          }
+        },
+        "text_item_WNkVWN": {
+          "type": "text_item",
+          "settings": {
+            "text": "NEXT DAY DELIVERY"
+          }
+        },
+        "text_item_6kPKjy": {
+          "type": "text_item",
+          "settings": {
+            "text": "OVER 125,000 BOXES SOLD"
+          }
+        }
+      },
+      "block_order": [
+        "text_item_TxKVRd",
+        "text_item_tk4aFP",
+        "text_item_QBk6gP",
+        "text_item_b4Xf99",
+        "text_item_btkjre",
+        "text_item_WNkVWN",
+        "text_item_6kPKjy"
+      ],
+      "name": "Text Carousel",
+      "settings": {
+        "speed": 5
+      }
+    },
     "text_marquee_qUK4qr": {
       "type": "text-marquee",
       "blocks": {
@@ -847,6 +907,7 @@
     "featured_collection_FUwyrL",
     "banner_with_products3_ydDFQz",
     "featured_collection_PxtEU8",
+    "text_marquee_yigrfV",
     "text_marquee_qUK4qr",
     "insta_images_slider_ifTjBr",
     "banner_with_products3_VKDeC3",
