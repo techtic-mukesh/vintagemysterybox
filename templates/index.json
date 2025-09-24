@@ -687,7 +687,7 @@
         "height_tb": 400,
         "custom_mb": true,
         "height_mb": 250,
-        "image_parallax": "shopify://shop_images/Untitled_6_d1a7ba77-20e5-4691-9010-dd31706b83f8.png",
+        "image_parallax": "shopify://shop_images/Untitled-2025-09-24T111310.537.png",
         "parallax": false,
         "image_position": "8",
         "b_link": "",
@@ -718,7 +718,7 @@
         "time_animation": 1,
         "animation_delay": 40,
         "product_list": [
-          "standard-outfit-box-3-item"
+          "vintage-mystery-single-item-box"
         ],
         "layout": "t4s-container-fluid",
         "cl_bg": "#f5f5f5",
@@ -739,13 +739,13 @@
         "product_9cwEih": {
           "type": "product",
           "settings": {
-            "product": "premium-outfit-box-5-item"
+            "product": "autumn-vintage-box-2-piece"
           }
         },
         "product_i7zjGa": {
           "type": "product",
           "settings": {
-            "product": "premium-outfit-box-5-item"
+            "product": "vintage-mystery-single-item-box"
           }
         },
         "product_cbJtqP": {
@@ -778,7 +778,7 @@
       "settings": {
         "design_heading": "1",
         "heading_align": "t4s-text-center",
-        "top_heading": "Mystery Box",
+        "top_heading": "Autumn Mystery Box",
         "icon_heading": "las la-gem",
         "top_subheading": "",
         "tophead_mb": 30,
