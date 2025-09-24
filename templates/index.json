@@ -484,7 +484,7 @@
         "top_subheading": "",
         "tophead_mb": 30,
         "head_btn_label": "View All",
-        "head_btn_url": "shopify://collections",
+        "head_btn_url": "shopify://collections/outfit-mystery-boxes",
         "head_btn_icon": false,
         "head_btn_style": "link",
         "head_btn_size": "medium",
