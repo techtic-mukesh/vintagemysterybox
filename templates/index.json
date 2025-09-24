@@ -455,32 +455,11 @@
           "settings": {
             "product": "premium-outfit-box-5-item"
           }
-        },
-        "product_P4VkHM": {
-          "type": "product",
-          "settings": {
-            "product": "vintage-mystery-single-item-box"
-          }
-        },
-        "product_mtQrXw": {
-          "type": "product",
-          "settings": {
-            "product": "mega-reseller-box"
-          }
-        },
-        "product_JtgRD6": {
-          "type": "product",
-          "settings": {
-            "product": "premium-outfit-box-5-item"
-          }
         }
       },
       "block_order": [
         "product_t3mqNE",
-        "product_jqTKch",
-        "product_P4VkHM",
-        "product_mtQrXw",
-        "product_JtgRD6"
+        "product_jqTKch"
       ],
       "name": "Featured collection",
       "settings": {
