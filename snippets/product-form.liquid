@@ -491,15 +491,17 @@
                           <div class="per-piece">({{ shop.currency }}{{ price_per_piece_2 | divided_by: 1.0 | round: 3 | money_without_currency }} pp)</div>
                         </div>
                         
-                        {% if bk_stts.option_2_free_item and product.metafields.custom.feature_free_piece %}
+                      {% if bk_stts.option_2_free_item and product.metafields.custom.feature_free_piece %}
+                        {% if bk_stts.option_2_quantity == 2 %}
                           <div class="free-piech_items">
-                            <input type="hidden" name="properties[+ FREE]" value="{{ bk_stts.free_item_text | default: 'CARHARTT PIECE' }}">
                             {% if bk_stts.free_item_image %}
                               <img src="{{ bk_stts.free_item_image | img_url: '300x300' }}" alt="Free Item">
                             {% endif %}
                             <p>+ FREE {{ bk_stts.free_item_text | default: 'CARHARTT PIECE' }}</p>
                           </div>
                         {% endif %}
+                      {% endif %}
+
                       </label>
 
                       <!-- Option for 3 BOXES -->
@@ -535,14 +537,15 @@
                           <div class="per-piece">({{ shop.currency }}{{ price_per_piece_3 | divided_by: 1.0 | round: 3 | money_without_currency }} pp)</div>
                         </div>
 
-                          {% if bk_stts.option_3_free_item and product.metafields.custom.feature_free_piece %}
-                          <div class="free-piech_items">
-                            <input type="hidden" name="properties[+ FREE]" value="{{ bk_stts.free_item_text | default: 'CARHARTT PIECE' }}">
-                            {% if bk_stts.free_item_image %}
-                              <img src="{{ bk_stts.free_item_image | img_url: '300x300' }}" alt="Free Item">
-                            {% endif %}
-                            <p>+ FREE {{ bk_stts.free_item_text | default: 'CARHARTT PIECE' }}</p>
-                          </div>
+                       {% if bk_stts.option_3_free_item and product.metafields.custom.feature_free_piece %}
+                          {% if bk_stts.option_3_quantity == 3 %}
+                            <div class="free-piech_items">
+                              {% if bk_stts.free_item_image %}
+                                <img src="{{ bk_stts.free_item_image | img_url: '300x300' }}" alt="Free Item">
+                              {% endif %}
+                              <p>+ FREE {{ bk_stts.free_item_text | default: 'CARHARTT PIECE' }}</p>
+                            </div>
+                          {% endif %}
                         {% endif %}
                       </label>
                 </div>
@@ -692,6 +695,43 @@
       console.log('Radio buttons found:', radioInputs.length);
       console.log('Labels found:', labels.length);
 
+      // Function to manage the FREE input based on selection
+      function manageFreeInput(boxCount) {
+        // Check if the feature_free_piece metafield exists and is true
+        {% if product.metafields.custom.feature_free_piece %}
+          // Find the form element (assuming the hidden input should be in the same form)
+          const form = quantityInput ? quantityInput.closest('form') : document.querySelector('form');
+          
+          if (!form) {
+            console.error('No form found to append/remove FREE input');
+            return;
+          }
+
+          // Check if FREE input already exists
+          let freeInput = form.querySelector('input[name="properties[+ FREE]"]');
+
+          if (boxCount === 2 || boxCount === 3) {
+            // Add FREE input if it doesn't exist
+            if (!freeInput) {
+              freeInput = document.createElement('input');
+              freeInput.type = 'hidden';
+              freeInput.name = 'properties[+ FREE]';
+              freeInput.value = 'CARHARTT PIECE';
+              form.appendChild(freeInput);
+              console.log('FREE input added for box count:', boxCount);
+            }
+          } else {
+            // Remove FREE input if it exists (for box 1 or any other selection)
+            if (freeInput) {
+              freeInput.remove();
+              console.log('FREE input removed for box count:', boxCount);
+            }
+          }
+        {% else %}
+          console.log('Feature free piece metafield not enabled, skipping FREE input management');
+        {% endif %}
+      }
+
       // Function to update active class on labels
       function updateActiveLabels(selectedValue) {
         console.log('Updating active label for value:', selectedValue);
@@ -717,6 +757,9 @@
 
         // Update active labels
         updateActiveLabels(boxCount);
+
+        // Manage FREE input based on selection
+        manageFreeInput(boxCount);
 
         if (quantityInput) {
           // Update quantity
@@ -813,6 +856,7 @@
           const radioId = this.getAttribute('for');
           const value = radioId.replace('box', '');
           updateActiveLabels(value);
+          manageFreeInput(parseInt(value));
         });
       });
 
@@ -823,10 +867,10 @@
           if (parseInt(radio.value) === currentValue) {
             radio.checked = true;
             updateActiveLabels(currentValue);
+            manageFreeInput(currentValue);
           }
         });
       });
     });
   </script>
 {% endif %}
- 
