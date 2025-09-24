@@ -15,7 +15,7 @@
         "product_B4iRFm": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/5_Item_Outfit_e9ac81be-54ea-49c9-8c79-eddda0f073da.jpg",
+            "image": "shopify://shop_images/Untitled-2025-09-24T113515.323.png",
             "title": "All Boxes",
             "url": "shopify://collections/mystery-box"
           }
@@ -23,7 +23,7 @@
         "product_eBwh4U": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/1_Fav_6eeaf467-6773-4c48-8819-77e9242370a3.png",
+            "image": "shopify://shop_images/Untitled_11.png",
             "title": "Autumn Boxes",
             "url": ""
           }
@@ -614,59 +614,6 @@
         "speed": 5
       }
     },
-    "text_marquee_qUK4qr": {
-      "type": "text-marquee",
-      "blocks": {
-        "text_item_Aqey8H": {
-          "type": "text_item",
-          "settings": {
-            "text": "FREE CARHARTT"
-          }
-        },
-        "text_item_U6FDjp": {
-          "type": "text_item",
-          "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
-          }
-        },
-        "text_item_gLCYth": {
-          "type": "text_item",
-          "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
-          }
-        },
-        "text_item_QBDkb9": {
-          "type": "text_item",
-          "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
-          }
-        },
-        "text_item_RVrAVp": {
-          "type": "text_item",
-          "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
-          }
-        },
-        "text_item_pkRLCP": {
-          "type": "text_item",
-          "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
-          }
-        }
-      },
-      "block_order": [
-        "text_item_Aqey8H",
-        "text_item_U6FDjp",
-        "text_item_gLCYth",
-        "text_item_QBDkb9",
-        "text_item_RVrAVp",
-        "text_item_pkRLCP"
-      ],
-      "name": "Text Carousel",
-      "settings": {
-        "speed": 5
-      }
-    },
     "insta_images_slider_ifTjBr": {
       "type": "insta-images-slider",
       "name": "Instagram Images Slider",
@@ -908,7 +855,6 @@
     "banner_with_products3_ydDFQz",
     "featured_collection_PxtEU8",
     "text_marquee_yigrfV",
-    "text_marquee_qUK4qr",
     "insta_images_slider_ifTjBr",
     "banner_with_products3_VKDeC3",
     "featured_collection_6JnBVD"
