@@ -718,7 +718,7 @@
         "time_animation": 1,
         "animation_delay": 40,
         "product_list": [
-          "vintage-mystery-single-item-box"
+          "autumn-vintage-mystery-box-8-item"
         ],
         "layout": "t4s-container-fluid",
         "cl_bg": "#f5f5f5",
@@ -739,31 +739,25 @@
         "product_9cwEih": {
           "type": "product",
           "settings": {
-            "product": "autumn-vintage-box-2-piece"
+            "product": "vintage-mystery-single-item-box"
           }
         },
         "product_i7zjGa": {
           "type": "product",
           "settings": {
-            "product": "vintage-mystery-single-item-box"
+            "product": "autumn-vintage-box-2-piece"
           }
         },
         "product_cbJtqP": {
           "type": "product",
           "settings": {
-            "product": "premium-outfit-box-5-item"
+            "product": "autumn-vintage-mystery-box-4-items"
           }
         },
         "product_hptBzi": {
           "type": "product",
           "settings": {
-            "product": "premium-outfit-box-5-item"
-          }
-        },
-        "product_ykRFGX": {
-          "type": "product",
-          "settings": {
-            "product": "premium-outfit-box-5-item"
+            "product": "autumn-vintage-mystery-box-8-item"
           }
         }
       },
@@ -771,8 +765,7 @@
         "product_9cwEih",
         "product_i7zjGa",
         "product_cbJtqP",
-        "product_hptBzi",
-        "product_ykRFGX"
+        "product_hptBzi"
       ],
       "name": "Featured collection",
       "settings": {
