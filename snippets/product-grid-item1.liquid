@@ -168,7 +168,7 @@
 
 {% if forloop.first or paginate.pages.first %}
   {% if template == 'collection' %}
-    {% assign excluded_collections = 'posters,accessory,ring,necklace,sunglasses,jewellery,vintage-new-collection,braclet,mens-1'
+    {% assign excluded_collections = 'posters,accessory,ring,necklace,sunglasses,jewellery,mystery-box,braclet,mens-1'
       | split: ','
     %}
     {% unless excluded_collections contains collection.handle %}
@@ -473,7 +473,7 @@
 
   {% if forloop.first or paginate.pages.first %}
     {% if template == 'collection' %}
-      {% assign excluded_collections = 'posters,vintage-new-collection,mens-1' | split: ',' %}
+      {% assign excluded_collections = 'posters,mystery-box,mens-1' | split: ',' %}
       {% unless excluded_collections contains collection.handle %}
        {% assign prioritized_product = all_products[section.settings.prioritized_product_jwellery] %}
         {% if prioritized_product %}
