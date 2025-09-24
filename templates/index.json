@@ -93,37 +93,44 @@
         "text_item_ffrPKj": {
           "type": "text_item",
           "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
+            "text": "NEXT DAY DELIVERY"
+          }
+        },
+        "text_item_jYpKJN": {
+          "type": "text_item",
+          "settings": {
+            "text": "FREE CARHARTT"
           }
         },
         "text_item_jtBBjA": {
           "type": "text_item",
           "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
+            "text": "NEXT DAY DELIVERY"
           }
         },
         "text_item_LUTERV": {
           "type": "text_item",
           "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
+            "text": "FREE CARHARTT"
           }
         },
         "text_item_L4g6X9": {
           "type": "text_item",
           "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
+            "text": "NEXT DAY DELIVERY"
           }
         },
         "text_item_c3TzVi": {
           "type": "text_item",
           "settings": {
-            "text": "FREE SHIPPING - WORLDWIDE"
+            "text": "FREE CARHARTT"
           }
         }
       },
       "block_order": [
         "text_item_LxMQax",
         "text_item_ffrPKj",
+        "text_item_jYpKJN",
         "text_item_jtBBjA",
         "text_item_LUTERV",
         "text_item_L4g6X9",
