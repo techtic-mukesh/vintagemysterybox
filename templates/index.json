@@ -455,11 +455,18 @@
           "settings": {
             "product": "premium-outfit-box-5-item"
           }
+        },
+        "product_pF6pq6": {
+          "type": "product",
+          "settings": {
+            "product": "premium-outfit-box-5-item"
+          }
         }
       },
       "block_order": [
         "product_t3mqNE",
-        "product_jqTKch"
+        "product_jqTKch",
+        "product_pF6pq6"
       ],
       "name": "Featured collection",
       "settings": {
@@ -656,6 +663,117 @@
       "block_order": [
         "custom_text_CUMmC7",
         "custom_text_bNUHPU"
+      ],
+      "name": "Products with banner 3",
+      "settings": {
+        "section_height": "t4s_ratio_cuspx",
+        "custom_dk": true,
+        "height_dk": 600,
+        "custom_tb": true,
+        "height_tb": 400,
+        "custom_mb": true,
+        "height_mb": 250,
+        "image_parallax": "shopify://shop_images/Untitled-2025-09-24T111310.537.png",
+        "parallax": false,
+        "image_position": "8",
+        "b_link": "",
+        "open_link": "_self",
+        "content_align": "center",
+        "content_align_mobile": "center",
+        "content_width": "auto",
+        "bg_overlay": "#000000",
+        "bg_opacity": 0,
+        "bg_content_bl": false,
+        "bg_content_cl": "#ffffff",
+        "bg_content_op": 50,
+        "content_pd_tb": 20,
+        "content_pd_lr": 20,
+        "content_pd_tb_mb": 10,
+        "content_pd_lr_mb": 10,
+        "border_bl": false,
+        "br_color": "#222222",
+        "br_bg": "#ffffff",
+        "br_opacity": 50,
+        "br_style": "solid",
+        "br_pd": 20,
+        "br_pd_mb": 10,
+        "cv_pos": 50,
+        "ch_pos": 50,
+        "cv_pos_mb": 50,
+        "ch_pos_mb": 50,
+        "time_animation": 1,
+        "animation_delay": 40,
+        "product_list": [
+          "autumn-vintage-mystery-box-8-item"
+        ],
+        "layout": "t4s-container-fluid",
+        "cl_bg": "#f5f5f5",
+        "cl_bg_gradient": "",
+        "mg": "30px,,50px,",
+        "pd": "",
+        "mg_tb": "",
+        "pd_tb": "",
+        "mg_mb": ",,30px,",
+        "pd_mb": "",
+        "use_cus_css": false,
+        "code_cus_css": ""
+      }
+    },
+    "banner_with_products3_nhtT9m": {
+      "type": "banner-with-products3",
+      "blocks": {
+        "custom_text_KqNxNY": {
+          "type": "custom_text",
+          "disabled": true,
+          "settings": {
+            "text": "LOOKBOOK 2023",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 40,
+            "text_lh": 46,
+            "text_fw": 600,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 10,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10,
+            "animation": "none"
+          }
+        },
+        "custom_text_C4Gxp7": {
+          "type": "custom_text",
+          "disabled": true,
+          "settings": {
+            "text": "MAKE LOVE THIS LOOK",
+            "remove_br_tag": false,
+            "tag": "p",
+            "fontf": "inherit",
+            "text_cl": "#000000",
+            "text_fs": 24,
+            "text_lh": 30,
+            "text_fw": 400,
+            "text_ls": 0,
+            "font_italic": false,
+            "text_shadow": false,
+            "text_mgb": 0,
+            "hidden_mobile": false,
+            "text_fs_mb": 16,
+            "text_lh_mb": 0,
+            "text_ls_mb": 0,
+            "text_mgb_mobile": 10,
+            "animation": "none"
+          }
+        }
+      },
+      "block_order": [
+        "custom_text_KqNxNY",
+        "custom_text_C4Gxp7"
       ],
       "name": "Products with banner 3",
       "settings": {
@@ -968,6 +1086,7 @@
     "text_marquee_yigrfV",
     "insta_images_slider_ifTjBr",
     "banner_with_products3_VKDeC3",
+    "banner_with_products3_nhtT9m",
     "featured_collection_6JnBVD",
     "collection_products_banner_KqbtKQ"
   ]
